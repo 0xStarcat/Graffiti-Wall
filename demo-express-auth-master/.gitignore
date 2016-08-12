@@ -1,0 +1,10 @@
+/node_modules
+/public/keys.js
+
+*.swp
+*.swo
+
+.DS_Store
+
+npm-debug.log
+

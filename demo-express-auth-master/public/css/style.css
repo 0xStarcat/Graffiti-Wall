@@ -1,0 +1,11 @@
+.main-container {
+  width: 980px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.center-block { float: none }

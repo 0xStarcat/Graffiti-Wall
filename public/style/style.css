@@ -1,0 +1,373 @@
+* {
+
+}
+
+#myCanvas {
+
+position: fixed;
+top: 0px;
+left: 0px;
+
+border: 3px orange solid;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+text-decoration: none;
+cursor: pointer;
+/* z-index: -1; */
+}
+
+
+
+#palette {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+/*   border: 3px gray inset; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.paletteBox {
+  border: 2px lightgray outset;
+  height: 60px;
+  width: 60px;
+
+}
+
+#paletteOuter{
+   position:  fixed;
+   left: 0;
+   bottom: 200px;
+   color:  gray;
+   z-index:  0;
+   width:  60px;
+   height:  140px;
+
+}
+#paletteBoxWrapper{
+
+  display:  flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:  center;
+  height:  140px;
+  width:  60px;
+  background-color:  white;
+  border-radius: 8px;
+  border: 1px solid black;
+  z-index: 1;
+
+}
+
+#sizeSlider {
+  background-color: white;
+}
+
+#paletteMoveTab{
+  height:  20px;
+  width:  100%;
+  background:  lightyellow;
+}
+
+.colorSample {
+  height: 20px;
+  width: 20px;
+}
+
+#colorRed > .colorSample{
+  background-color: red;
+}
+#colorOrange > .colorSample{
+  background-color: orange;
+}
+#colorYellow > .colorSample{
+  background-color: yellow;
+}
+#colorGreen > .colorSample{
+  background-color: green;
+}
+#colorBlue > .colorSample{
+  background-color: blue;
+}
+#colorPurple > .colorSample{
+  background-color: purple;
+}
+  #colorBlack > .colorSample{
+  background-color: black;
+}
+  #colorGray > .colorSample{
+  background-color: gray;
+}
+  #colorWhite > .colorSample{
+  background-color: white;
+  border: 1px black dotted;
+}
+
+
+
+/* .openSlider {
+  width: 200px;
+  border: 2px gray solid;
+} */
+
+#brushAdjustmentWindow {
+  border: 2px red solid;
+  background: gray;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 100px;
+  z-index: 1;
+  overflow: hidden;
+
+}
+
+#brushAdjustmentWindow .windowTitle{
+  position: absolute;
+  left: 10%;
+
+  color: white;
+}
+
+.hide{
+  display: none;
+}
+
+#brushExampleCanvas{
+
+  border: 2px blue solid;
+  background: lightgray;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+#sliderExample{
+  border: 2px green solid;
+  position: relative;
+  width: 75px;
+  height: 100%;
+  align-self: flex-start;
+  overflow: hidden;
+}
+
+#sliderWrapper {
+/*   border: 3px blue solid; */
+  width: 80%;
+  height: 50%;
+  position: absolute;
+  left: 20%;
+  bottom: 0%;
+}
+
+#sliderBar {
+  border-top: 2px white solid;
+  margin: 0 2.5% 0 2.5%;
+  width: 95%;
+  height: 2px;
+  position: absolute;
+  top: 50%;
+  left: 0%;
+
+}
+
+#sliderHandle {
+/*   border-radius: 50%; */
+  width: 20%;
+  height: 100%;
+  margin: 0;
+
+  background-color: orange;
+  position: relative;
+  top: 0px;
+  left: 40%;
+
+}
+
+#hexColorWrap{
+
+}
+
+#hexColorBox{
+height: 200px;
+width: 200px;
+background-color: gray;
+}
+
+#functionButtons {
+  border: black 2px solid;
+  position: absolute;
+  top: 75px;
+  left: 0px;
+
+}
+
+#notificationWindow{
+  border: 2px solid gray;
+  background: lightgray;
+  position: fixed;
+  top: 25px;
+  left: 25%;
+  height: 300px;
+  width: 50%;
+  overflow: hidden;
+
+}
+
+#topRow{
+  border: 1px orange solid;
+  position: relative;
+  top:0px;
+  left: 0px;
+  height: 40px;
+}
+
+.exitWindowButton{
+  position: absolute;
+  top:0px;
+  right:0px;
+  height: 40px;
+  width: 40px;
+  background: red;
+}
+
+.windowTitle{
+  background: gray;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+}
+
+
+.textBox{
+  border: orange solid 2px;
+  background: rgba(200, 200, 180, 1);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  bottom: 0px;
+  left: 0px;
+  color: black;
+  font-size: 2rem;
+  line-height: 200px;
+  text-align: center;
+}
+
+.buttonRow {
+  border: red solid 2px;
+  background-color: rgba(140,140,140,1);
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+
+.windowButton{
+   width: 200px;
+   font-size: 1.5em;
+   color: white;
+}
+
+#yes{
+  background: green;
+
+
+}
+
+#no{
+  background: red;
+}
+
+
+
+#imageSelectionWrapper{
+  height:  100vh;
+  width:  100vw;
+  position:  fixed;
+
+  top: 0;
+  left:  0;
+  background:  rgba(44, 44, 44, 0.5);
+  border:  2px yellow solid;
+}
+
+#imageSearchRow{
+  height:  60px;
+  display:  flex;
+  flex-direction:  row;
+
+}
+#imageSearchBox{
+  height:  100%;
+  width:  50vw;
+  position:  relative;
+  left:  0px;
+  font-size:  24px;
+  line-height:  200%;
+}
+#imageSearchButton{
+  height: 100%;
+  font-size:  22px;
+  border-radius:  8px;
+  background: white;
+  box-sizing:  border-box;
+}
+
+#imageSlider{
+  height:  100%;
+  width:  50%;
+}
+
+#previewWrapper{
+  height:  250px;
+  width:  100vw;
+  border:  2px red solid;
+}
+
+#galleryWrapper{
+  height:  33vh;
+  border:  2px blue solid;
+  display:  flex;
+  flex-direction:  row;
+  justify-content: center;
+  align-items:  center;
+  flex-wrap:  wrap;
+}
+
+#paginationRow{
+  height:  60px;
+  width:  100vw;
+  align-self:  flex-end;
+  border:  2px green solid;
+  background:  rgba(211,211,211, 0.5);
+
+}
+
+
+.imageResult{
+  position:  relative;
+  display:  block;
+  width:  100px;
+  height:  100px;
+
+}
+
+

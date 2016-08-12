@@ -1,0 +1,11 @@
+/node_modules
+/_old
+
+*.swp
+*.swo
+
+.DS_Store
+
+npm-debug.log
+.env
+
