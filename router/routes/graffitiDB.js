@@ -27,7 +27,7 @@ router.get('/search/:search',function(req,res){
     var options = {
       url: 'https://api.imgur.com/3/gallery/search/top/week/0/?q_any='+searchTerm+'&q_type=jpg',
       headers: {
-        Authorization: 'Client-ID ' + clientID,
+        Authorization: 'Client-ID ' + imgurAPIkey,
         Accept: 'application/json'
       }
     };
