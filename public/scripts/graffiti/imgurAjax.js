@@ -29,9 +29,10 @@ function imgurAjaxHit()
 
       parseImageResults(results);
     },
-    'error' : function()
+    'error' : function(err)
     {
        console.log('BACKEND SNAKES!')
+       console.log(err);
     }
   })
 

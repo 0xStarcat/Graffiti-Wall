@@ -397,7 +397,7 @@ function postAJAXImage ()
     console.log('loading...');
     $.ajax({
       'method' : 'GET',
-      'url' : 'http://localhost:3000/load',
+      'url' : '/load',
       'success' : function(data)
       {
         console.log('picture loading');
