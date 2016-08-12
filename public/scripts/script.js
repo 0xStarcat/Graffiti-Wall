@@ -367,7 +367,7 @@ function postAJAXImage ()
     console.log(parsedData)
     $.ajax({
       'method' : 'POST',
-      'url' : 'http://localhost:3000/',
+      'url' : '/',
       'data' : imageData,
       'success' : function(data)
       {
