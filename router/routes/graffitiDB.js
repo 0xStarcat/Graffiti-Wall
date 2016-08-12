@@ -5,6 +5,8 @@ const db = require('../../db/db');
 
 const https = require('https');
 var request = require('request');
+var clientID = process.env.imgurAPIkey;
+
 
 
 router.post('/', db.saveGraffiti, function(req,res)
@@ -23,12 +25,10 @@ router.get('/search/:search',function(req,res){
     console.log('backend hit!');
 
     var searchTerm = req.params.search;
-    //var clientID = imgurAPIkey;
-    console.log(imgurAPIkey);
     var options = {
       url: 'https://api.imgur.com/3/gallery/search/top/week/0/?q_any='+searchTerm+'&q_type=jpg',
       headers: {
-        Authorization: 'Client-ID ' + imgurAPIkey,
+        Authorization: 'Client-ID ' + clientID,
         Accept: 'application/json'
       }
     };
