@@ -7,7 +7,8 @@ DROP TABLE IF EXISTS chat;
 
 CREATE TABLE publicGraffiti (
   id SERIAL PRIMARY KEY,
-  grid_block VARCHAR UNIQUE NOT NULL,
+  row INTEGER NOT NULL,
+  col VARCHAR NOT NULL,
   imageURL TEXT
   );
 

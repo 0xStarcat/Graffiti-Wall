@@ -1,0 +1,102 @@
+.main-container{
+  height:  100vh;
+  width:  100vw;
+  background-color:  rgba(111,222,166,1);
+  position:  fixed;
+  top:  0;
+  left:  0;
+
+
+}
+
+.border-container {
+  width: 100vw;
+  height:  100px;
+  margin: 0 auto 20px auto;
+  position:  relative;
+  top:  0;
+  left:  0;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.inputRow{
+  display:  flex;
+  flex-direction:  row;
+  justify-content: center;
+  align-items:  center;
+}
+
+label.myLabel{
+  color:  black;
+}
+
+.bottomRow{
+  display:  flex;
+  flex-direction:  row;
+  justify-content: center;
+  align-items:  center;
+}
+.form-group{
+  margin: 0px 16px;
+}
+
+.form-group input {
+  background-color:  white;
+  opacity:  1;
+}
+
+#inputEmail{
+  background: rgba(211,223,223,1);
+  opacity:  1;
+}
+
+#inputPassword{
+  background: rgba(211,223,223,1);
+  opacity:  1;
+}
+
+.center-block { float: none }
+
+.gridContainer{
+  position:  relative;
+  margin: 20px auto 10px auto;
+  width:  100%;
+
+  left:  0px;
+  display:  flex;
+  flex-direction:  column;
+
+  justify-content: center;
+  margin:  0;
+  padding:  0;
+  overflow: scroll;
+}
+
+.gridRow{
+  height:  140px;
+  width:  100%;
+  position:  relative;
+  display:  flex;
+  flex-direction:  row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom:  0px;
+
+}
+
+.grid{
+  height:  140px;
+  width:  250px;
+  position:  relative;
+  border: 1px black solid;
+  background: rgba(211,223,223,1);
+}
+
+.grid img {
+  height:  140px;
+  width:  250px;
+}

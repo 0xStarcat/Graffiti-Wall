@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="/style/graffiti/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  <script src="/scripts/jscolor.js"></script>
+</head>
+<body>
+<div id = navBarWrapper>
+<div id = "linksArea">
+  <a href =""><button class = "btn right" type="submit">Home</button></a>
+</div>
+<div id = "loginColumn">
+  <div id ="loginRow">
+    <input placeholder="Username" class = "validate loginItem" id="usernameInput" type="text"></input>
+    <input placeholder="Password" class = "validate loginItem" id="passwordInput" type="text"></input>
+    <a href =""><button type="submit" id ="loginSubmit">Submit</button></a>
+   </div>
+   <div id ="signUpPrompt">No account? <span id="signUp">Sign up!</span></div>
+</div>
+
+<div id ="navBarTab"></div>
+</div>
+<canvas id="myCanvas"></canvas>
+<div id="palette">
+
+ <!--  <div class="jscolor paletteBox" id="hexColorWrap">Color Tune<div class="hide" id="hexColorBox"></div></div> -->
+  <!-- <input class="jscolor {closable:true,closeText:'Close', onFineChange:'pickerColor(this)'}"
+    id = "palettePicker" value="ff3300"> -->
+
+  <!-- <div class=paletteBox id="colorRed">
+    <div class="colorSample"></div>
+    <div>Red</div>
+  </div>
+  <div class="paletteBox"id="colorOrange">
+    <div class="colorSample"></div>
+    <div>Orange</div>
+  </div>
+  <div class="paletteBox"id="colorYellow">
+    <div class="colorSample"></div>
+    <div>Yellow</div>
+  </div>
+  <div class="paletteBox"id="colorGreen">
+    <div class="colorSample"></div>
+    <div>Green</div>
+  </div>
+  <div class="paletteBox"id="colorBlue">
+    <div class="colorSample"></div>
+    <div>Blue</div>
+  </div>
+  <div class="paletteBox"id="colorPurple">
+    <div class="colorSample"></div>
+    <div>Purple</div>
+  </div>
+  <div class="paletteBox"id="colorBlack">
+    <div class="colorSample"></div>
+    <div>Black</div>
+  </div>
+  <div class="paletteBox"id="colorGray">
+    <div class="colorSample"></div>
+    <div>Gray</div>
+  </div>
+  <div class="paletteBox"id="colorWhite">
+    <div class="colorSample"></div>
+    <div>White</div>
+  </div> -->
+</div>
+
+<div id = "paletteOuter">
+  <div id = "paletteBoxWrapper">
+    <div id ="paletteMoveTab"></div>
+    <button
+      class="jscolor { onFineChange:'pickerColor(this)'} paletteBox"
+      id = "palettePicker"
+      value = '66ccff'
+      style="border:2px outset black">
+      Open Palette
+  </button>
+  <button class="paletteBox" id="sizeSlider">Brush Size</div></button>
+  <button class="paletteBox" id="cursorMode">Tag Wall</button>
+  <button class="paletteBox" id="openChooser">Open Image Chooser</button>
+  </div>
+</div>
+<div id="functionButtons">
+  <div class="paletteBox" id="clearCanvas">Clear Screen</div>
+  <div class="paletteBox" id="saveCanvas">Save</div>
+  <div class="paletteBox" id="loadCanvas">Load</div>
+</div>
+
+<div class="hide" id="notificationWindow">
+  <div class="textBox" id="notificationText">Are you sure you want to erase the canvas?</div>
+      <div id ="topRow">
+        <div class="windowTitle">Warning</div>
+      <button class="exitWindowButton" id="">X</button>
+      </div>
+  <div class="buttonRow">
+    <button class="windowButton" id="yes">Yes</button>
+    <button class="windowButton" id="no">N0</button>
+  </div>
+</div>
+
+<div class="hide" id="brushAdjustmentWindow">
+  <div class="windowTitle">Adjust Brush Size</div>
+  <button class="exitWindowButton" id="">X</button>
+  <div class="" id="sliderExample"><canvas id="brushExampleCanvas"></canvas></div>
+  <div class="" id="sliderWrapper">
+    <div class="" id="sliderBar"></div>
+    <div class="" id="sliderHandle"></div>
+  </div>
+</div>
+
+<div class="hide" id="imageSelectionWrapper">
+  <button class="exitWindowButton" id="">X</button>
+  <div id="previewWrapper">
+    <div id="previewBox"></div>
+  </div>
+  <div id ="imageSearchRow">
+    <input id="imageSearchBox"></input>
+    <button type = "submit" id="imageSearchButton">Submit</button>
+    <input type="range" id="imageSlider" value="50">
+  </div>
+  <div id="galleryWrapper">
+  </div>
+  <div id = "paginationRow"></div>
+</div>
+</body>
+  <script>
+  function pickerColor(picker) {
+      //cursorColor = picker.toHEXString();
+      var palette = document.getElementById('palettePicker');
+      palette.innerHTML = picker.toHEXString();
+
+      //console.log(picker.toRGBString())
+    }
+  </script>
+
+  <script type=text/javascript src = /scripts/script.js></script>
+  <script type=text/javascript src = /scripts/graffiti/ui.js></script>
+
+  <script type=text/javascript src = /scripts/graffiti/canvasDraw.js></script>
+  <script type=text/javascript src = /scripts/graffiti/imgurAjax.js></script>
+
+</html>

@@ -87,6 +87,7 @@ function parseImageResults(results)
         $('.imageResult').on('click', function(e)
           {
             tagURL = $(this).attr('src');
+            $('#myCanvas').css('cursor','url("'+tagURL+'")')
              console.log(tagURL);
           });
           //console.log(result);

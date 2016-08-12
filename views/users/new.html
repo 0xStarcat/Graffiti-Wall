@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/homepage/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Rye' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="border-container">
+        <h1>Join Graffiti Wall</h1>
+        <div class="">
+          <div class="">
+            {{#error}}
+            <div class="">
+              <strong>Oh snap!<strong> {{error}}
+            </div>
+            {{/error}}
+            <form class="" action="/users/create" method="post">
+              <fieldset>
+                <legend>Sign Up</legend>
+                <div class="form-group">
+                  <label for="inputUsername" class="myLabel">Username</label>
+                  <div class="">
+                    <input name="password" type="email" class="myInput" id="inputPassword" placeholder="Password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail" class="myLabel">Email</label>
+                  <div class="">
+                    <input name="email" type="text" class="myInput" id="inputEmail" placeholder="Email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword" class="myLabel">Password</label>
+                  <div class="">
+                    <input name="password" type="password" class="myInput" id="inputPassword" placeholder="Password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="">
+                    <button type="submit" class="btn">Join!</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

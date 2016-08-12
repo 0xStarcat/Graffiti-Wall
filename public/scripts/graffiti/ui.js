@@ -1,8 +1,15 @@
 var cursorModeButton;
 var paintMode = true;
+var collapsedNavBar = false;
+var wrapper;
+var navBar;
+
 
 $('document').ready(function()
 {
+  navBar = $('#navBarWrapper');
+  wrapper = $('#paletteOuter');
+
   cursorModeButton = $('#cursorMode');
   eventListeners();
 
@@ -57,11 +64,18 @@ function eventListeners()
   {
     imgurAjaxHit();
   });
+
+  $('#navBarTab').on('click', function(e)
+  {
+    console.log('tab move nav bar');
+    moveNavBar();
+  });
+
 };
 
 function movePalette()
 {
-   var wrapper = $('#paletteOuter');
+
    var wrapperLeft = cursorX;
    var wrapperTop = cursorY;
 
@@ -80,5 +94,24 @@ function movePalette()
       'left' : cursorX,
       'top' : cursorY
       });
+   }
+}
+
+function moveNavBar()
+{
+
+  if (!collapsedNavBar)
+  {
+     navBar.animate({
+      'top' : '-100px'
+    }, 1000, function(){
+      collapsedNavBar = true;
+    });
+   } else {
+    navBar.animate({
+      'top' : '0'
+    }, 1000, function(){
+      collapsedNavBar = false;
+    });
    }
 }

@@ -15,8 +15,8 @@ border: 3px orange solid;
 -ms-user-select: none;
 user-select: none;
 text-decoration: none;
-cursor: pointer;
-/* z-index: -1; */
+cursor: crosshair;
+z-index: -1;
 }
 
 
@@ -370,4 +370,97 @@ background-color: gray;
 
 }
 
+#navBarWrapper{
+  width:  100vw;
+  height:  100px;
+  position:  fixed;
+  top:  0;
+  left:  0;
+  border-bottom:  8px;
+  border-left:  8px;
+  background-color:  rgba(111,222,166,1);
+  display:  flex;
+  flex-direction:  row;
+  user-select: inherit;
+  text-decoration: inherit;
+  cursor: pointer;
+  z-index:  1;
+  border:  1px black solid;
+}
+
+#loginRow{
+  width:  100%;
+  height:  80px;
+  position:  relative;
+  /* border:  2px yellow dotted; */
+  display:  flex;
+  flex-direction:  row;
+  align-items:  center;
+  align-self:  flex-end;
+}
+
+#loginColumn{
+  width:  60vw;
+  height:  100px;
+  display:  flex;
+  flex-direction:  column;
+  justify-content: center;
+}
+
+#signUpPrompt{
+  text-align:  center;
+  height:  20px;
+  color:  black;
+
+}
+#signUp{
+  color:  orange;
+
+}
+
+#linksArea{
+  width:  40vw;
+  height:  100px;
+  position:  relative;
+  /* border:  2px orange dotted; */
+  display:  flex;
+  flex-direction:  row;
+  align-items:  center;
+  align-self:  flex-start;
+
+}
+
+label.myLabel{
+  color:  black;
+}
+
+.myInput{
+  background:  black;
+}
+#loginRow button{
+  height:  100%;
+  background:  white;
+}
+
+
+
+#navBarTab{
+  align-self: auto;
+  position:  absolute;
+  background: lightyellow;
+  opacity:  0.5;
+  border-left:  1px;
+  border-right: 1px;
+  border-bottom: 1px;
+  border-top: 1px;
+  border-style: solid;
+  border-color:  black;
+  border-radius:  0px 0px 8px 8px;
+  top:  99px;
+  left:  40vw;
+  width:  20vw;
+  height:  20px;
+  z-index:  2;
+  cursor:  pointer;
+}
 

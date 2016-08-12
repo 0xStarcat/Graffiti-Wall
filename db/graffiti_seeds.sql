@@ -1,1 +1,16 @@
-INSERT INTO publicGraffiti(grid_block, imageURL) VALUES('1a', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(1, 'a', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(1, 'b', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(1, 'c', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(1, 'd', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(2, 'a', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(2, 'b', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(2, 'c', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(2, 'd', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(3, 'a', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(3, 'b', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(3, 'c', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(3, 'd', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(4, 'a', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(4, 'b', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(4, 'c', 'empty');
+INSERT INTO publicGraffiti(row, col, imageURL) VALUES(4, 'd', 'empty');

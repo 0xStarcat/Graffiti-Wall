@@ -92,6 +92,8 @@ function update()
   {
     movePalette();
   }
+
+
 }
 //setInterval(update,10); //miliseconds setInterval is for FIXED UPDATE
 
@@ -439,6 +441,7 @@ $('#palettePicker').on('mousedown',function(e)
 $(window).on('mouseup',function(e)
 {
   mobilePalette = false;
+  mobileNavBar=false;
 
 });
 
