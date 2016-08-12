@@ -23,7 +23,7 @@ router.get('/search/:search',function(req,res){
     console.log('backend hit!');
 
     var searchTerm = req.params.search;
-    var clientID = DATABASE_URL;
+    var clientID = imgurAPIkey;
     var options = {
       url: 'https://api.imgur.com/3/gallery/search/top/week/0/?q_any='+searchTerm+'&q_type=jpg',
       headers: {
