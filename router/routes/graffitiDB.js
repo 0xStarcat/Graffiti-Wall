@@ -97,7 +97,7 @@ router.get('/graffiti/:row/:column', function(req,res)
       'column' : column,
       'username' : req.session.user.username,
       'logged_in' : req.session.user.logged_in,
-      'locked' : isLocked
+      'isLocked' : isLocked
     }
 
     //Lock Grid
