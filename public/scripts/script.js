@@ -177,10 +177,11 @@ function inputDownFunction(event)
     getInputPosition(event);
     inputActive=true;
 
-    if (paintMode)
+    if (paintMode && !brushLocked)
     {
        drawCursor();
-    } else if (!paintMode) {
+       console.log(brushLocked);
+    } else if (!paintMode && !brushLocked) {
       tagWall();
     }
 
@@ -191,7 +192,7 @@ function inputDownFunction(event)
 function inputMoveFunction(event)
   {
     getInputPosition(event);
-    if(inputActive && paintMode)
+    if(inputActive && paintMode && !brushLocked)
       {
         drawCursor();
       }
@@ -359,14 +360,20 @@ function indentButton(element){
 
 function postAJAXImage ()
   {
+    var row = String($('#coordinates').attr('data-id')).substr(0,1);
+    var column = String($('#coordinates').attr('data-id')).substr(1,1);
+    //console.log('ROW' + row);
+    //console.log('COL' + column);
     canvasData = canvas.toDataURL("image/png");
     parsedData = canvasData.replace('data:image/png;base64,', '');
     var imageData = {
-      'image' : parsedData
+      'image' : parsedData,
+      'row' : row,
+      'column' : column
     }
      //console.log(parsedData);
     console.log('saving...');
-    console.log(parsedData)
+    //console.log(parsedData)
     $.ajax({
       'method' : 'POST',
       'url' : '/',
@@ -388,43 +395,8 @@ function postAJAXImage ()
 
   }
 
-  $('#loadCanvas').on('click', function(e)
-  {
-    getAJAXImage();
-  });
 
-  function getAJAXImage ()
-  {
 
-    console.log('loading...');
-    $.ajax({
-      'method' : 'GET',
-      'url' : '/load',
-      'success' : function(data)
-      {
-        console.log('picture loading');
-
-          var img = new Image;
-          img.src = ('data:image/png;base64,'+data.imageurl);
-
-          img.onload = function(){
-          ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, (canvas.width * 0.5625));
-          canvasData = canvas.toDataURL("image/png");
-          };
-          //data = canvas.toDataURL("image/png");  //Save snapshot
-
-      },
-      'error' : function()
-      {
-        console.log('SNAKES man GODDAM SNAKES i told you')
-      },
-      'complete' : function()
-      {
-        //data = canvas.toDataURL("image/png");  //Save snapshot
-      }
-    })
-
-  }
 $('#paletteMoveTab').on('mousedown',function(e)
 {
   mobilePalette = true;

@@ -1,3 +1,17 @@
+var brushLocked;
+
+$('document').ready(function()
+{
+  var row = String($('#coordinates').attr('data-id')).substr(0,1);
+  var column = String($('#coordinates').attr('data-id')).substr(1,1);
+
+
+  var url = "/load/"+row+"/"+column;
+  getAJAXImage (row, column);
+  unlockBrush();
+
+});
+
 function windowResizeFunction() // Source = http://jsfiddle.net/m1erickson/V6SVz/
 {
 
@@ -40,6 +54,37 @@ function updateColorPicker() {
     drawBrushExample();
 }
 
+//Ajax to server to check if user is logged in or not
+function unlockBrush()
+{
+  $.ajax({
+    'method' : 'GET',
+    'url' : '/unlockBrush',
+    'success' : function(data)
+    {
+      if (data.brushLocked)
+      {
+        brushLocked = true;
+        $('#myCanvas').css('cursor', 'auto');
+        console.log(data.brushLocked);
+      } else {
+        brushLocked = false;
+
+        console.log(data.brushLocked);
+      }
+    },
+    'error' : function()
+    {
+      console.log('Could not reach SNAKES to unlock brush');
+    },
+    'complete' : function()
+    {
+
+    }
+
+  })
+}
+
 function drawBrushExample(){
 
     brushCtx.clearRect(0,0,brushSizeCanvas.width,brushSizeCanvas.height);
@@ -55,4 +100,80 @@ function drawBrushExample(){
 
 
 
+function getAJAXImage (row, column)
+  {
+
+    var coordinates = {
+      'row' : row,
+      'column' : column
+    }
+
+    var url = "/load/"+row+"/"+column;
+
+    console.log('loading...');
+    $.ajax({
+      'method' : 'POST',
+      'url' : url,
+      'data' : coordinates,
+      'success' : function(data)
+      {
+        console.log('picture loading');
+
+          var img = new Image;
+          img.src = ('data:image/png;base64,'+data.imageurl);
+
+          img.onload = function(){
+          ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, (canvas.width * 0.5625));
+          canvasData = canvas.toDataURL("image/png");
+          };
+          //data = canvas.toDataURL("image/png");  //Save snapshot
+
+      },
+      'error' : function()
+      {
+        console.log('SNAKES man GODDAM SNAKES i told you')
+      },
+      'complete' : function()
+      {
+        //data = canvas.toDataURL("image/png");  //Save snapshot
+      }
+    })
+  }
+
+
+  //Unlock page once you leave the page
+
+
+  function unlockPage()
+  {
+    console.log('*********unlocking***********');
+    var row = String($('#coordinates').attr('data-id')).substr(0,1);
+    var column = String($('#coordinates').attr('data-id')).substr(1,1);
+
+
+    var coordinates ={
+      'row' : row,
+      'column' : column
+    }
+    $.ajax({
+      'method' : 'POST',
+      'url' : '/unlockpage',
+      'data' : coordinates,
+      'success' : function(data)
+      {
+        console.log('unlock SUCCESSFUL');
+
+      },
+      'error' : function()
+      {
+        console.log('unlock SNAKES ERROR');
+
+      },
+      'complete' : function()
+      {
+
+
+      }
+    })
+  }
 

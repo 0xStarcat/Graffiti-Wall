@@ -13,6 +13,8 @@ $('document').ready(function()
   cursorModeButton = $('#cursorMode');
   eventListeners();
 
+
+
 })
 
 function eventListeners()
@@ -69,6 +71,11 @@ function eventListeners()
   {
     console.log('tab move nav bar');
     moveNavBar();
+  });
+
+   $('#loadCanvas').on('click', function(e)
+  {
+    getAJAXImage();
   });
 
 };

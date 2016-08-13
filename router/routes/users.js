@@ -8,11 +8,18 @@ router.get('/new', function (req, res) {
 });
 
 router.post('/create', db.create_user, function (req, res) {
+
+  //console.log(req.body);
+
   if(res.error){
     req.flash('error', res.error);
+
+    console.log(res.error);
     res.redirect('new');
   } else {
+
     res.redirect('/');
+    console.log('User Creation Successful - users.js')
   }
 });
 

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/style/homepage/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <div class="main-container">
+
+
+      <div class="border-container">
+
+
+        <form class="form-horizontal" action="/sessions/create" method="post">
+          <fieldset>
+            <legend>Welcome {{username}}!</legend>
+            <div class="inputRow">
+
+              <div class="form-group">
+              </div>
+              <div class="form-group">
+              </div>
+              <div class="form-group">
+
+
+                <p>You are logged in. <a href="/sessions/logout">Logout</a></p>
+
+            </div>
+          </div>
+          </fieldset>
+        </form>
+
+
+      </div>
+
+
+
+
+      <div class = "gridContainer">
+          <div class = "gridRow" id ="row1">
+            <a href = '/graffiti/1/a'><div class = "grid" id = "grid1a"><img src=""></div></a>
+            <div class = "grid" id = "grid1b"><img src=""></div>
+            <div class = "grid" id = "grid1c"><img src=""></div>
+            <div class = "grid" id = "grid1d"><img src=""></div>
+          </div>
+
+          <div class = "gridRow" id ="row2">
+            <div class = "grid" id = "grid2a"><img src=""></div>
+            <div class = "grid" id = "grid2b"><img src=""></div>
+            <div class = "grid" id = "grid2c"><img src=""></div>
+            <div class = "grid" id = "grid2d"><img src=""></div>
+          </div>
+          <div class = "gridRow" id ="row3">
+            <div class = "grid" id = "grid3a"><img src=""></div>
+            <div class = "grid" id = "grid3b"><img src=""></div>
+            <div class = "grid" id = "grid3c"><img src=""></div>
+            <div class = "grid" id = "grid3d"><img src=""></div>
+          </div>
+          <div class = "gridRow" id ="row4">
+            <div class = "grid" id = "grid4a"><img src=""></div>
+            <div class = "grid" id = "grid4b"><img src=""></div>
+            <div class = "grid" id = "grid4c"><img src=""></div>
+            <div class = "grid" id = "grid4d"><img src=""></div>
+          </div>
+        </div>
+
+    </div>
+  </body>
+    <script type=text/javascript src = /scripts/homepage/homepage.js></script>
+
+</html>

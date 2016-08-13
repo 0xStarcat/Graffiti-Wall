@@ -8,6 +8,7 @@ router.get('/new', function(req, res){
 });
 
 router.post('/create', db.login, function(req, res){
+  console.log(req.body);
   if(res.error) req.flash('error', res.error);
   res.redirect('/');
 });

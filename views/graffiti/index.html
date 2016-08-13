@@ -13,8 +13,11 @@
 <body>
 <div id = navBarWrapper>
 <div id = "linksArea">
-  <a href =""><button class = "btn right" type="submit">Home</button></a>
+  <a href ="/"><button class = "btn right" type="submit">Home</button></a>
+  <p data-id={{row}}{{column}} id = "coordinates">Welcome to row: <span id="currentRow">"{{row}}"</span> column: <span id="currentColumn">"{{column}}"</span></p>
 </div>
+
+{{^logged_in}}
 <div id = "loginColumn">
   <div id ="loginRow">
     <input placeholder="Username" class = "validate loginItem" id="usernameInput" type="text"></input>
@@ -23,7 +26,19 @@
    </div>
    <div id ="signUpPrompt">No account? <span id="signUp">Sign up!</span></div>
 </div>
+{{/logged_in}}
+{{#logged_in}}
+<div id ="loginRow">
+  <p>Welcome, {{username}}!</p>
+  <p>Menu</p>
+  <p>You are logged in. <a href="/sessions/logout">Logout</a></p>
+  {{#isLocked}}
+   <p>THIS PAGE IS LOCKED BY ANOTHER USER</p>
+  {{/isLocked}}
+</div>
 
+
+{{/logged_in}}
 <div id ="navBarTab"></div>
 </div>
 <canvas id="myCanvas"></canvas>
@@ -71,6 +86,8 @@
   </div> -->
 </div>
 
+{{#logged_in}}
+{{^isLocked}}
 <div id = "paletteOuter">
   <div id = "paletteBoxWrapper">
     <div id ="paletteMoveTab"></div>
@@ -91,7 +108,8 @@
   <div class="paletteBox" id="saveCanvas">Save</div>
   <div class="paletteBox" id="loadCanvas">Load</div>
 </div>
-
+{{/isLocked}}
+{{/logged_in}}
 <div class="hide" id="notificationWindow">
   <div class="textBox" id="notificationText">Are you sure you want to erase the canvas?</div>
       <div id ="topRow">
@@ -129,7 +147,13 @@
   <div id = "paginationRow"></div>
 </div>
 </body>
-  <script>
+
+  <script type=text/javascript src = /scripts/script.js></script>
+  <script type=text/javascript src = /scripts/graffiti/ui.js></script>
+  <script type=text/javascript src = /scripts/graffiti/canvasDraw.js></script>
+  <script type=text/javascript src = /scripts/graffiti/imgurAjax.js></script>
+
+<script>
   function pickerColor(picker) {
       //cursorColor = picker.toHEXString();
       var palette = document.getElementById('palettePicker');
@@ -137,12 +161,12 @@
 
       //console.log(picker.toRGBString())
     }
-  </script>
 
-  <script type=text/javascript src = /scripts/script.js></script>
-  <script type=text/javascript src = /scripts/graffiti/ui.js></script>
+</script>
 
-  <script type=text/javascript src = /scripts/graffiti/canvasDraw.js></script>
-  <script type=text/javascript src = /scripts/graffiti/imgurAjax.js></script>
-
+{{#logged_in}}
+<script>
+window.onbeforeunload = unlockPage;
+</script>
+{{/logged_in}}
 </html>

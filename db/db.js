@@ -7,28 +7,37 @@ const bcrypt = require('bcrypt');
 const salt = bcrypt.genSalt(10);
 
 var login = function(req, res, next){
-  var email = req.body.email;
+  //var email = req.body.email;
   var password = req.body.password;
-  var auth_error = 'Incorrect Email / Password!';
+  var username = req.body.username;
+  var auth_error = 'Incorrect Username / Password!';
 
   db.one(
-    "SELECT * FROM users WHERE email = $1",
-    [email]
+    "SELECT * FROM users WHERE username = $1",
+    [username]
   ).catch(function(){
+
     res.error = auth_error;
+     console.log('Login ERROR 1');
     next();
   }).then(function(user){
     bcrypt.compare(
       password,
-      user.password_digest,
+      user.hashed_password,
       function(err, cmp){
         if(cmp){
+          var logged_in = true;
           req.session.user = {
-            'email': user.email
+            'username': user.username,
+            'logged_in' : logged_in
           };
+
+          console.log('Login SUCCESS');
+          console.log(req.session.user);
           next();
         } else {
           res.error = auth_error;
+          console.log('Login ERROR 2');
           next();
         }
       }
@@ -42,20 +51,53 @@ var logout = function(req, res, next){
 };
 
 var create_user = function(req, res, next){
+
+  var username = req.body.username;
+  if (username.replace(/\s/g, '') === '' || username.replace(/\s/g, '').length < 3)
+  {
+    console.log(username.replace(/\S/g, '').length);
+    res.error = 'Please enter a username with 3 or more characters!'
+    //next();
+  }
   var email = req.body.email;
+  if (email.replace(/\s/g, '') === '')
+  {
+    res.error = 'That\'s not a valid email!';
+    //next();
+  }
   var password = req.body.password;
+  if (password.replace(/\s/g, '') === '' || password.replace(/\s/g, '').length < 6)
+  {
+    res.error = 'Password must be at least 6 characters!';
+    next();
+  }
 
   bcrypt.hash(password, 10, function(err, hashed_password){
     db.none(
-      "INSERT INTO users (email, password_digest) VALUES ($1, $2)",
-      [email, hashed_password]
-    ).catch(function(){
-      res.error = 'Error. User could not be created.';
+      "INSERT INTO users (username,email,hashed_password) VALUES ($1, $2, $3)",
+      [username, email, hashed_password]
+    ).catch(function(errorMessage){
+     // console.log(errorMessage);
+      if(errorMessage.detail === 'Key (username)=('+username+') already exists.')
+      {
+        res.error = 'User name already taken!'
+      } else if (errorMessage.detail === 'Key (email)=('+email+') already exists.')
+      {
+         res.error = 'Email already in use!';
+      } else {
+        res.error = 'Something went wrong! Try again!';
+      }
+
       next();
     }).then(function(user){
+
+      var logged_in = true;
       req.session.user = {
-        'email': email
+        'username': username,
+        'logged_in' : logged_in
       };
+      console.log(req.session.user);
+      //THIS GOES TO home.js '/' ROUTE WITH A req.session.user AND USERNAME
       next();
     });
   });
@@ -63,11 +105,13 @@ var create_user = function(req, res, next){
 
 var saveGraffiti = function (req,res, next){
   var data = req.body;
-  console.log(data.image);
+
+
+  console.log(data);
   console.log('saving picture...');
   //db.none("INSERT INTO publicGraffiti(grid_block, imageURL) VALUES($1, $2)",["1a", data.image])
   //db.none("UPDATE publicGraffiti SET imageURL = $2 WHERE grid_block = $1",["1a", data.image])
-  db.none("UPDATE publicGraffiti SET imageURL = $3 WHERE row = $1 AND col = $2",[1,"a", data.image]).then(function(data)
+  db.none("UPDATE publicGraffiti SET imageURL = $3 WHERE row = $1 AND col = $2",[data.row,data.column, data.image]).then(function(data)
   {
     console.log('picture saved!')
     res.end();
@@ -76,12 +120,14 @@ var saveGraffiti = function (req,res, next){
 
 var loadGraffiti = function (req,res,next)
 {
+  var data = req.body;
+  console.log('LOAD GRAFFITI' + data.row)
   console.log('loading picture...');
-  db.one("SELECT * FROM publicGraffiti WHERE row =1 AND col = 'a'").then(function(data)
+  db.one("SELECT * FROM publicGraffiti WHERE row =$1 AND col =$2",[data.row, data.column]).then(function(data)
   {
     res.send(data);
     console.log('picture loaded!')
-    console.log(data);
+    //console.log(data);
     res.end();
   })
 }
@@ -90,7 +136,7 @@ var loadHomepageGraffiti = function (req,res,next)
 {
   db.any('SELECT * FROM publicGraffiti').then(function(data)
     {
-      console.log(data);
+      //console.log(data);
 
        res.send(data);
 

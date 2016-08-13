@@ -53,6 +53,10 @@ label.myLabel{
   background: rgba(211,223,223,1);
   opacity:  1;
 }
+#inputUsername{
+  background: rgba(211,223,223,1);
+  opacity:  1;
+}
 
 #inputPassword{
   background: rgba(211,223,223,1);
@@ -94,6 +98,13 @@ label.myLabel{
   position:  relative;
   border: 1px black solid;
   background: rgba(211,223,223,1);
+  opacity:  0.9;
+}
+
+.grid:hover{
+  box-shadow: 0 0 40px 40px rgba(222,222,100,0.8);
+  opacity:  1;
+  z-index:  1;
 }
 
 .grid img {

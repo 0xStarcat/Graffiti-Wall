@@ -8,19 +8,21 @@
   </head>
   <body>
     <div class="main-container">
+    {{^logged_in}}
       <div class="border-container">
         {{#error}}
         <div class="alert alert-dismissible alert-danger">
           <strong>Uh Oh!<strong> {{error}}
         </div>
         {{/error}}
+
         <form class="form-horizontal" action="/sessions/create" method="post">
           <fieldset>
-            <legend>Login</legend>
+            <legend>Login {{username}}</legend>
             <div class="inputRow">
-              <label for="inputEmail" class="myLabel">Email</label>
+              <label for="inputUsername" class="myLabel">Username</label>
               <div class="form-group">
-                <input name="email" type="text" class="validate myInput" id="inputEmail" placeholder="Email">
+                <input name="username" type="text" class="validate myInput" id="inputUsername" placeholder="Username">
               </div>
               <label for="inputPassword" class="myLabel">Password</label>
               <div class="form-group">
@@ -38,31 +40,61 @@
 
 
       </div>
+      {{/logged_in}}
+      {{#logged_in}}
+      <div class="border-container">
+
+
+        <form class="form-horizontal" action="/sessions/create" method="post">
+          <fieldset>
+            <legend>Welcome {{username}}!</legend>
+            <div class="inputRow">
+
+              <div class="form-group">
+              </div>
+              <div class="form-group">
+              </div>
+              <div class="form-group">
+
+
+                <p>You are logged in. <a href="/sessions/logout">Logout</a></p>
+
+            </div>
+          </div>
+          </fieldset>
+        </form>
+
+
+      </div>
+
+
+      {{/logged_in}}
+
       <div class = "gridContainer">
           <div class = "gridRow" id ="row1">
-            <div class = "grid" id = "grid1a"><img src=""></div>
-            <div class = "grid" id = "grid1b"><img src=""></div>
-            <div class = "grid" id = "grid1c"><img src=""></div>
-            <div class = "grid" id = "grid1d"><img src=""></div>
+            <a href = '/graffiti/1/a'><div class = "grid" id = "grid1a"><img src=""></div></a>
+            <a href = '/graffiti/1/b'><div class = "grid" id = "grid1b"><img src=""></div></a>
+            <a href = '/graffiti/1/c'><div class = "grid" id = "grid1c"><img src=""></div></a>
+            <a href = '/graffiti/1/d'><div class = "grid" id = "grid1d"><img src=""></div></a>
           </div>
 
           <div class = "gridRow" id ="row2">
-            <div class = "grid" id = "grid2a"><img src=""></div>
-            <div class = "grid" id = "grid2b"><img src=""></div>
-            <div class = "grid" id = "grid2c"><img src=""></div>
-            <div class = "grid" id = "grid2d"><img src=""></div>
+            <a href = '/graffiti/2/a'><div class = "grid" id = "grid2a"><img src=""></div></a>
+            <a href = '/graffiti/2/b'><div class = "grid" id = "grid2b"><img src=""></div></a>
+            <a href = '/graffiti/2/c'><div class = "grid" id = "grid2c"><img src=""></div></a>
+            <a href = '/graffiti/2/d'><div class = "grid" id = "grid2d"><img src=""></div></a>
           </div>
           <div class = "gridRow" id ="row3">
-            <div class = "grid" id = "grid3a"><img src=""></div>
-            <div class = "grid" id = "grid3b"><img src=""></div>
-            <div class = "grid" id = "grid3c"><img src=""></div>
-            <div class = "grid" id = "grid3d"><img src=""></div>
+            <a href = '/graffiti/3/a'><div class = "grid" id = "grid3a"><img src=""></div></a>
+            <a href = '/graffiti/3/b'><div class = "grid" id = "grid3b"><img src=""></div></a>
+            <a href = '/graffiti/3/c'><div class = "grid" id = "grid3c"><img src=""></div></a>
+            <a href = '/graffiti/3/d'><div class = "grid" id = "grid3d"><img src=""></div></a>
           </div>
           <div class = "gridRow" id ="row4">
-            <div class = "grid" id = "grid4a"><img src=""></div>
-            <div class = "grid" id = "grid4b"><img src=""></div>
-            <div class = "grid" id = "grid4c"><img src=""></div>
-            <div class = "grid" id = "grid4d"><img src=""></div>
+            <a href = '/graffiti/4/a'><div class = "grid" id = "grid4a"><img src=""></div></a>
+            <a href = '/graffiti/4/b'><div class = "grid" id = "grid4b"><img src=""></div></a>
+            <a href = '/graffiti/4/c'><div class = "grid" id = "grid4c"><img src=""></div></a>
+            <a href = '/graffiti/4/d'><div class = "grid" id = "grid4d"><img src=""></div></a>
           </div>
         </div>
 

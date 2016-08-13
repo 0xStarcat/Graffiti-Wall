@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS chat;
 
 CREATE TABLE publicGraffiti (
   id SERIAL PRIMARY KEY,
-  row INTEGER NOT NULL,
+  row VARCHAR NOT NULL,
   col VARCHAR NOT NULL,
   imageURL TEXT
   );
@@ -15,7 +15,7 @@ CREATE TABLE publicGraffiti (
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(30) UNIQUE NOT NULL,
-  email VARCHAR(256) NOT NULL,
+  email VARCHAR(256) UNIQUE NOT NULL,
   hashed_password VARCHAR NOT NULL,
   walls VARCHAR[]
   );
