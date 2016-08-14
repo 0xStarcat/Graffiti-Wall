@@ -17,6 +17,8 @@ var cursorX;
 var cursorY;
 var cursorSize;
 var cursorColor;
+var crosshairX;
+var crosshairY;
 
 //Brush size slider
 var slidePercent;
@@ -61,10 +63,7 @@ var handleClicked = false;
 slidePercent = 0;
 sliderHandle = document.getElementById("#sliderHandle");
 
-var mobilePalette = false;
 
-window.onresize = windowResizeFunction;
-document.addEventListener("resize", windowResizeFunction, false);
 // document.addEventListener("mousemove", mouseMoveFunction, false);
 // //document.addEventListener("mousedown", mouseDownFunction, false);
 // document.addEventListener("mouseup", mouseUpFunction, false);
@@ -74,7 +73,7 @@ document.addEventListener("resize", windowResizeFunction, false);
 
 $("#myCanvas").on(inputDown, inputDownFunction);
 $("#myCanvas").on(inputMove, inputMoveFunction);
-$(document).on(inputUp, inputUpFunction);
+$(window).on(inputUp, inputUpFunction);
 
 windowResizeFunction();
 update();
@@ -84,21 +83,28 @@ function update()
 
 
 {
-  drawDebug();
+  //drawDebug();
   requestAnimationFrame(update);
   updateColorPicker();
 
   if (mobilePalette)
   {
+    console.log('working????')
     movePalette();
   }
 
+  if (sliderMove)
+  {
+    getSliderValue();
+  }
+
+  if(!paintMode)
+  {
+    moveCursorImagePreview();
+  }
 
 }
 //setInterval(update,10); //miliseconds setInterval is for FIXED UPDATE
-
-
-
 
 
 
@@ -119,20 +125,6 @@ function drawCursor() {
       var canvasData = canvas.toDataURL("image/png");
 
 
-      // function getBase64Image(img) {
-      // // imgElem must be on the same server otherwise a cross-origin error will be thrown "SECURITY_ERR: DOM Exception 18"
-      //     var imageCanvas = document.createElement("canvas");
-      //     imageCanvas.width = window.innerWidth;
-      //     imageCanvas.height = window.innerWidth * 0.5625;
-
-      //     var imageCtx = imageCanvas.getContext("2d");
-      //     imageCtx.drawImage(img, 0, 0, base_image.width, base_image.height)//, 0, 0, 50, 50);
-      //     var dataURL = imageCanvas.toDataURL("image/png");
-      //     //console.log(dataURL);
-
-      //     return dataURL//.replace(/^data:image\/(png|jpg);base64,/, "");
-      // }
-      //http://stackoverflow.com/questions/6011378/how-to-add-image-to-canvas
 
   }
 }
@@ -141,33 +133,18 @@ function tagWall()
 {
    var base_image = new Image();
       base_image.crossOrigin = "Anonymous";
+      base_image.src = tagURL;
 
 
-      base_image.src =tagURL;
 
-      // var base64Image = new Image();
-      // base64Image.src = getBase64Image(base_image);
 
-      // var processedImage = base_image.toDataURL();
-      // console.log(processedImage);
-
-      tagWidth = 50;
-      tagHeight = 50;
 
       base_image.onload = function(){
-        ctx.drawImage(base_image, cursorX, cursorY, tagWidth, tagHeight)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
+        ctx.drawImage(base_image, crosshairX, crosshairY, tagWidth, tagHeight)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
         canvasData = canvas.toDataURL("image/png");  //Save snapshot
       }
 
-      // base_image.onload = function(){
-      //   processedImage = new Image();
-      //   processedImage.src = ('data:image/png;base64,'+getBase64Image(base_image));
 
-      //   console.log(processedImage);
-
-        //context.drawImage(base_image, 100, 100);
-
-      //img = 'http://artpetty.com/wp-content/uploads/2010/12/smileyface.jpg'
 
 }
 
@@ -177,6 +154,8 @@ function inputDownFunction(event)
     getInputPosition(event);
     inputActive=true;
 
+     //console.log('inputDown!');
+
     if (paintMode && !brushLocked)
     {
        drawCursor();
@@ -184,8 +163,6 @@ function inputDownFunction(event)
     } else if (!paintMode && !brushLocked) {
       tagWall();
     }
-
-
   }
 
 
@@ -195,29 +172,29 @@ function inputMoveFunction(event)
     if(inputActive && paintMode && !brushLocked)
       {
         drawCursor();
+        //console.log('move Draw');
       }
   }
 
 function inputUpFunction(event)
   {
     inputActive = false;
+    //console.log('input Up')
   }
 
-// function mouseUpFunction(event)
-// {
-//   inputDown = false;
-
-// }
-
-// function mouseMoveFunction(event) {
-
-
-// }
 
 function getInputPosition(event) {
 
   cursorX = (event.pageX) ? event.pageX : event.touches[0].pageX;
   cursorY = (event.pageY) ? event.pageY : event.touches[0].pageY;
+
+//Tag at CENTER of cursor/image
+  if(!paintMode)
+  {
+    crosshairX = cursorX - (tagWidth/2);
+    crosshairY = cursorY - (tagHeight/2);
+  }
+
 }
 
   $("#clearCanvas").click(function(){
@@ -250,43 +227,6 @@ function getInputPosition(event) {
 
   }
 
-  $("#colorRed").click(function(){
-    cursorColor = "red";
-    drawBrushExample();
-    indentButton($(this));
-  });
-  $("#colorOrange").click(function(){
-    cursorColor = "orange";
-    drawBrushExample();
-  });
-  $("#colorYellow").click(function(){
-    cursorColor = "yellow";
-    drawBrushExample();
-  });
-  $("#colorGreen").click(function(){
-    cursorColor = "green";
-    drawBrushExample();
-  });
-  $("#colorBlue").click(function(){
-    cursorColor = "blue";
-    drawBrushExample();
-  });
-  $("#colorPurple").click(function(){
-    cursorColor = "purple";
-    drawBrushExample();
-  });
-  $("#colorBlack").click(function(){
-    cursorColor = "black";
-    drawBrushExample();
-  });
-  $("#colorGray").click(function(){
-    cursorColor = "gray";
-    drawBrushExample();
-  });
-  $("#colorWhite").click(function(){
-    cursorColor = "white";
-    drawBrushExample();
-  });
 
   $("#sizeSlider").click(function(){
    if ($("#brushAdjustmentWindow").hasClass("hide"))
@@ -345,77 +285,19 @@ function handleUp(){
     handleClicked=false;
   }
 
-
-
   //working on this function to be called by any button clicked and then un-indent all other buttons.
 function indentButton(element){
 
     element.css("border", "3px lightgray inset");
   }
 
-  $('#saveCanvas').on('click', function(e)
-  {
-    postAJAXImage();
-  });
-
-function postAJAXImage ()
-  {
-    var row = String($('#coordinates').attr('data-id')).substr(0,1);
-    var column = String($('#coordinates').attr('data-id')).substr(1,1);
-    //console.log('ROW' + row);
-    //console.log('COL' + column);
-    canvasData = canvas.toDataURL("image/png");
-    parsedData = canvasData.replace('data:image/png;base64,', '');
-    var imageData = {
-      'image' : parsedData,
-      'row' : row,
-      'column' : column
-    }
-     //console.log(parsedData);
-    console.log('saving...');
-    //console.log(parsedData)
-    $.ajax({
-      'method' : 'POST',
-      'url' : '/',
-      'data' : imageData,
-      'success' : function(data)
-      {
-        console.log('picture SAVED');
-        console.log(parsedData);
-      },
-      'error' : function()
-      {
-        console.log('SNAKES man GODDAM SNAKES i told you')
-      },
-      'complete' : function()
-      {
-
-      }
-    })
-
-  }
 
 
 
-$('#paletteMoveTab').on('mousedown',function(e)
-{
-  mobilePalette = true;
-
-});
-
-$('#palettePicker').on('mousedown',function(e)
-{
 
 
 
-});
 
-$(window).on('mouseup',function(e)
-{
-  mobilePalette = false;
-  mobileNavBar=false;
-
-});
 
 
 

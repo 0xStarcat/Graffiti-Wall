@@ -29,7 +29,7 @@ function createLocks()
   }
 }
 
-console.log(locks);
+//console.log(locks);
 
 function nextChar(c, loop) {
     return String.fromCharCode(c.charCodeAt(0) + loop);
@@ -52,12 +52,14 @@ router.get('/graffiti/:row/:column', function(req,res)
 {
   var row = req.params.row;
   var column = req.params.column;
+  var error = req.flash('error')[0];
 
-  //View graffiti wall only if not logged in
+  //View, don't write, to graffiti wall if not logged in
   if(!req.session.user){
      var graffitiSession = {
       'row' : row,
       'column' : column,
+      'error' : error
     }
     //res.redirect('sessions/new');
     res.render('./graffiti/index', graffitiSession);
@@ -89,7 +91,7 @@ router.get('/graffiti/:row/:column', function(req,res)
 
       }
     });
-    console.log('LOCKS AFTER LEAVING PAGE', locks);
+    //console.log('LOCKS AFTER LEAVING PAGE', locks);
 
 
     var graffitiSession = {
@@ -116,10 +118,10 @@ router.get('/graffiti/:row/:column', function(req,res)
     });
 
 
-    console.log('LOCKS AFTER JOINING PAGE = ' , locks);
+    //console.log('LOCKS AFTER JOINING PAGE = ' , locks);
 
     res.render('./graffiti/index', graffitiSession);
-    console.log('viewing graffiti wall WITH login. Congrats!');
+   // console.log('viewing graffiti wall WITH login. Congrats!');
 
   }
 
@@ -162,7 +164,7 @@ router.post('/unlockpage', function(req,res)
 
     }
   });
-    console.log('LOCKS AFTER LEAVING PAGE', locks);
+    //console.log('LOCKS AFTER LEAVING PAGE', locks);
     res.end();
 })
 
@@ -173,14 +175,13 @@ router.get('/search/:search',function(req,res){
     console.log(clientID)
     var searchTerm = req.params.search;
     var options = {
-      url: 'https://api.imgur.com/3/gallery/search/top/week/0/?q_any='+searchTerm+'&q_type=jpg',
+      url: 'https://api.imgur.com/3/gallery/search/viral/0/?q_any='+searchTerm+'&q_type=jpg',
       headers: {
         Authorization: 'Client-ID ' + clientID,
         Accept: 'application/json'
       }
     };
     request(options, ajaxThisNow);
-    console.log('up to ajaxthisnow');
 
     function ajaxThisNow(error, response, body) {
 
@@ -191,7 +192,12 @@ router.get('/search/:search',function(req,res){
 
       }
     }
-
   });
+
+router.post('/saveScreenshot', db.saveScreenshot, function(req,res)
+{
+  res.end();
+})
+
 
 module.exports = router;

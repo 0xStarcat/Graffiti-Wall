@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS images;
 
-DROP TABLE IF EXISTS publicGraffiti;
-DROP TABLE IF EXISTS privateGraffiti;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS chat;
+DROP TABLE IF EXISTS publicGraffiti CASCADE;
+DROP TABLE IF EXISTS userScreenshots CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS graffitiLogs CASCADE;
 
 CREATE TABLE publicGraffiti (
   id SERIAL PRIMARY KEY,
@@ -20,13 +20,15 @@ CREATE TABLE users (
   walls VARCHAR[]
   );
 
-CREATE TABLE privateGraffiti (
+CREATE TABLE userScreenshots (
 id SERIAL PRIMARY KEY,
 owner VARCHAR REFERENCES users(username),
 imageURL TEXT
 );
 
-CREATE TABLE chat (
+CREATE TABLE graffitiLogs (
   id SERIAL PRIMARY KEY,
+  username VARCHAR REFERENCES users(username),
+  date_posted VARCHAR,
   message VARCHAR (256)
 );

@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/homepage/users.css">
+    <link href='https://fonts.googleapis.com/css?family=Rye' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+  </head>
+  <body>
+    <div class="container main-container">
+    <h1>Screenshots</h1>
+    <div class = "row valign-wrapper">
+      <a class = "valign col l6 m6 offset-l1 offset-m1 waves-effect waves-light btn" href = '/'>Home</a>
+      <h4 class = "valign col l4 m4">User: {{username}}</h4>
+      <a class = "valign col l4 m4 left-align" href="/sessions/logout">Logout</a>
+    </div>
+
+      <div class="border-container">
+
+        <div class="galleryWrapper">
+        {{#screenshotData}}
+          <div data-id = {{username}}_{{id}} class="screenshotCard">
+            <img data-id = {{username}}_{{id}} id = {{id}} class = "screenshot" src={{imageurl}}>
+            {{#isUser}}
+            <div class ="iconRow">
+              <a href ={{imageurl}} download=graffiti_{{username}}_{{id}}.png class ="actionIcon screenshotSave tiny material-icons">save</a>
+              <div class ="actionIcon screenshotShare tiny material-icons">share</div>
+              <div class ="actionIcon screenshotDelete tiny material-icons delete">delete</div>
+            </div>
+            {{/isUser}}
+          </div>
+
+          {{/screenshotData}}
+        </div>
+      </div>
+    </div>
+  </body>
+      <script type=text/javascript src = /scripts/homepage/users.js></script>
+
+</html>

@@ -50,16 +50,16 @@ label.myLabel{
 }
 
 #inputEmail{
-  background: rgba(211,223,223,1);
+  background: white;
   opacity:  1;
 }
 #inputUsername{
-  background: rgba(211,223,223,1);
+  background: white;
   opacity:  1;
 }
 
 #inputPassword{
-  background: rgba(211,223,223,1);
+  background: white;
   opacity:  1;
 }
 
@@ -111,3 +111,5 @@ label.myLabel{
   height:  140px;
   width:  250px;
 }
+
+

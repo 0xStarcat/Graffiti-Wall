@@ -8,9 +8,29 @@ router.get('/new', function(req, res){
 });
 
 router.post('/create', db.login, function(req, res){
-  console.log(req.body);
-  if(res.error) req.flash('error', res.error);
-  res.redirect('/');
+  console.log('login info received' , req.body);
+  if(res.error)
+    {
+      console.log('error on LOGIN '+ res.error);
+
+      req.flash('error', res.error);
+      if (!req.body.row)
+        {
+          res.redirect('/');
+        } else{
+          res.redirect('/graffiti/'+req.body.row+'/'+req.body.column);
+        }
+    } else {
+
+      if (!req.body.row)
+        {
+          res.redirect('/');
+        } else{
+          res.redirect('/graffiti/'+req.body.row+'/'+req.body.column);
+        }
+        console.log('POST SESSIONS/CREATE', req.body);
+    }
+
 });
 
 router.get('/logout', db.logout, function(req, res){

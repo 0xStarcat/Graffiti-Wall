@@ -14,30 +14,51 @@ function buttonListeners()
     //createNewUserAjax();
   });
 
-// function createNewUserAjax(){
+  $('.screenshotSave').on('click', function(e)
+  {
+    // var id = '#'+$(this).parent().parent().attr('data-id').split('_')[1];
+    // console.log(id);
+    // var img = $(id).attr('src');
 
-//   newUserData = {
-//     username : $('#inputUsername').val(),
-//     email : $('#inputEmail').val(),
-//     password : $('#inputPassword').val()
-//   }
-//   console.log(newUserData);
-//    $.ajax({
-//       'method' : 'POST',
-//       'url' : '/users/create',
-//       'data' : newUserData,
-//       'success' : function()
-//       {
-//         console.log('new user creation successful');
-//       },
-//       'error' : function()
-//       {
-//         console.log('SNAKES IN NEW USER')
-//       },
-//       'complete' : function()
-//       {
-//       }
-//     })
-//   };
+    // downloadScreenshot(img);
+    console.log('Save')
+  });
+  $('.screenshotShare').on('click', function(e)
+  {
+    var id = $(this).parent().parent().attr('data-id');
+    console.log('Share' + id)
+  });
+   $('.screenshotDelete').on('click', function(e)
+  {
+    var element = $(this).parent().parent().remove();
+    var id = $(this).parent().parent().attr('data-id').split('_')[0];
+    var username = $(this).parent().parent().attr('data-id').split('_')[1];
+
+    deleteScreenshot(username, id);
+  });
 
 }
+
+function deleteScreenshot(id, username, element)
+{
+  $.ajax({
+    'method' : 'DELETE',
+    'url' : '/deleteScreenshot/'+username+'/'+id,
+    'success' : function(data)
+    {
+      console.log(username+'\s picture #'+id+'delete');
+    },
+    'error' : function()
+    {
+      console.log('could not delete photo');
+    }
+  })
+}
+
+function downloadScreenshot(img)
+  {
+    //canvasData = canvas.toDataURL("image/png");
+    this.href = img;//document.getElementById(canvasId).toDataURL();
+    this.download = 'newfile.png';//filename;
+    console.log(img, 'save')
+  }

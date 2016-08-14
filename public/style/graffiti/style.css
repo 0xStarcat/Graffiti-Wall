@@ -17,9 +17,16 @@ user-select: none;
 text-decoration: none;
 cursor: crosshair;
 z-index: -1;
+
 }
 
 
+#cursorImagePreview{
+  opacity: 0.5;
+  display: none;
+  position: fixed;
+  pointer-events: none;
+}
 
 #palette {
   position: fixed;
@@ -41,7 +48,7 @@ z-index: -1;
 #paletteOuter{
    position:  fixed;
    left: 0;
-   bottom: 200px;
+   top: 100px;
    color:  gray;
    z-index:  0;
    width:  60px;
@@ -237,6 +244,7 @@ background-color: gray;
   height: 40px;
   width: 40px;
   background: red;
+  z-index: 4;
 }
 
 .windowTitle{
@@ -302,44 +310,67 @@ background-color: gray;
   height:  100vh;
   width:  100vw;
   position:  fixed;
-
+  z-index: 3;
   top: 0;
   left:  0;
   background:  rgba(44, 44, 44, 0.5);
   border:  2px yellow solid;
 }
 
-#imageSearchRow{
+.imageSearchRow{
   height:  60px;
-  display:  flex;
-  flex-direction:  row;
-
+  position: relative;
 }
 #imageSearchBox{
+  background: white;
   height:  100%;
   width:  50vw;
   position:  relative;
   left:  0px;
   font-size:  24px;
   line-height:  200%;
+  margin:  0px;
 }
-#imageSearchButton{
+/* #imageSearchButton{
   height: 100%;
   font-size:  22px;
   border-radius:  8px;
   background: white;
   box-sizing:  border-box;
-}
+} */
 
 #imageSlider{
-  height:  100%;
-  width:  50%;
+  background: rgba(211, 211, 211, 0.7);
+}
+
+span.thumb {
+display:  none;
+}
+
+span.active {
+display:  none;
 }
 
 #previewWrapper{
-  height:  250px;
+  height:  50vh;
   width:  100vw;
   border:  2px red solid;
+  position:  relative;
+  display:  flex;
+  align-items:  center;
+  justify-content: center;
+}
+
+#previewBox{
+  background:  white;
+  height:  100px;
+  width:  100px;
+  position: relative;
+}
+
+#previewImage {
+  height: 100%;
+  width:  100%;
 }
 
 #galleryWrapper{
@@ -350,6 +381,38 @@ background-color: gray;
   justify-content: center;
   align-items:  center;
   flex-wrap:  wrap;
+  overflow: scroll;
+  position:  relative;
+  bottom:  0px;
+}
+
+.input-field{
+  width:  100%;
+  height:  100%;
+}
+
+#searchSelect {
+  background: rgba(223,211,223,1);
+  margin: 0;
+}
+
+#sortSelect{
+  background: rgba(223,211,223,1);
+  margin: 0;
+}
+
+#popularSearch{
+  font-size:  24px;
+  text-align:  left;
+  line-height:  140%;
+  color:  white;
+  height:  100%;
+  border: 2px white solid;
+}
+
+legend{
+  background: rgba(222, 100, 100, 0.7);
+  width:  100%;
 }
 
 #paginationRow{
@@ -367,7 +430,26 @@ background-color: gray;
   display:  block;
   width:  100px;
   height:  100px;
+  border:  2px white solid;
+  border-radius: 4px;
+  margin: 2px;
+  box-sizing: border-box;
+  padding: 1px;
+}
 
+
+
+.imageResult:hover{
+  border-style: dotted; ;
+}
+.imageResult:active{
+  opacity: 0.9;
+  border-color: rgba(55, 244, 244, 1);
+}
+
+.clicked{
+  opacity: 0.9;
+  border-color: rgba(55, 244, 244, 1);
 }
 
 #navBarWrapper{
@@ -388,20 +470,33 @@ background-color: gray;
   border:  1px black solid;
 }
 
-#loginRow{
+.loginRow{
   width:  100%;
-  height:  80px;
+  height:  100%;
   position:  relative;
-  /* border:  2px yellow dotted; */
+
   display:  flex;
   flex-direction:  row;
   align-items:  center;
   align-self:  flex-end;
 }
 
-#loginColumn{
-  width:  60vw;
-  height:  100px;
+.logo {
+  width:  100vw;
+  height:  100%;
+  text-align:  center;
+  border:  2px yellow dotted;
+  position: absolute;
+  left:  0;
+  margin:  0;
+  padding:  0;
+  z-index:  1;
+  pointer-events: none;
+}
+
+.loginColumn{
+  width:  100%;
+  height:  100%;
   display:  flex;
   flex-direction:  column;
   justify-content: center;
@@ -420,13 +515,14 @@ background-color: gray;
 
 #linksArea{
   width:  40vw;
-  height:  100px;
+  height:  100%;
   position:  relative;
   /* border:  2px orange dotted; */
   display:  flex;
   flex-direction:  row;
   align-items:  center;
   align-self:  flex-start;
+  text-align:  center;
 
 }
 
@@ -442,7 +538,17 @@ label.myLabel{
   background:  white;
 }
 
+#inputUsername{
+  background: white;
+  opacity:  1;
+  margin: 0px 8px;
+}
 
+#inputPassword{
+  background: white;
+  opacity:  1;
+  margin: 0px 8px;
+}
 
 #navBarTab{
   align-self: auto;
@@ -460,6 +566,43 @@ label.myLabel{
   left:  40vw;
   width:  20vw;
   height:  20px;
+  text-align:  center;
   z-index:  2;
 }
 
+.welcome{
+  font-size:  32px;
+}
+
+#noAccount{
+  margin:  0;
+  padding:  0;
+}
+
+form {
+  height:  100%;
+  width:  100%;
+  margin:  0px;
+  padding:  0px;
+  text-align:  center;
+}
+
+.form-horizontal {
+  position: relative;
+
+  right:  0px;
+  text-align:  right;
+  display:  flex;
+  flex-direction: row;
+  align-items: right;
+  justify-content: stretch;
+}
+
+.form-group{
+  margin: 0 16px;
+  padding:  0px;
+}
+
+a{
+  z-index:  2;
+}

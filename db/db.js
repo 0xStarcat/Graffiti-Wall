@@ -1,6 +1,6 @@
 const pgp = require('pg-promise')();
-//const db = pgp('postgres://Wolphox@localhost:5432/graffiti');
-const db = pgp(process.env.DATABASE_URL);
+const db = pgp('postgres://Wolphox@localhost:5432/graffiti');
+//const db = pgp(process.env.DATABASE_URL);
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
@@ -143,7 +143,26 @@ var loadHomepageGraffiti = function (req,res,next)
     });
 }
 
+var saveScreenshot = function(req,res,next)
+{
+  var data = req.body;
+  db.none('INSERT INTO userScreenshots(owner, imageURL) VALUES($1, $2)',[data.username, data.imageURL])
+  .catch(function()
+  {
+    res.error = 'Error saving screenshot!';
+    console.log('error saving screenshot!')
+  })
+  .then(function(data)
+  {
+    console.log('screenshot saved to database!');
+    res.end();
+  })
+
+}
+
+
+
 
 // module.exports = { login, logout, create_user };
-module.exports = { login, logout, create_user,loadGraffiti,saveGraffiti, loadHomepageGraffiti };
+module.exports = { login, logout, create_user,loadGraffiti,saveGraffiti, loadHomepageGraffiti,saveScreenshot};
 

@@ -14,7 +14,7 @@ router.post('/create', db.create_user, function (req, res) {
   if(res.error){
     req.flash('error', res.error);
 
-    console.log(res.error);
+    console.log('NEW USER ERRROR'+res.error);
     res.redirect('new');
   } else {
 
@@ -22,5 +22,7 @@ router.post('/create', db.create_user, function (req, res) {
     console.log('User Creation Successful - users.js')
   }
 });
+
+
 
 module.exports = router;
