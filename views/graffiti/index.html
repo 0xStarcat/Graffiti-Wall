@@ -82,7 +82,7 @@
  -->    </div>
   </div>
       {{/logged_in}}
-  <div id ="navBarTab">Nav-Bar</div>
+  <div id ="navBarTab">Close Nav-Bar</div>
 </div>
 <canvas id="myCanvas"></canvas>
 <img id="cursorImagePreview" src="">
@@ -131,28 +131,33 @@
 </div>
 
 {{#logged_in}}
-{{^isLocked}}
 <div id = "paletteOuter">
+<div id ="paletteMoveTab"></div>
   <div id = "paletteBoxWrapper">
-    <div id ="paletteMoveTab"></div>
-    <button
-      class="jscolor { onFineChange:'pickerColor(this)'} paletteBox"
-      id = "palettePicker"
-      value = '66ccff'
-      style="border:2px outset black">
-      Open Palette
-  </button>
-  <button class="paletteBox" id="sizeSlider">Brush Size</div></button>
+
+  {{^isLocked}}
+    <div class= "paletteBox" id ="paletteDocking">
+      <button
+        class="jscolor { onFineChange:'pickerColor(this)'} paletteBox"
+        id = "palettePicker"
+        value = 'FFFFFF'
+        style="border:2px outset black">
+        #000000
+      </button>
+      <div class="paletteBox" id="paletteDock"></div>
+    </div>
+
+  <button class="paletteBox" id="sizeSlider">Brush Size</button>
   <button class="paletteBox" id="cursorMode">Tag Wall</button>
-  <button class="paletteBox" id="openChooser">Open Image Chooser</button>
+  <button class="paletteBox" id="openChooser">Load Image</button>
+  {{/isLocked}}
   <div class="paletteBox" id="saveScreenshot">Save Screenshot</div>
   <!-- <a  id="downloadScreenshot"><div class="paletteBox">Save</div></a>
   <div class="paletteBox" id="loadCanvas">Load</div> -->
   </div>
 </div>
-
-{{/isLocked}}
 {{/logged_in}}
+
 <div class="hide" id="notificationWindow">
   <div class="textBox" id="notificationText">Are you sure you want to erase the canvas?</div>
       <div id ="topRow">
@@ -177,21 +182,82 @@
 
 <div class="hide" id="imageSelectionWrapper">
   <button class="exitWindowButton" id="">X</button>
+
   <div id="previewWrapper">
+    <canvas id="previewCanvas"></canvas>
+    <canvas id="originalPixels"></canvas>
     <div id="previewBox">
-      <img id="previewImage"></img>
+        <img id="previewImage"></img>
+      </div>
+  </div>
+  <div class = controlsWrapper>
+    <div class = "imageControls">
+      <div class="control">
+        <div class="off toggle" id="brightness">
+          <label for="brightness-val"><div class="label">Brightness</div></label>
+        </div>
+        <input type="range" id="brightness-val" name="brightness" min="0" max="2" value="1" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="contrast">
+          <label for="contrast-val"><div class="label">Contrast</div></label>
+        </div>
+        <input type="range" id="contrast-val" name="contrast" min="0" max="2" value="1" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="grayscale">
+          <label for="grayscale-val"><div class="label">Grayscale</div></label>
+        </div>
+        <input type="range" id="grayscale-val" name="grayscale" min="0" max="1" value="0" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="hue">
+          <label for="hue-val"><div class="label">Hue</div></label>
+        </div>
+        <input type="range" id="hue-val" name="hue" min="0" max="360" value="0" step="10" />
+      </div>
+    </div>
+    <div class = "imageControls">
+      <div class="control">
+        <div class="off toggle" id="invert">
+          <label for="invert-val"><div class="label">Invert</div></label>
+        </div>
+        <input type="range" id="invert-val" name="invert" min="0" max="1" value="0" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="opacity">
+          <label for="opacity-val"><div class="label">Opacity</div></label>
+        </div>
+        <input type="range" id="opacity-val" name="opacity" min="0" max="1" value="1" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="saturate">
+          <label for="saturate-val"><div class="label">Saturate</div></label>
+        </div>
+        <input type="range" id="saturate-val" name="saturate" min="0" max="2" value="1" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="sepia">
+          <label for="sepia-val"><div class="label">Sepia</div></label>
+        </div>
+        <input type="range" id="sepia-val" name="sepia" min="0" max="1" value="0" step=".05" />
+      </div>
     </div>
   </div>
   <div class = "row imageSearchRow valign-wrapper" id ="topSearch">
-    <div class ="input-field col l10 m10 valign" id =searchSelect>
+    <div class ="input-field col l4 m4 valign" id =searchSelect>
         <select id="searchSelectValue">
           <option value = "search1" id="">Search by Text</option>
           <option value = "search2" id="">See What's Hot</option>
         </select>
     </div>
+    <button class = "btn-large col l2 m2" id="reset">Reset</button>
+      <div class = "col l4 m4">
+        <label for="imageSlider"><div class="align-right label">Image Size</div></label>
+        <input type="range"  min="10" max="100" id="imageSlider" value="50">
+      </div>
     <button type = "none" class = "valign btn-large col l1 m1" id="menuExpand">Collapse</button>
-<!--     <input type="range" class = "col l4 m4" min="10" max="100" id="imageSlider" value="50">
- -->
+
   </div>
   <div class = "row imageSearchRow valign-wrapper" id ="bottomSearch">
     <input class = "searchText col l5 m5 valign" placeholder = "SearchImages" id="imageSearchBox"></input>
@@ -217,13 +283,13 @@
   <script type=text/javascript src = /scripts/graffiti/ui.js></script>
   <script type=text/javascript src = /scripts/graffiti/canvasDraw.js></script>
   <script type=text/javascript src = /scripts/graffiti/imgurAjax.js></script>
+  <script type=text/javascript src = /scripts/graffiti/imageFilters.js></script>
 
 <script>
+  var palette = document.getElementById('palettePicker');
   function pickerColor(picker) {
       //cursorColor = picker.toHEXString();
-      var palette = document.getElementById('palettePicker');
       palette.innerHTML = picker.toHEXString();
-
       //console.log(picker.toRGBString())
     }
 

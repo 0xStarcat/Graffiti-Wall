@@ -988,7 +988,7 @@ var jsc = {
 
 		// General options
 		//
-		this.value = null; // initial HEX color. To change it later, use methods fromString(), fromHSV() and fromRGB()
+		this.value = '#000000'; // initial HEX color. To change it later, use methods fromString(), fromHSV() and fromRGB()
 		this.valueElement = targetElement; // element that will be used to display and input the color code
 		this.styleElement = targetElement; // element that will preview the picked color using CSS backgroundColor
 		this.required = true; // whether the associated text <input> can be left empty
@@ -1036,7 +1036,7 @@ var jsc = {
         this.pointerBorderWidth = 1; // px
         this.pointerThickness = 2; // px
 		this.zIndex = 1000;
-		this.container = document.getElementById('paletteOuter'); // where to append the color picker (BODY element by default)
+		this.container = document.getElementById('paletteDock'); // where to append the color picker (BODY element by default)
 
 
 		for (var opt in options) {

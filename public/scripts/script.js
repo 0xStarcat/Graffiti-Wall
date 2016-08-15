@@ -38,6 +38,7 @@ canvas = document.getElementById("myCanvas");
 ctx = canvas.getContext("2d");
 canvasData = canvas.toDataURL("image/png");
 
+sizePreviewBox();
 brushSizeCanvas = document.getElementById("brushExampleCanvas");
 brushCtx = brushSizeCanvas.getContext("2d");
 //var cursorData = brushSizeCanvas.toDataURL();
@@ -131,18 +132,19 @@ function drawCursor() {
 
 function tagWall()
 {
+    resizeTagSize();
    var base_image = new Image();
       base_image.crossOrigin = "Anonymous";
-      base_image.src = tagURL;
+      //base_image.src = tagURL;
+      previewData = previewCanvas.toDataURL("image/png");
+      base_image.src = previewData;
+      ctx.drawImage(base_image, crosshairX, crosshairY, tagWidth, tagHeight)
+      canvasData = canvas.toDataURL("image/png");  //Save snapshot
 
-
-
-
-
-      base_image.onload = function(){
-        ctx.drawImage(base_image, crosshairX, crosshairY, tagWidth, tagHeight)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
-        canvasData = canvas.toDataURL("image/png");  //Save snapshot
-      }
+      // base_image.onload = function(){
+      //   ctx.drawImage(base_image, crosshairX, crosshairY, tagWidth, tagHeight)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
+      //   canvasData = canvas.toDataURL("image/png");  //Save snapshot
+      // }
 
 
 
@@ -221,11 +223,7 @@ function getInputPosition(event) {
   });
 
 
-  function clearCanvas(){
-    ctx.clearRect(0,0,canvas.width, canvas.height);
-    canvasData = canvas.toDataURL();  //Save snapshot
 
-  }
 
 
   $("#sizeSlider").click(function(){

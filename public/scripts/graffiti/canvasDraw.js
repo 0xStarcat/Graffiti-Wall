@@ -11,7 +11,6 @@ $('document').ready(function()
   var url = "/load/"+row+"/"+column;
   getAJAXImage (row, column);
   unlockBrush();
-
   window.onresize = windowResizeFunction;
   document.addEventListener("resize", windowResizeFunction, false);
 
@@ -35,9 +34,9 @@ brushSizeCanvas.height = (window.innerHeight);
   {
 
     sizePreviewBox()
+    // showPreviewImage(tagURL); moved inside sizePreviewBox
   }
     resizeTagSize();
-
   //######
   // scale and redraw the canvas content
   var img = new Image();
@@ -48,7 +47,10 @@ brushSizeCanvas.height = (window.innerHeight);
   }
 }
 
-
+function clearCanvas(){
+  ctx.clearRect(0,0,canvas.width, canvas.height);
+  canvasData = canvas.toDataURL();  //Save snapshot
+}
 
 function sizePreviewBox()
 {
@@ -64,6 +66,23 @@ function sizePreviewBox()
       'height' : previewBoxHeight+'px',
       'width' : previewBoxWidth+'px'
     })
+
+  var $previewCanvas = $('#previewCanvas')
+  $previewCanvas.css({
+      'height' : previewBoxHeight+'px',
+      'width' : previewBoxWidth+'px'
+    })
+
+  var $hiddenPreviewCanvas = $('#originalPixels')
+  $hiddenPreviewCanvas.css({
+      'height' : previewBoxHeight+'px',
+      'width' : previewBoxWidth+'px'
+    })
+
+  //pixels = hiddenPreviewCanvas.getImageData(0,0,previewCanvas.width,previewCanvas.height); //Moved to imgurAjax.showPreviewImage(img_url)-- wolphox
+
+
+  showPreviewImage(tagURL);
 
   resizeTagSize()
 }
@@ -147,13 +166,13 @@ function unlockBrush()
 function drawBrushExample(){
 
     brushCtx.clearRect(0,0,brushSizeCanvas.width,brushSizeCanvas.height);
-      brushCtx.beginPath();
-      //brushCtx.rect(25,25, cursorSize, cursorSize * 0.5625);
-      brushCtx.arc(37,37, cursorSize, 3, Math.PI, true);
+    brushCtx.beginPath();
+    //brushCtx.rect(25,25, cursorSize, cursorSize * 0.5625);
+    brushCtx.arc(37,37, cursorSize, 3, Math.PI, true);
 
-      brushCtx.closePath();
-      brushCtx.fillStyle = cursorColor;
-      brushCtx.fill();
+    brushCtx.closePath();
+    brushCtx.fillStyle = cursorColor;
+    brushCtx.fill();
 
   }
 

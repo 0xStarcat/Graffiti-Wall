@@ -84,6 +84,13 @@ function eventListeners()
     var sort = $('#sortSelectValue').val();
 
     var searchType = $('#searchSelectValue').val();
+
+
+    //For image data-id in parseImages()
+    $('#galleryWrapper').empty();
+    imageCountID = 0;
+    pageNumber = 0;
+
     if (searchType === 'search1')
     {//search by text
       searchTerm = $('#imageSearchBox').val();
@@ -91,9 +98,9 @@ function eventListeners()
       searchTerm = null;
       popularSearch = true;
     }
-    console.log(searchTerm, popularSearch, sort);
+    //console.log(searchTerm, popularSearch, sort, 'png');
 
-    imgurAjaxHit(searchTerm, popularSearch, sort);
+    imgurAjaxHit(searchTerm, popularSearch, sort, 'jpg');
   });
 
   $('#searchSelectValue').on('change',function()
@@ -145,6 +152,7 @@ function eventListeners()
   $('#navBarTab').on('click', function(e)
   {
     console.log('tab move nav bar');
+
     moveNavBar();
   });
 
@@ -215,14 +223,14 @@ function changeCursorMode()
   if (paintMode)
     {
       paintMode = false;
-      cursorModeButton.text('Paint Wall');
+      cursorModeButton.text('Mode: Tag');
 
       $('#cursorImagePreview').css('display' , 'inline');
 
     } else
     {
       paintMode = true;
-      cursorModeButton.text('Tag Wall');
+      cursorModeButton.text('Mode: Paint');
       $('#cursorImagePreview').css('display', 'none');
       $("#imageSelectionWrapper").addClass("hide");
     }
@@ -234,13 +242,12 @@ function getSliderValue()
   sliderMove = true;
   imageSliderMultiplier = ($('#imageSlider').val() / 100)
 
-  console.log('value');
   if(imgurSearch)
   {
     sizePreviewBox();
+    // showPreviewImage(tagURL); //moved inside sizePreviewBox();
   }
 
-  resizeTagSize();
 }
 
 
@@ -332,16 +339,20 @@ function moveNavBar()
 
   if (!collapsedNavBar)
   {
+
+    //Closes Nav Bar
      navBar.animate({
       'top' : '-100px'
     }, 1000, function(){
       collapsedNavBar = true;
+      $('#navBarTab').text('Open Nav-Bar');
     });
    } else {
     navBar.animate({
       'top' : '0'
     }, 1000, function(){
       collapsedNavBar = false;
+      $('#navBarTab').text('Close Nav-Bar')
     });
    }
 }
