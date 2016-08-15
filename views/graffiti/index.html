@@ -260,8 +260,10 @@ depracated
 </script>
 
 {{#logged_in}}
+{{^isLocked}}
 <script>
 window.onbeforeunload = unlockPage;
 </script>
+{{/isLocked}}
 {{/logged_in}}
 </html>
