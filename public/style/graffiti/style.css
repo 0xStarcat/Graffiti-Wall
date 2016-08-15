@@ -10,7 +10,6 @@ left: 0px;
 
 border: 3px orange solid;
 -webkit-user-select: none;
--khtml-user-select: none;
 -moz-user-select: none;
 -ms-user-select: none;
 user-select: none;
@@ -50,16 +49,17 @@ z-index: -1;
   pointer-events: auto;
 }
 
-#paletteDocking{
+#paletteDocking {
 /*   border:  2px solid red;
  */  width: 120px;
   height:  60px;
-  position:  relative;
+  position:  absolute;
   top: 0;
-  left: 30px;
-  display: inline-block;
-   pointer-events: none;
-   z-index: -5;
+  left: 0px;
+  display: inline;
+  z-index: -2;
+
+
 }
 
 #paletteDock{
@@ -72,8 +72,43 @@ z-index: -1;
   height:  100%;
 }
 
+#brushAdjustDocking{
+
+  height:  60px;
+  width: 120px;
+  position:  absolute;
+  top: 60px;
+  left: 0px;
+  display: inline;
+  z-index: -2;
+  /*  border: 1px red solid; */
+}
+
+#brushAdjustDock{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:  absolute;
+  left: 60px;
+  top: 0px;
+  border: 1px black solid;
+  border-radius: 8px;
+  width: 120px;
+  height:  100%;
+  background: rgba(222,222,222,0.7);
+
+
+}
+
+#brushSizeSlider{
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
 #paletteOuter{
+  width: 120px;
    position:  fixed;
    left: 0;
    top: 100px;
@@ -81,6 +116,7 @@ z-index: -1;
    z-index:  0;
    width:  60px;
    height:  300px;
+
 
 }
 #paletteBoxWrapper{
@@ -100,13 +136,22 @@ z-index: -1;
 
 #sizeSlider {
   background-color: white;
+   overflow: hidden;
 }
 
 #paletteMoveTab{
-  height:  20px;
+  height:  30px;
   width:  100%;
   background:  lightyellow;
   position: relative;
+  border: 1px solid black;
+  border-radius: 8px 8px 0px 0px;
+  cursor:  pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
 }
 
 .colorSample {
@@ -176,11 +221,11 @@ z-index: -1;
 
 #brushExampleCanvas{
 
-  border: 2px blue solid;
-  background: lightgray;
+
+
   height: 100vh;
   width: 100vw;
-  z-index: 1;
+  z-index: 2;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -687,6 +732,7 @@ a{
 
 label{
   color:  white;
+
 }
 
 .label {

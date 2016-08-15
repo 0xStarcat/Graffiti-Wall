@@ -20,9 +20,7 @@ var cursorColor;
 var crosshairX;
 var crosshairY;
 
-//Brush size slider
-var slidePercent;
-var sliderHandle;
+
 
 var tagWidth;
 var tagHeight;
@@ -102,6 +100,11 @@ function update()
   if(!paintMode)
   {
     moveCursorImagePreview();
+  }
+
+  if (brushSliderMove)
+  {
+    adjustBrushSize();
   }
 
 }
@@ -226,58 +229,20 @@ function getInputPosition(event) {
 
 
 
-  $("#sizeSlider").click(function(){
-   if ($("#brushAdjustmentWindow").hasClass("hide"))
-    {
-      //$("#sizeSlider").text("Close Brush Size");
-
-      $("#brushAdjustmentWindow").removeClass("hide");
-
-      drawBrushExample();
-    }
-
-    else if (!$("#brushAdjustmentWindow").hasClass("hide"))
-      {
-        //$("#sizeSlider").html("Brush Size");
-        //$("#sizeSlider").removeClass("openSlider");
-        //$("#sizeSlider").text("Open Brush Size");
-        $("#sizeSlider").css("border", "3px lightgray outset");
-        $("#brushAdjustmentWindow").addClass("hide");
-        $("#sliderExample").addClass("hide");
-        $("#sliderWrapper").addClass("hide");
-        $("#sliderBar").addClass("hide");
-        $("#sliderHandle").addClass("hide");
-      }
-   });
 
 
- $("#sliderHandle").on(inputDown, handleDown);
- $("#sliderWrapper").on(inputMove, resizeCursor);
- $(window).on(inputUp, handleUp);
-
-  function handleDown(){
-    handleClicked=true;
-  }
-
-function resizeCursor(event)
-  {
-   var sliderOffset = $("#sliderBar").offset().left;
-   var sliderWidth = $("#sliderBar").outerWidth();
-
-   if (handleClicked)
-     {
-   getInputPosition(event);
-   slidePercent = Math.min(Math.max((((cursorX - sliderOffset) / sliderWidth) * 80), 0),80);
-
-   $("#sliderHandle").css("left", slidePercent+"%");
-      cursorSize = (20 * (slidePercent * 0.015)+2);
-
-      drawBrushExample();
-
-     }
 
 
-  }
+
+
+ $('#brushSizeSlider').on('mousedown', function(e)
+ {
+
+  brushSliderMove = true;
+
+   // $("#sliderHandle").css("left", slidePercent+"%");
+   //    cursorSize = (20 * (slidePercent * 0.015)+2);
+ })
 
 function handleUp(){
     handleClicked=false;

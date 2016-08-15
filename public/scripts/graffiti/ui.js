@@ -67,11 +67,11 @@ function eventListeners()
       sizePreviewBox()
       $('#cursorImagePreview').css('display', 'none');
       $("#imageSelectionWrapper").removeClass("hide");
-      $('#openChooser').text('Close Image Chooser');
+
     } else {
       imgurSearch = false;
        $("#imageSelectionWrapper").addClass("hide");
-       $('#openChooser').text('Open Image Chooser');
+
     }
   });
 
@@ -179,6 +179,7 @@ function eventListeners()
       mobilePalette = false;
       mobileNavBar=false;
       sliderMove =false;
+      brushSliderMove = false;
       handleClicked=false;
       inputActive=true;
     });
@@ -205,7 +206,26 @@ function eventListeners()
   });
 
 
+  $('#palettePicker').on('click', function(e)
+  {
+    if ($('#paletteDocking').hasClass('hide'))
+    {
+      $('#paletteDocking').removeClass('hide');
+    } else {
+      $('#paletteDocking').addClass('hide');
+    }
+  })
 
+   $("#brushExampleCanvas").click(function(){
+
+     if ($("#brushAdjustDocking").hasClass("hide")){
+
+        $('#brushAdjustDocking').removeClass('hide');
+        drawBrushExample();
+      }else{
+       $('#brushAdjustDocking').addClass('hide');
+      }
+   });
 
   //Save Image every mouse up from canvas
   $('#myCanvas').on('mouseup', function(e)

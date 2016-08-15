@@ -86,68 +86,37 @@
 </div>
 <canvas id="myCanvas"></canvas>
 <img id="cursorImagePreview" src="">
-<div id="palette">
-
- <!--  <div class="jscolor paletteBox" id="hexColorWrap">Color Tune<div class="hide" id="hexColorBox"></div></div> -->
-  <!-- <input class="jscolor {closable:true,closeText:'Close', onFineChange:'pickerColor(this)'}"
-    id = "palettePicker" value="ff3300"> -->
-
-  <!-- <div class=paletteBox id="colorRed">
-    <div class="colorSample"></div>
-    <div>Red</div>
-  </div>
-  <div class="paletteBox"id="colorOrange">
-    <div class="colorSample"></div>
-    <div>Orange</div>
-  </div>
-  <div class="paletteBox"id="colorYellow">
-    <div class="colorSample"></div>
-    <div>Yellow</div>
-  </div>
-  <div class="paletteBox"id="colorGreen">
-    <div class="colorSample"></div>
-    <div>Green</div>
-  </div>
-  <div class="paletteBox"id="colorBlue">
-    <div class="colorSample"></div>
-    <div>Blue</div>
-  </div>
-  <div class="paletteBox"id="colorPurple">
-    <div class="colorSample"></div>
-    <div>Purple</div>
-  </div>
-  <div class="paletteBox"id="colorBlack">
-    <div class="colorSample"></div>
-    <div>Black</div>
-  </div>
-  <div class="paletteBox"id="colorGray">
-    <div class="colorSample"></div>
-    <div>Gray</div>
-  </div>
-  <div class="paletteBox"id="colorWhite">
-    <div class="colorSample"></div>
-    <div>White</div>
-  </div> -->
-</div>
+<!-- <div id="palette">
+depracated
+</div> -->
 
 {{#logged_in}}
 <div id = "paletteOuter">
-<div id ="paletteMoveTab"></div>
+<div id ="paletteMoveTab">Move</div>
   <div id = "paletteBoxWrapper">
 
   {{^isLocked}}
-    <div class= "paletteBox" id ="paletteDocking">
-      <button
+  <button
         class="jscolor { onFineChange:'pickerColor(this)'} paletteBox"
         id = "palettePicker"
         value = 'FFFFFF'
         style="border:2px outset black">
         #000000
-      </button>
+    </button>
+    <div class= "hide" id ="paletteDocking">
+
       <div class="paletteBox" id="paletteDock"></div>
     </div>
 
-  <button class="paletteBox" id="sizeSlider">Brush Size</button>
+  <button class="paletteBox" id="sizeSlider">Brush Size
+    <canvas id="brushExampleCanvas"></canvas>
+  </button>
+  <div class = "hide" id ="brushAdjustDocking">
+    <div id = "brushAdjustDock">
+     <!--  <label for ="brushSizeSlider">Brush Size</label> -->
+      <input type="range" value = "1" min = "0.5" max = "3" step="0.05" id="brushSizeSlider">
+    </div>
+  </div>
   <button class="paletteBox" id="cursorMode">Tag Wall</button>
   <button class="paletteBox" id="openChooser">Load Image</button>
   {{/isLocked}}
@@ -170,15 +139,7 @@
   </div>
 </div>
 
-<div class="hide" id="brushAdjustmentWindow">
-  <div class="windowTitle">Adjust Brush Size</div>
-  <button class="exitWindowButton" id="">X</button>
-  <div class="" id="sliderExample"><canvas id="brushExampleCanvas"></canvas></div>
-  <div class="" id="sliderWrapper">
-    <div class="" id="sliderBar"></div>
-    <div class="" id="sliderHandle"></div>
-  </div>
-</div>
+
 
 <div class="hide" id="imageSelectionWrapper">
   <button class="exitWindowButton" id="">X</button>

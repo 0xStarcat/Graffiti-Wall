@@ -1,5 +1,6 @@
 var brushLocked;
 var sliderMove = false;
+var brushSliderMove = false;
 var menuFitMultiplier = 0.25;
 
 
@@ -45,6 +46,13 @@ brushSizeCanvas.height = (window.innerHeight);
   img.onload = function () {
     ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, (canvas.width * 0.5625));
   }
+
+
+  //#
+  //#Cursor Size adjustment based on window size
+  //#
+  adjustBrushSize();
+
 }
 
 function clearCanvas(){
@@ -132,6 +140,11 @@ function updateColorPicker() {
     drawBrushExample();
 }
 
+function adjustBrushSize(){
+  cursorSize = (canvas.width * 0.01) * $('#brushSizeSlider').val();
+  drawBrushExample();
+}
+
 //Ajax to server to check if user is logged in or not
 function unlockBrush()
 {
@@ -168,7 +181,7 @@ function drawBrushExample(){
     brushCtx.clearRect(0,0,brushSizeCanvas.width,brushSizeCanvas.height);
     brushCtx.beginPath();
     //brushCtx.rect(25,25, cursorSize, cursorSize * 0.5625);
-    brushCtx.arc(37,37, cursorSize, 3, Math.PI, true);
+    brushCtx.arc(27.5,27.5, cursorSize, 3, Math.PI, true);
 
     brushCtx.closePath();
     brushCtx.fillStyle = cursorColor;
