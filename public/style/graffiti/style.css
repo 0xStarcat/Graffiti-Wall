@@ -42,6 +42,9 @@ z-index: -1;
   height: 60px;
   width: 60px;
   position:  relative;
+  font-size: 11px;
+  text-align:  center;
+
 
 }
 
@@ -737,6 +740,11 @@ label{
 
 .label {
   color:  white;
+}
+
+#upload{
+  /* z-index: -3; */
+  display:  none;
 }
 
 

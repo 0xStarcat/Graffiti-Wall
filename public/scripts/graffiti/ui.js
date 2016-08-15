@@ -16,6 +16,10 @@ $('document').ready(function()
   wrapper = $('#paletteOuter');
 
   cursorModeButton = $('#cursorMode');
+  if (!brushLocked)
+  {
+     grabUnlockedElements();
+  }
   eventListeners();
 
 })
@@ -218,6 +222,8 @@ function eventListeners()
 
    $("#brushExampleCanvas").click(function(){
 
+
+
      if ($("#brushAdjustDocking").hasClass("hide")){
 
         $('#brushAdjustDocking').removeClass('hide');
@@ -226,6 +232,11 @@ function eventListeners()
        $('#brushAdjustDocking').addClass('hide');
       }
    });
+
+   $("#brushSizeSlider").on('mousedown', function(e)
+   {
+    brushSliderMove = true;
+   })
 
   //Save Image every mouse up from canvas
   $('#myCanvas').on('mouseup', function(e)

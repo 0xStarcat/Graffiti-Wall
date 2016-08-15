@@ -6,8 +6,7 @@
 //#
 //#
 
-var pixels;
-
+var pixels; //Global now --wolphox
 
 $('document').ready(function()
 {
@@ -15,7 +14,72 @@ $('document').ready(function()
   var resetButton = document.querySelector('#reset');
 
   resetButton.addEventListener('click',resetAll);
+
+  var upload = $('#upload');
+  var uploadButton = $('#uploadButton');
+  uploadButton.on('click', function(e)
+    {
+
+      upload.trigger('click');
+      //$('#uploadForm').reset();
+
+    });
+
+  document.getElementById('upload').onchange = function(e) {
+
+    readFile(e.srcElement.files[0]);
+    console.log('read file')
+  };
+
+  function readFile(file) {
+    var reader = new FileReader();
+    reader.onload = readSuccess;
+    function readSuccess(evt) {
+        // var field = document.getElementById('main');
+        // field.innerHTML = evt.target.result;
+
+        console.log('read success')
+        previewData = evt.target.result;
+
+
+        tagURL = previewData;
+
+        console.log(previewData);
+        showPreviewImage(previewData);
+    };
+    reader.readAsDataURL(file);
+
+
+}
+
+    upload.on('change', function(e)
+      {
+        console.log('clicked')
+
+        var reader = new FileReader();
+
+        reader.onload = function(data) {
+          console.log(reader);
+          // reader.readAsDataURL(e.target.files[0]);
+          reader.readAsDataURL(data);
+        var img = new Image();
+
+        console.log('reader loaded')
+          img.onload = function() {
+            console.log('image loaded')
+            previewContext.drawImage(img,0,0,width,height);
+            hiddenPreviewContext.drawImage(img,0,0,width,height);
+          };
+          img.src = data.target.result;
+        };
+
+      });
+
 })
+
+function handleImage(e) {
+
+  }
 
 var vals = {
       'blur' : '0',

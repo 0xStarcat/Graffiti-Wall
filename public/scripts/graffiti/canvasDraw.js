@@ -1,4 +1,4 @@
-var brushLocked;
+var brushLocked = true;
 var sliderMove = false;
 var brushSliderMove = false;
 var menuFitMultiplier = 0.25;
@@ -25,8 +25,7 @@ ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
 //alert("hello");
 canvas.width = window.innerWidth;
 canvas.height = (window.innerWidth * 0.5625); //16:9 is height 56.25% of width. 4:3 is height 75% of width.
-brushSizeCanvas.width = window.innerWidth;
-brushSizeCanvas.height = (window.innerHeight);
+
 
 //##Resize Dependent tag dimensions
 //need to resize the preview BOX (for when search window is open)
@@ -51,8 +50,32 @@ brushSizeCanvas.height = (window.innerHeight);
   //#
   //#Cursor Size adjustment based on window size
   //#
-  adjustBrushSize();
 
+  if (!brushLocked)
+  {
+    adjustBrushSize();
+  }
+
+
+}
+
+function drawCursor() {
+  //var cursorString = "url("+String(data)+"), crosshair";
+
+  var paletteWidth = $("#palette").outerWidth();
+
+  if (cursorX > 0 && cursorX < (window.innerWidth - paletteWidth ))
+    {
+      ctx.beginPath(); //every object goes between beginPath() and closePath();
+      // //ctx.rect(cursorX, cursorY, cursorSize, cursorSize) //draws a circle arrgs = (x, y, radius length, degrees in radii to render, Math.PI, and clockwise true or false)
+      ctx.arc(cursorX, cursorY, cursorSize, 3, Math.PI, true) //draws a circle arrgs = (x, y, radius length, degrees in radii to render, Math.PI, and clockwise true or false)
+
+      ctx.closePath(); //
+      ctx.fillStyle =cursorColor; //CSS color in quotes
+      ctx.fill(); //command to fill with above color
+      var canvasData = canvas.toDataURL("image/png");
+
+  }
 }
 
 function clearCanvas(){
@@ -141,6 +164,7 @@ function updateColorPicker() {
 }
 
 function adjustBrushSize(){
+
   cursorSize = (canvas.width * 0.01) * $('#brushSizeSlider').val();
   drawBrushExample();
 }
@@ -157,11 +181,14 @@ function unlockBrush()
       {
         brushLocked = true;
         $('#myCanvas').css('cursor', 'auto');
-        console.log(data.brushLocked);
+        console.log('BRUSH LOCK STATUS', data.brushLocked);
       } else {
         brushLocked = false;
 
-        console.log(data.brushLocked);
+        //Get these elements since they will appear if brush unlocked
+
+         grabUnlockedElements();
+        console.log('BRUSH LOCK STATUS', data.brushLocked);
       }
     },
     'error' : function()
@@ -176,17 +203,30 @@ function unlockBrush()
   })
 }
 
+function grabUnlockedElements()
+{
+   brushSizeCanvas = document.getElementById("brushExampleCanvas");
+   brushCtx = brushSizeCanvas.getContext("2d");
+   brushSizeCanvas.width = window.innerWidth;
+   brushSizeCanvas.height = (window.innerHeight);
+
+
+}
+
 function drawBrushExample(){
 
-    brushCtx.clearRect(0,0,brushSizeCanvas.width,brushSizeCanvas.height);
-    brushCtx.beginPath();
-    //brushCtx.rect(25,25, cursorSize, cursorSize * 0.5625);
-    brushCtx.arc(27.5,27.5, cursorSize, 3, Math.PI, true);
+  if (!brushLocked)
+    {
 
-    brushCtx.closePath();
-    brushCtx.fillStyle = cursorColor;
-    brushCtx.fill();
+      brushCtx.clearRect(0,0,brushSizeCanvas.width,brushSizeCanvas.height);
+      brushCtx.beginPath();
+      //brushCtx.rect(25,25, cursorSize, cursorSize * 0.5625);
+      brushCtx.arc(27.5,27.5, cursorSize, 3, Math.PI, true);
 
+      brushCtx.closePath();
+      brushCtx.fillStyle = cursorColor;
+      brushCtx.fill();
+    }
   }
 
 function postAJAXImage ()

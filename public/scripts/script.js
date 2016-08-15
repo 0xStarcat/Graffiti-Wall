@@ -12,6 +12,8 @@ var canvasData;
 var brushSizeCanvas;
 var brushCtx;
 
+//input
+var inputActive = false;
 //mouse
 var cursorX;
 var cursorY;
@@ -25,6 +27,8 @@ var crosshairY;
 var tagWidth;
 var tagHeight;
 var tagURL;
+
+
 document.addEventListener('DOMContentLoaded',domloaded,false);
 
 
@@ -36,9 +40,13 @@ canvas = document.getElementById("myCanvas");
 ctx = canvas.getContext("2d");
 canvasData = canvas.toDataURL("image/png");
 
-sizePreviewBox();
-brushSizeCanvas = document.getElementById("brushExampleCanvas");
-brushCtx = brushSizeCanvas.getContext("2d");
+if(!brushLocked)
+  {
+    sizePreviewBox();
+  }
+
+
+
 //var cursorData = brushSizeCanvas.toDataURL();
 
 
@@ -51,24 +59,12 @@ var leftPressed = false;
 var rightPressed = false;
 var upPressed = false;
 var downPressed = false;
-var inputActive = false;
+
 //var touchStart = false;
 
 var inputDown = ('ontouchstart' in document.documentElement)  ? 'touchstart' : 'mousedown';
 var inputMove = ('ontouchmove' in document.documentElement)  ? 'touchmove' : 'mousemove';
 var inputUp = ('ontouchend' in document.documentElement)  ? 'touchend' : 'mouseup';
-var handleClicked = false;
-
-slidePercent = 0;
-sliderHandle = document.getElementById("#sliderHandle");
-
-
-// document.addEventListener("mousemove", mouseMoveFunction, false);
-// //document.addEventListener("mousedown", mouseDownFunction, false);
-// document.addEventListener("mouseup", mouseUpFunction, false);
-// //document.addEventListener("touchstart", touchStartFunction, false);
-// document.addEventListener("touchend", touchEndFunction, false);
-// document.addEventListener("touchmove", touchMoveFunction, false);
 
 $("#myCanvas").on(inputDown, inputDownFunction);
 $("#myCanvas").on(inputMove, inputMoveFunction);
@@ -77,6 +73,8 @@ $(window).on(inputUp, inputUpFunction);
 windowResizeFunction();
 update();
 
+
+};
   // document.addEventListener("keydown",function(){ alert(String(data));});
 function update()
 
@@ -84,7 +82,12 @@ function update()
 {
   //drawDebug();
   requestAnimationFrame(update);
-  updateColorPicker();
+
+  if(!brushLocked)
+  {
+    updateColorPicker();
+  }
+
 
   if (mobilePalette)
   {
@@ -112,26 +115,7 @@ function update()
 
 
 
-function drawCursor() {
-  //var cursorString = "url("+String(data)+"), crosshair";
 
-  var paletteWidth = $("#palette").outerWidth();
-
-  if (cursorX > 0 && cursorX < (window.innerWidth - paletteWidth ))
-      {
-      ctx.beginPath(); //every object goes between beginPath() and closePath();
-      // //ctx.rect(cursorX, cursorY, cursorSize, cursorSize) //draws a circle arrgs = (x, y, radius length, degrees in radii to render, Math.PI, and clockwise true or false)
-      ctx.arc(cursorX, cursorY, cursorSize, 3, Math.PI, true) //draws a circle arrgs = (x, y, radius length, degrees in radii to render, Math.PI, and clockwise true or false)
-
-      ctx.closePath(); //
-      ctx.fillStyle =cursorColor; //CSS color in quotes
-      ctx.fill(); //command to fill with above color
-      var canvasData = canvas.toDataURL("image/png");
-
-
-
-  }
-}
 
 function tagWall()
 {
@@ -234,37 +218,3 @@ function getInputPosition(event) {
 
 
 
-
- $('#brushSizeSlider').on('mousedown', function(e)
- {
-
-  brushSliderMove = true;
-
-   // $("#sliderHandle").css("left", slidePercent+"%");
-   //    cursorSize = (20 * (slidePercent * 0.015)+2);
- })
-
-function handleUp(){
-    handleClicked=false;
-  }
-
-  //working on this function to be called by any button clicked and then un-indent all other buttons.
-function indentButton(element){
-
-    element.css("border", "3px lightgray inset");
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-//windowResizeFunction();
