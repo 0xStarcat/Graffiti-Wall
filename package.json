@@ -19,8 +19,12 @@
     "https": "^1.0.0",
     "mustache-express": "^1.2.2",
     "nodemon": "^1.10.0",
+    "oauth": "^0.9.14",
     "pg-promise": "^5.2.7",
+    "qs": "^6.2.1",
     "request": "^2.74.0",
-    "start": "^4.0.1"
+    "start": "^4.0.1",
+    "twitter-js-client": "0.0.5",
+    "twitter-node-client": "0.0.6"
   }
 }

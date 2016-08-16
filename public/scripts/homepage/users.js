@@ -14,6 +14,21 @@ function buttonListeners()
     //createNewUserAjax();
   });
 
+  $('.screenshot').on('click',function(e)
+   {
+    //console.log(e.target);
+    var enlargedScreenshot = $('<div class = "enlargedScreenshot"><img src="'+$(this).attr('src')+'"><button class="exitWindowButton">X</button></div>');
+    $('body').append(enlargedScreenshot);
+
+     $('.exitWindowButton').on('click', function(e)
+      {
+        $(this).parent().remove();
+      })
+
+   })
+
+
+
   $('.screenshotSave').on('click', function(e)
   {
     // var id = '#'+$(this).parent().parent().attr('data-id').split('_')[1];
@@ -45,10 +60,14 @@ function buttonListeners()
 function shareOnTwitter(img)
 {
   // var imageData =
-  var url = 'https://upload.twitter.com/1.1/'+img+'/upload.json'
+  var url = '/tweet';
+  var imageData = {
+    'imageURL' : img
+  }
    $.ajax({
       'method' : 'POST',
       'url' : url,
+      'data' : imageData,
       'success' : function(data)
       {
         conosle.log('twitter image shared!')

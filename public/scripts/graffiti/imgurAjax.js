@@ -129,6 +129,12 @@ function parseImageResults(results)
 
   $('.imageResult').on('click', function(e)
     {
+
+      if (!collapseSearch)
+      {
+        handleMenuExpand();
+      }
+
       tagURL = $(this).attr('src');
       $('#myCanvas').css('cursor','url('+tagURL+') 32 32, crosshair')
 
@@ -138,6 +144,8 @@ function parseImageResults(results)
 
       resetAll(); //reset filter sliders
       showPreviewImage(tagURL);
+
+
       // $('#myCanvas').css('cursor', 'pointer');
     });
     //console.log(result);
@@ -196,6 +204,8 @@ function showPreviewImage(img_url)
 //#
 function clearClickedBorders()
 {
+
+
   $('.clicked').each(function(border)
   {
     $(this).removeClass('clicked');

@@ -13,13 +13,13 @@
   <script src="/scripts/jscolor.js"></script>
 </head>
 <body>
-
+<div data-id = {{isLocked}} id ="lockStatus" style="display:none"></div>;
  {{^logged_in}}
 <div class = "" id = navBarWrapper>
   <div class = "row">
 
-
-    <form class="col l12 m12 center-align form-horizontal graffitiLogin" action="/sessions/create" method="post">
+    <a class = "btn center waves-effect col l2 m2 waves-light" href ="/">Home</a>
+    <form class="col l10 m10 offset-l2 form-horizontal graffitiLogin" action="/sessions/create" method="post">
       <fieldset>
         <input type="hidden" name="row" value="{{row}}">
         <input type="hidden" name="column" value="{{column}}">
@@ -38,7 +38,6 @@
         </div>
       </fieldset>
     </form>
-    <a class = "btn center waves-effect col l2 m2 waves-light" href ="/">Home</a>
 
       <div class="col l4 m4 red-text accent-3">
        {{#error}}
@@ -49,9 +48,13 @@
         <p data-id={{row}}{{column}} id = "coordinates">Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></p>
     </div>
     <div class ="col l3 m3" id ="noAccount">No account? <a href="/users/new">Sign Up!</a></div>
+   {{#isLocked}}
+    <div class = "tab valign" id ="lockedTab">PAGE BEING TAGGED BY ANOTHER USER</div>
+    {{/isLocked}}
+    <div class = tab id ="navBarTab">Close Nav-Bar</div>
+    <div class = tab id ="viewTab">In View-Tags Mode</div>
   </div>
 </div>
-  <
   {{/logged_in}}
 
 
@@ -74,15 +77,15 @@
     <p class ="col l13 m3 center-align"= data-id={{row}}{{column}} id = "coordinates">Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></p>
     <div class = "col l3 m3 offset-6">You are logged in. <a href="/sessions/logout">Logout</a></div>
 
-      {{/logged_in}}
+
     {{#isLocked}}
-      <div class = "tab valign" id ="lockedTab">PAGE BEING TAGGED BY ANOTHER USER</div>
+    <div class = "tab valign" id ="lockedTab">PAGE BEING TAGGED BY ANOTHER USER</div>
     {{/isLocked}}
     <div class = tab id ="navBarTab">Close Nav-Bar</div>
     <div class = tab id ="viewTab">In View-Tags Mode</div>
   </div>
 </div>
-
+{{/logged_in}}
 <div id = canvasWrap></div>
 <canvas id="myCanvas"></canvas>
 <img id="cursorImagePreview" src="">
@@ -127,7 +130,7 @@ depracated
 </div>
 {{/logged_in}}
 
-<div class="hide" id="notificationWindow">
+<!-- <div class="hide" id="notificationWindow">
   <div class="textBox" id="notificationText">Are you sure you want to erase the canvas?</div>
       <div id ="topRow">
         <div class="windowTitle">Warning</div>
@@ -137,7 +140,7 @@ depracated
     <button class="windowButton" id="yes">Yes</button>
     <button class="windowButton" id="no">N0</button>
   </div>
-</div>
+</div> -->
 
 
 

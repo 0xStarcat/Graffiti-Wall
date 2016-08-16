@@ -134,6 +134,8 @@ router.get('/graffiti/:row/:column', function(req,res)
 
 router.get('/unlockBrush', function(req,res){
 
+//If request is not from a logged in user, brush lock true.
+//Else if logged in, unlock brushes.
   if (!req.session.user)
   {
     console.log('sending brush LOCK');
@@ -145,6 +147,11 @@ router.get('/unlockBrush', function(req,res){
 
 });
 
+router.get('/checkLocks', function(req,res)
+{
+  res.send(locks);
+})
+
 //unlock page when user leaves, called from the HTML template to canvasDraw.js to here
 router.post('/unlockpage', function(req,res)
 {
@@ -153,6 +160,7 @@ router.post('/unlockpage', function(req,res)
   var row = data.row;
   var column = data.column;
 
+  //Check key by converting grid format (Number, Letter) to array index format
   var letter = column.charCodeAt(0) - 96;//a = 97;
   var lock = ((Number(row) + Number(letter)) -2);
   var key = "grid_lock_"+row+column;

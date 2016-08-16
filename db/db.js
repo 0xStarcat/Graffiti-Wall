@@ -69,7 +69,7 @@ var create_user = function(req, res, next){
   if (password.replace(/\s/g, '') === '' || password.replace(/\s/g, '').length < 6)
   {
     res.error = 'Password must be at least 6 characters!';
-    next();
+    res.end();
   }
 
   bcrypt.hash(password, 10, function(err, hashed_password){

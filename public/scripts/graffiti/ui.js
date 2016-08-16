@@ -127,31 +127,7 @@ function eventListeners()
   $('#menuExpand').on('click',function(e)
   {
 
-    if (collapseSearch)
-    {
-      $('#previewWrapper').animate({
-      'height' : '50vh'
-      }, 1000,function()
-      {
-         menuFitMultiplier = 0.25;
-        sizePreviewBox();
-      })
-
-      $('#menuExpand').text('Collapse');
-      collapseSearch = false;
-    } else {
-       $('#previewWrapper').animate({
-      'height' : '80vh'
-      }, 1000, function()
-      {
-        menuFitMultiplier = 0.5;
-        sizePreviewBox();
-      })
-
-      $('#menuExpand').text('Expand');
-
-      collapseSearch = true;
-    }
+    handleMenuExpand(e);
 
   });
 
@@ -182,6 +158,8 @@ function eventListeners()
       mobilePalette = true;
 
     });
+
+
 
 //#######
 //Do stuff on mouse up
@@ -256,6 +234,37 @@ function eventListeners()
   })
 
 };
+
+function handleMenuExpand(e)
+{
+  if (collapseSearch)
+    {
+      console.log(collapseSearch);
+
+      $('#previewWrapper').animate({
+      'height' : '50vh'
+      }, 1000,function()
+      {
+         menuFitMultiplier = 0.25;
+        sizePreviewBox();
+      })
+
+      $('#menuExpand').text('Collapse');
+      collapseSearch = false;
+    } else {
+      console.log(collapseSearch);
+       $('#previewWrapper').animate({
+      'height' : '80vh'
+      }, 1000, function()
+      {
+        menuFitMultiplier = 0.5;
+        sizePreviewBox();
+      })
+
+      $('#menuExpand').text('Expand');
+
+      collapseSearch = true;
+    }}
 
 function toggleViewMode()
 {

@@ -4,15 +4,18 @@ const pgp = require('pg-promise')();
 const db = require('../../db/db');
 //const database = pgp('postgres://Wolphox@localhost:5432/graffiti');
 const database = pgp(process.env.DATABASE_URL);
-
+const graffitiDB = require('./graffitiDB.js')
 router.get('/', function (req, res){
   var error = req.flash('error')[0];
 
   if(!req.session.user){
+
     //res.redirect('sessions/new');
     res.render('./homepage/index', { 'error': error })
+
   } else {
-    res.render('./homepage/index', { 'username': req.session.user.username, 'logged_in' : req.session.user.logged_in });
+    res.render('./homepage/index', { 'username': req.session.user.username, 'logged_in' : req.session.user.logged_in }, graffitiDB.locks);
+    console.log(graffitiDB.locks);
   }
 });
 

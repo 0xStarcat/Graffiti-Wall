@@ -7,6 +7,7 @@ var column;
 var username;
 var paintLogged = false;
 var canvasWrap;
+var lockStatus;
 $('document').ready(function()
 {
   canvasWrap = $('#canvasWrap');
@@ -142,7 +143,7 @@ function resizeTagSize()
    tagWidth = (canvas.width * menuFitMultiplier) * imageSliderMultiplier;
    tagHeight = (canvas.width * menuFitMultiplier) * imageSliderMultiplier;
 
-   console.log(tagWidth, tagHeight, 'TAGS')
+   //console.log(tagWidth, tagHeight, 'TAGS')
    resizeCursorImage()
 }
 
@@ -191,35 +192,49 @@ function adjustBrushSize(){
 //Ajax to server to check if user is logged in or not
 function unlockBrush()
 {
-  $.ajax({
-    'method' : 'GET',
-    'url' : '/unlockBrush',
-    'success' : function(data)
-    {
-      if (data.brushLocked)
-      {
-        brushLocked = true;
-        $('#myCanvas').css('cursor', 'auto');
-        console.log('BRUSH LOCK STATUS', data.brushLocked);
-      } else {
-        brushLocked = false;
 
-        //Get these elements since they will appear if brush unlocked
+  lockStatus = $('#lockStatus').attr('data-id');
+  console.log(lockStatus)
+  if (lockStatus == 'true' || lockStatus == undefined)
+  {
+    brushLocked = true;
+     console.log('LOCK STATUS', brushLocked)
+  } else {
+    brushLocked = false;
 
-         grabUnlockedElements();
-        console.log('BRUSH LOCK STATUS', data.brushLocked);
-      }
-    },
-    'error' : function()
-    {
-      console.log('Could not reach SNAKES to unlock brush');
-    },
-    'complete' : function()
-    {
+     console.log('LOCK STATUS', brushLocked)
+    grabUnlockedElements();
+  }
 
-    }
 
-  })
+  // $.ajax({
+  //   'method' : 'GET',
+  //   'url' : '/unlockBrush',
+  //   'success' : function(data)
+  //   {
+  //     if (data.brushLocked)
+  //     {
+  //       brushLocked = true;
+  //       $('#myCanvas').css('cursor', 'auto');
+  //       console.log('BRUSH LOCK STATUS', data.brushLocked);
+  //     } else {
+  //       brushLocked = false;
+
+  //       //Get these elements since they will appear if brush unlocked
+  //       console.log('BRUSH LOCK STATUS', data.brushLocked);
+  //       grabUnlockedElements();
+  //     }
+  //   },
+  //   'error' : function()
+  //   {
+  //     console.log('Could not reach SNAKES to unlock brush');
+  //   },
+  //   'complete' : function()
+  //   {
+
+  //   }
+
+  // })
 }
 
 function grabUnlockedElements()
@@ -228,8 +243,6 @@ function grabUnlockedElements()
    brushCtx = brushSizeCanvas.getContext("2d");
    brushSizeCanvas.width = window.innerWidth;
    brushSizeCanvas.height = (window.innerHeight);
-
-
 }
 
 function drawBrushExample(){
@@ -447,10 +460,13 @@ function loadImageCoordinates()
           }
           canvasWrap.append(selectionBox);
 
+
           //after all divs are spawned
           //run function to test if any divs are not visible
           //if none are, delete them and delete from database
           //To be completed...
+
+
         })
          toggleViewMode();
         console.log('loaded image coordinates from DB', data)
