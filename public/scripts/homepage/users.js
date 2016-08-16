@@ -25,8 +25,11 @@ function buttonListeners()
   });
   $('.screenshotShare').on('click', function(e)
   {
-    var id = $(this).parent().parent().attr('data-id');
+    var id = $(this).parent().parent().attr('data-id').split('_')[1];
+    var image = $('#'+id).attr('src');
     console.log('Share' + id)
+    shareOnTwitter(image);
+
   });
    $('.screenshotDelete').on('click', function(e)
   {
@@ -37,6 +40,24 @@ function buttonListeners()
     deleteScreenshot(username, id);
   });
 
+}
+
+function shareOnTwitter(img)
+{
+  // var imageData =
+  var url = 'https://upload.twitter.com/1.1/'+img+'/upload.json'
+   $.ajax({
+      'method' : 'POST',
+      'url' : url,
+      'success' : function(data)
+      {
+        conosle.log('twitter image shared!')
+      },
+      'error' :function()
+      {
+        console.log('twitter FAILED');
+      }
+    })
 }
 
 function deleteScreenshot(id, username, element)

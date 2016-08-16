@@ -2,12 +2,16 @@ var brushLocked = true;
 var sliderMove = false;
 var brushSliderMove = false;
 var menuFitMultiplier = 0.25;
-
+var row;
+var column;
+var username;
+var paintLogged = false;
 
 $('document').ready(function()
 {
-  var row = String($('#coordinates').attr('data-id')).substr(0,1);
-  var column = String($('#coordinates').attr('data-id')).substr(1,1);
+  row = String($('#coordinates').attr('data-id')).substr(0,1);
+  column = String($('#coordinates').attr('data-id')).substr(1,1);
+  username = String($('.welcome').attr('data-id'));
   var cursorImage =  $('#cursorImagePreview');
   var url = "/load/"+row+"/"+column;
   getAJAXImage (row, column);
@@ -57,6 +61,9 @@ canvas.height = (window.innerWidth * 0.5625); //16:9 is height 56.25% of width. 
   }
 
 
+  //log painting once per session
+
+
 }
 
 function drawCursor() {
@@ -76,6 +83,13 @@ function drawCursor() {
       var canvasData = canvas.toDataURL("image/png");
 
   }
+
+  if (!paintLogged)
+  {
+    postLog('paint');
+    paintLogged = true;
+  }
+
 }
 
 function clearCanvas(){
@@ -340,5 +354,53 @@ function getAJAXImage (row, column)
       }
     })
   }
+
+  function tagWall()
+{
+    resizeTagSize();
+   var base_image = new Image();
+      base_image.crossOrigin = "Anonymous";
+      //base_image.src = tagURL;
+      previewData = previewCanvas.toDataURL("image/png");
+      base_image.src = previewData;
+      ctx.drawImage(base_image, crosshairX, crosshairY, tagWidth, tagHeight)
+      canvasData = canvas.toDataURL("image/png");  //Save snapshot
+
+      // base_image.onload = function(){
+      //   ctx.drawImage(base_image, crosshairX, crosshairY, tagWidth, tagHeight)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
+      //   canvasData = canvas.toDataURL("image/png");  //Save snapshot
+      // }
+
+      postLog('image');
+}
+
+function postLog(post_type)
+{
+
+  var date = new Date();
+
+  var logData = {
+    'username' : username,
+    'row' : row,
+    'column' : column,
+    'post_type' : post_type,
+    'date' : date
+  }
+  console.log(logData);
+
+  $.ajax({
+    'method' : 'POST',
+    'url' : '/savelog',
+    'data' : logData,
+    'success' : function(data)
+    {
+      console.log('we got post in AJAX')
+    },
+    'error' : function()
+    {
+      console.log('post SNAKES');
+    }
+  })
+}
 
 

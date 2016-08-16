@@ -299,6 +299,14 @@ function saveScreenshot()
       'success' : function(data)
       {
         console.log('Screenshot saved for' + username+'!');
+        $('#myCanvas').animate({
+          'opacity' : '0'
+        }, 250, function()
+        {
+          $('#myCanvas').animate({
+            'opacity' : '1'
+          }, 500)
+        })
       },
       'error' : function()
       {

@@ -30,5 +30,7 @@ CREATE TABLE graffitiLogs (
   id SERIAL PRIMARY KEY,
   username VARCHAR REFERENCES users(username),
   date_posted VARCHAR,
-  message VARCHAR (256)
+  post_type VARCHAR,
+  row VARCHAR NOT NULL,
+  col VARCHAR NOT NULL
 );

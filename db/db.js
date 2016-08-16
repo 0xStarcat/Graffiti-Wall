@@ -1,6 +1,6 @@
 const pgp = require('pg-promise')();
-//const db = pgp('postgres://Wolphox@localhost:5432/graffiti');
-const db = pgp(process.env.DATABASE_URL);
+const db = pgp('postgres://Wolphox@localhost:5432/graffiti');
+//const db = pgp(process.env.DATABASE_URL);
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
@@ -107,7 +107,7 @@ var saveGraffiti = function (req,res, next){
   var data = req.body;
 
 
-  console.log(data);
+  //console.log(data);
   console.log('saving picture...');
   //db.none("INSERT INTO publicGraffiti(grid_block, imageURL) VALUES($1, $2)",["1a", data.image])
   //db.none("UPDATE publicGraffiti SET imageURL = $2 WHERE grid_block = $1",["1a", data.image])

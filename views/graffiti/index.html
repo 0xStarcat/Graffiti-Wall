@@ -55,11 +55,11 @@
   <div class = "" id = navBarWrapper>
   <div id = "linksArea">
     <div id = "loginColumn">
-      <a class = "btn center" href ="/">Home</a>
-      <a class='dropdown-button btn center' href='#' data-activates='dropdown1'>Menu</a>
+      <a class = "btn-large center waves-effect waves-light" href ="/">Home</a>
+      <a class='dropdown-button btn-large center' href='#' data-constrainwidth ="false"  data-activates='dropdown1'>Menu</a>
           <ul id='dropdown1' class='dropdown-content'>
             <li><a href="/screenshots/{{username}}">Screenshots</a></li>
-            <li><a href="#!">two</a></li>
+            <li><a href="/logs/{{row}}/{{column}}">Page Logs</a></li>
             <li class="divider"></li>
             <li><a href="/sessions/logout">Logout</a></li>
           </ul>
@@ -78,8 +78,8 @@
     <div class ="valign-wrapper loginColumn">
     </div>
     <div class ="valign-wrapper loginColumn">
-<!--       <div class = "loginItem">You are logged in. <a href="/sessions/logout">Logout</a></div>
- -->    </div>
+      <div class = "loginItem">You are logged in. <a href="/sessions/logout">Logout</a></div>
+    </div>
   </div>
       {{/logged_in}}
   <div id ="navBarTab">Close Nav-Bar</div>
@@ -117,7 +117,7 @@ depracated
       <input type="range" value = "1" min = "0.5" max = "3" step="0.05" id="brushSizeSlider">
     </div>
   </div>
-  <button class="paletteBox" id="cursorMode">Tag Wall</button>
+  <button class="paletteBox" id="cursorMode">Mode: Paint</button>
   <button class="paletteBox" id="openChooser">Load Image</button>
   {{/isLocked}}
   <div class="paletteBox" id="saveScreenshot">Save Screenshot</div>
@@ -157,13 +157,13 @@ depracated
         <div class="off toggle" id="brightness">
           <label for="brightness-val"><div class="label">Brightness</div></label>
         </div>
-        <input type="range" id="brightness-val" name="brightness" min="0" max="2" value="1" step=".05" />
+        <input type="range" id="brightness-val" name="brightness" min="0.5" max="1.5" value="1" step=".05" />
       </div>
       <div class="control">
         <div class="off toggle" id="contrast">
           <label for="contrast-val"><div class="label">Contrast</div></label>
         </div>
-        <input type="range" id="contrast-val" name="contrast" min="0" max="2" value="1" step=".05" />
+        <input type="range" id="contrast-val" name="contrast" min="0.5" max="1.5" value="1" step=".05" />
       </div>
       <div class="control">
         <div class="off toggle" id="grayscale">
@@ -183,7 +183,7 @@ depracated
         <div class="off toggle" id="invert">
           <label for="invert-val"><div class="label">Invert</div></label>
         </div>
-        <input type="range" id="invert-val" name="invert" min="0" max="1" value="0" step=".05" />
+        <input type="range" id="invert-val" name="invert" min="0" max="1" value="0" step="1" />
       </div>
       <div class="control">
         <div class="off toggle" id="opacity">

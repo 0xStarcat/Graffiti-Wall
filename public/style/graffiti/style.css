@@ -48,6 +48,10 @@ z-index: -1;
 
 }
 
+#saveScreenshot{
+  background: rgba(222,150,150,1);
+}
+
 #palettePicker{
   pointer-events: auto;
 }

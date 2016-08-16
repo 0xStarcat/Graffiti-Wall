@@ -42,11 +42,19 @@
       {{/logged_in}}
       {{#logged_in}}
       <div class="border-container">
+       <legend>Welcome {{username}}!</legend>
+          <div id = "loginColumn">
+            <a class='dropdown-button btn-large center' href='#' data-constrainwidth ="false" data-activates='dropdown1'>Menu</a>
+                <ul id='dropdown1' class='dropdown-content'>
+                  <li><a href="/screenshots/{{username}}">Screenshots</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/sessions/logout">Logout</a></li>
+                </ul>
+
+        </div>
 
 
-        <form class="form-horizontal" action="/sessions/create" method="post">
-          <fieldset>
-            <legend>Welcome {{username}}!</legend>
+
             <div class="inputRow">
 
               <div class="form-group">
@@ -60,8 +68,7 @@
 
             </div>
           </div>
-          </fieldset>
-        </form>
+
 
 
       </div>

@@ -117,25 +117,7 @@ function update()
 
 
 
-function tagWall()
-{
-    resizeTagSize();
-   var base_image = new Image();
-      base_image.crossOrigin = "Anonymous";
-      //base_image.src = tagURL;
-      previewData = previewCanvas.toDataURL("image/png");
-      base_image.src = previewData;
-      ctx.drawImage(base_image, crosshairX, crosshairY, tagWidth, tagHeight)
-      canvasData = canvas.toDataURL("image/png");  //Save snapshot
 
-      // base_image.onload = function(){
-      //   ctx.drawImage(base_image, crosshairX, crosshairY, tagWidth, tagHeight)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
-      //   canvasData = canvas.toDataURL("image/png");  //Save snapshot
-      // }
-
-
-
-}
 
 
 function inputDownFunction(event)
