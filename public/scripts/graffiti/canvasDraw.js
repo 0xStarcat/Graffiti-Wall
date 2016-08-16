@@ -6,9 +6,10 @@ var row;
 var column;
 var username;
 var paintLogged = false;
-
+var canvasWrap;
 $('document').ready(function()
 {
+  canvasWrap = $('#canvasWrap');
   row = String($('#coordinates').attr('data-id')).substr(0,1);
   column = String($('#coordinates').attr('data-id')).substr(1,1);
   username = String($('.welcome').attr('data-id'));
@@ -18,7 +19,7 @@ $('document').ready(function()
   unlockBrush();
   window.onresize = windowResizeFunction;
   document.addEventListener("resize", windowResizeFunction, false);
-
+  loadImageCoordinates();
 });
 
 
@@ -30,6 +31,10 @@ ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
 canvas.width = window.innerWidth;
 canvas.height = (window.innerWidth * 0.5625); //16:9 is height 56.25% of width. 4:3 is height 75% of width.
 
+canvasWrap.css({
+  'width' : canvas.width,
+  'height' :canvas.height,
+});
 
 //##Resize Dependent tag dimensions
 //need to resize the preview BOX (for when search window is open)
@@ -372,6 +377,7 @@ function getAJAXImage (row, column)
       // }
 
       postLog('image');
+
 }
 
 function postLog(post_type)
@@ -379,12 +385,21 @@ function postLog(post_type)
 
   var date = new Date();
 
+   var imageCenterX = (crosshairX / canvas.width); //Get a percentage from LEFT edge of canvas
+    var imageCenterY = (crosshairY / canvas.height); //Get a percentage from TOP edge of canvas
+    var imageWidth = (tagWidth / canvas.width); //Get the width as a percentage of the canvas width
+    var imageHeight = (tagHeight / canvas.height); //Get a height as a percentage of the canvas height
+
   var logData = {
     'username' : username,
     'row' : row,
     'column' : column,
     'post_type' : post_type,
-    'date' : date
+    'date' : date,
+    'imageCenterX' : imageCenterX,
+    'imageCenterY' : imageCenterY,
+    'imageWidth' : imageWidth,
+    'imageHeight' : imageHeight,
   }
   console.log(logData);
 
@@ -403,4 +418,57 @@ function postLog(post_type)
   })
 }
 
+function loadImageCoordinates()
+  {
+
+
+
+    $.ajax({
+      'method' : 'GET',
+      'url' : '/imageCoordinates/'+row+'/'+column,
+      'success': function(data)
+      {
+        data.forEach(function(box)
+        {
+          var boxLeft = box.imagecenterx*100;
+          var boxTop = box.imagecentery*100;
+          var boxWidth = box.imagewidth*100;
+          var boxHeight = box.imageheight*100;
+          var username = box.username;
+          var zindex = 0;
+
+
+          // <a class="btn tooltipped"  >Hover me!</a>
+          if (boxLeft < 10)
+          {
+            var selectionBox = $('<a class="selectionBox tooltipped" data-position="right" data-delay="50" data-tooltip="Tagged by: '+username+'" html="true" style="display:inline;position:absolute;left:'+boxLeft+'%;top:'+boxTop+'%;width:'+boxWidth+'%;height:'+boxHeight+'%;z-index:'+zindex+'"></a>');
+          } else {
+            var selectionBox = $('<a class="selectionBox tooltipped" data-position="left" data-delay="50" data-tooltip="Tagged by: '+username+'" html="true" style="display:inline;position:absolute;left:'+boxLeft+'%;top:'+boxTop+'%;width:'+boxWidth+'%;height:'+boxHeight+'%;z-index:'+zindex+'"></a>');
+          }
+          canvasWrap.append(selectionBox);
+
+          //after all divs are spawned
+          //run function to test if any divs are not visible
+          //if none are, delete them and delete from database
+          //To be completed...
+        })
+         toggleViewMode();
+        console.log('loaded image coordinates from DB', data)
+        //var selectionBox = $('<div class="selectionBox" style="display:fixed"></div>');
+
+      },
+      'error' : function()
+      {
+        console.log('could not load image coordinate data from DB')
+      },
+      'complete' : function()
+      {
+         $('.tooltipped').tooltip({delay: 50});
+
+      }
+    });
+
+
+
+  }
 

@@ -6,14 +6,17 @@ var navBar;
 var mobilePalette = false;
 var imgurSearch = false;
 var collapseSearch = false;
+var viewMode = true;
 var imageSliderMultiplier = 0.5;
 
 $('document').ready(function()
 {
 
   $('select').material_select();
+
   navBar = $('#navBarWrapper');
   wrapper = $('#paletteOuter');
+
 
   cursorModeButton = $('#cursorMode');
   if (!brushLocked)
@@ -160,6 +163,11 @@ function eventListeners()
     moveNavBar();
   });
 
+  $('#viewTagsButton').on('click', function(e)
+  {
+    toggleViewMode();
+  });
+
 //Depracated
    $('#loadCanvas').on('click', function(e)
   {
@@ -170,7 +178,7 @@ function eventListeners()
 //Move the Palette
    $('#paletteMoveTab').on('mousedown',function(e)
     {
-      console.log('working')
+
       mobilePalette = true;
 
     });
@@ -248,6 +256,23 @@ function eventListeners()
   })
 
 };
+
+function toggleViewMode()
+{
+   if (viewMode)
+    {
+      $('.selectionBox').addClass('hide');
+      $('#viewTab').addClass('hide');
+      $('#viewTagsButton').text('View Tags');
+      viewMode = false;
+    }else {
+
+      $('.selectionBox').removeClass('hide');
+      $('#viewTab').removeClass('hide');
+      $('#viewTagsButton').text('Hide Tags');
+      viewMode = true;
+    }
+}
 
 function changeCursorMode()
 {

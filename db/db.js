@@ -113,6 +113,7 @@ var saveGraffiti = function (req,res, next){
   //db.none("UPDATE publicGraffiti SET imageURL = $2 WHERE grid_block = $1",["1a", data.image])
   db.none("UPDATE publicGraffiti SET imageURL = $3 WHERE row = $1 AND col = $2",[data.row,data.column, data.image]).then(function(data)
   {
+
     console.log('picture saved!')
     res.end();
   })
@@ -137,9 +138,7 @@ var loadHomepageGraffiti = function (req,res,next)
   db.any('SELECT * FROM publicGraffiti').then(function(data)
     {
       //console.log(data);
-
        res.send(data);
-
     });
 }
 
@@ -157,7 +156,6 @@ var saveScreenshot = function(req,res,next)
     console.log('screenshot saved to database!');
     res.end();
   })
-
 }
 
 

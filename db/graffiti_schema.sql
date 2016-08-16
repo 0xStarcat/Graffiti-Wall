@@ -31,6 +31,11 @@ CREATE TABLE graffitiLogs (
   username VARCHAR REFERENCES users(username),
   date_posted VARCHAR,
   post_type VARCHAR,
+  imageURL TEXT,
   row VARCHAR NOT NULL,
-  col VARCHAR NOT NULL
+  col VARCHAR NOT NULL,
+  imageCenterX DOUBLE PRECISION,
+  imageCenterY DOUBLE PRECISION,
+  imageWidth DOUBLE PRECISION,
+  imageHeight DOUBLE PRECISION
 );

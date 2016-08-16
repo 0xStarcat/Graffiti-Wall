@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const pgp = require('pg-promise')();
 const db = require('../../db/db');
-const database = pgp('postgres://Wolphox@localhost:5432/graffiti');
+//const database = pgp('postgres://Wolphox@localhost:5432/graffiti');
+const database = pgp(process.env.DATABASE_URL);
 
 const https = require('https');
 var request = require('request');
@@ -243,11 +244,16 @@ router.post('/savelog', function(req,res)
   var row = data.row;
   var column = data.column;
   var post_type = data.post_type;
+  var img_url = '';
   var date = data.date;
+  var imageCenterX = Number(Number(data.imageCenterX).toFixed(14));
+  var imageCenterY = Number(Number(data.imageCenterY).toFixed(14));
+  var imageWidth = Number(Number(data.imageWidth).toFixed(14));
+  var imageHeight = Number(Number(data.imageHeight).toFixed(14));
 
-  console.log('Got log data', data);
+  console.log('Got log data', data, typeof imageCenterX);
 
-  database.none('INSERT INTO graffitiLogs(username,date_posted,post_type,row,col) VALUES($1, $2, $3, $4, $5)',[username,date,post_type,row,column])
+  database.none('INSERT INTO graffitiLogs(username,date_posted,post_type,imageURL,row,col,imageCenterx,imageCentery,imagewidth,imageheight) VALUES($1, $2, $3, $4, $5,$6,$7,$8,$9,$10)',[username,date,post_type,img_url,row,column, imageCenterX,imageCenterY,imageWidth, imageHeight])
   .catch(function()
   {
     console.log('could NOT insert a log');
@@ -287,6 +293,23 @@ router.get('/logs/:row/:column', function(req,res)
   })
 
 });
+
+router.get('/imageCoordinates/:row/:column', function(req,res)
+{
+  var row = req.params.row;
+  var column = req.params.column;
+  database.any('SELECT * FROM graffitiLogs WHERE row =$1 AND col =$2',[row, column])
+  .catch(function(err)
+  {
+    console.log('backend DB coordinates failed', err)
+    res.end();
+  }).then(function(data)
+  {
+
+    res.send(data);
+  })
+})
+
 
 
 router.post('/saveScreenshot', db.saveScreenshot, function(req,res)

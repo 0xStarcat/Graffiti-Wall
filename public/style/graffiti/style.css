@@ -8,8 +8,8 @@ position: fixed;
 top: 0px;
 left: 0px;
 
-border: 3px orange solid;
--webkit-user-select: none;
+/* border: 3px orange solid;
+ */-webkit-user-select: none;
 -moz-user-select: none;
 -ms-user-select: none;
 user-select: none;
@@ -17,6 +17,13 @@ text-decoration: none;
 cursor: crosshair;
 z-index: -1;
 
+}
+#canvasWrap {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 
@@ -160,6 +167,8 @@ z-index: -1;
   user-select: none;
 
 }
+
+
 
 .colorSample {
   height: 20px;
@@ -570,7 +579,7 @@ legend{
 
 
 .imageResult:hover{
-  border-style: dotted; ;
+  border-style: dotted;
 }
 .imageResult:active{
   opacity: 0.9;
@@ -583,18 +592,14 @@ legend{
 }
 
 #navBarWrapper{
-  width:  100vw;
   height:  100px;
-  position:  fixed;
+  position:  relative;
   top:  0;
   left:  0;
   border-bottom:  8px;
   border-left:  8px;
   background-color:  rgba(111,222,166,1);
-  display:  flex;
-  flex-direction:  row;
-  user-select: inherit;
-  text-decoration: inherit;
+
   cursor: pointer;
   z-index:  1;
   border:  1px black solid;
@@ -611,7 +616,7 @@ legend{
   align-self:  flex-end;
 }
 
-.logo {
+/* .logo {
   width:  100vw;
   height:  100%;
   text-align:  center;
@@ -622,7 +627,7 @@ legend{
   padding:  0;
   z-index:  1;
   pointer-events: none;
-}
+} */
 
 .loginColumn{
   width:  100%;
@@ -680,10 +685,11 @@ label.myLabel{
   margin: 0px 8px;
 }
 
-#navBarTab{
+
+.tab{
   align-self: auto;
   position:  absolute;
-  background: lightyellow;
+
   opacity:  0.5;
   border-left:  1px;
   border-right: 1px;
@@ -693,11 +699,29 @@ label.myLabel{
   border-color:  black;
   border-radius:  0px 0px 8px 8px;
   top:  99px;
-  left:  40vw;
-  width:  20vw;
+
   height:  20px;
   text-align:  center;
   z-index:  2;
+}
+
+#navBarTab{
+   left:  40vw;
+  width:  20vw;
+  background: lightyellow;
+}
+
+#lockedTab{
+   left:  5vw;
+  width:  30vw;
+  background: salmon;
+  color: black;
+}
+
+#viewTab{
+   left:  70vw;
+  width:  20vw;
+  background: lightgreen;
 }
 
 .welcome{
@@ -749,6 +773,14 @@ label{
 #upload{
   /* z-index: -3; */
   display:  none;
+}
+
+
+
+.selectionBox {
+  border: 1px solid black;
+  box-sizing: border-box;
+  pointer-events: auto;
 }
 
 

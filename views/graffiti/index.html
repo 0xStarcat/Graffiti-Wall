@@ -8,82 +8,82 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
  -->
- <script src="/scripts/jquery.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  <script src="/scripts/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
   <script src="/scripts/jscolor.js"></script>
 </head>
 <body>
 
  {{^logged_in}}
 <div class = "" id = navBarWrapper>
-  <div id = "linksArea">
-    <a class = "btn center" href ="/">Home</a>
-    <div class = "loginColumn">
-      <p data-id={{row}}{{column}} id = "coordinates">Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></p>
-    </div>
-  </div>
+  <div class = "row">
 
-  <form class="form-horizontal graffitiLogin" action="/sessions/create" method="post">
-    <fieldset>
-      <input type="hidden" name="row" value="{{row}}">
-      <input type="hidden" name="column" value="{{column}}">
 
-      <div class = "loginColumn">
-        <div class ="loginRow">
+    <form class="col l12 m12 center-align form-horizontal graffitiLogin" action="/sessions/create" method="post">
+      <fieldset>
+        <input type="hidden" name="row" value="{{row}}">
+        <input type="hidden" name="column" value="{{column}}">
 
-          <div class="form-group">
-            <input name="username" type="text" class="validate myInput" id="inputUsername" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <input name="password" type="password" class="validate myInput" id="inputPassword" placeholder="Password">
-          </div>
-          <button type="submit" class="btn center">Login</button>
-         </div>
-         {{#error}}
-            <div class="red-text accent-3">
-              <strong>Uh Oh!<strong> {{error}}
+        <div class = "loginColumn">
+          <div class ="loginRow">
+
+            <div class="form-group">
+              <input name="username" type="text" class="validate myInput" id="inputUsername" placeholder="Username">
             </div>
-          {{/error}}
-         <div id ="noAccount">No account? <a href="/users/new">Sign Up!</a></div>
+            <div class="form-group">
+              <input name="password" type="password" class="validate myInput" id="inputPassword" placeholder="Password">
+            </div>
+            <button type="submit" class="btn center">Login</button>
+           </div>
+        </div>
+      </fieldset>
+    </form>
+    <a class = "btn center waves-effect col l2 m2 waves-light" href ="/">Home</a>
+
+      <div class="col l4 m4 red-text accent-3">
+       {{#error}}
+        <strong>Uh Oh!</strong> {{error}}
+        {{/error}}
       </div>
-    </fieldset>
-  </form>
+      <div class = "col l13 m3 center-align">
+        <p data-id={{row}}{{column}} id = "coordinates">Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></p>
+    </div>
+    <div class ="col l3 m3" id ="noAccount">No account? <a href="/users/new">Sign Up!</a></div>
+  </div>
+</div>
+  <
   {{/logged_in}}
 
 
   {{#logged_in}}
   <div class = "" id = navBarWrapper>
-  <div id = "linksArea">
-    <div id = "loginColumn">
-      <a class = "btn-large center waves-effect waves-light" href ="/">Home</a>
-      <a class='dropdown-button btn-large center' href='#' data-constrainwidth ="false"  data-activates='dropdown1'>Menu</a>
+  <div class="row">
+    <div data-id={{username}} class = "col l12 m12 center-align valign logo welcome">Welcome, {{username}}!</div>
+
+      <a class = "btn col l2 m2 waves-effect waves-light" href ="/">Home</a>
+      <a class="btn waves-effect col l2 m2 waves-light" id = "viewTagsButton" href='#'>View Tags</a>
+      <a class='dropdown-button btn col l2 m2 center' href='#' data-constrainwidth ="false"  data-activates='dropdown1'>Menu</a>
           <ul id='dropdown1' class='dropdown-content'>
             <li><a href="/screenshots/{{username}}">Screenshots</a></li>
             <li><a href="/logs/{{row}}/{{column}}">Page Logs</a></li>
+
             <li class="divider"></li>
             <li><a href="/sessions/logout">Logout</a></li>
           </ul>
-    </div>
-    <div class = "loginColumn">
-      <p data-id={{row}}{{column}} id = "coordinates">Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></p>
-       {{#isLocked}}
-      <div class ="row valign-wrapper">
-         <p class = "red-text accent-3 locked col valign">THIS PAGE IS LOCKED BY ANOTHER USER</p>
-      </div>
-      {{/isLocked}}
-    </div>
-  </div>
-  <div data-id={{username}} class = "valign logo welcome">Welcome, {{username}}!</div>
-  <div class ="loginRow">
-    <div class ="valign-wrapper loginColumn">
-    </div>
-    <div class ="valign-wrapper loginColumn">
-      <div class = "loginItem">You are logged in. <a href="/sessions/logout">Logout</a></div>
-    </div>
-  </div>
+
+    <p class ="col l13 m3 center-align"= data-id={{row}}{{column}} id = "coordinates">Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></p>
+    <div class = "col l3 m3 offset-6">You are logged in. <a href="/sessions/logout">Logout</a></div>
+
       {{/logged_in}}
-  <div id ="navBarTab">Close Nav-Bar</div>
+    {{#isLocked}}
+      <div class = "tab valign" id ="lockedTab">PAGE BEING TAGGED BY ANOTHER USER</div>
+    {{/isLocked}}
+    <div class = tab id ="navBarTab">Close Nav-Bar</div>
+    <div class = tab id ="viewTab">In View-Tags Mode</div>
+  </div>
 </div>
+
+<div id = canvasWrap></div>
 <canvas id="myCanvas"></canvas>
 <img id="cursorImagePreview" src="">
 <!-- <div id="palette">
