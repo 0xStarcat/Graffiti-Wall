@@ -49,7 +49,7 @@ router.post('/load/:row/:column', db.loadGraffiti, function(req,res)
 });
 
 
-//Load the graffiti page from clicking on homepage square.
+//Load the  graffiti page from clicking on homepage square.
 router.get('/graffiti/:row/:column', function(req,res)
 {
   var row = req.params.row;

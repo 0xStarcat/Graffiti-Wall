@@ -43,31 +43,28 @@
       {{#logged_in}}
       <div class="border-container">
        <legend>Welcome {{username}}!</legend>
-          <div id = "loginColumn">
-            <a class='dropdown-button btn-large center' href='#' data-constrainwidth ="false" data-activates='dropdown1'>Menu</a>
+          <div class = row id = "">
+          <h4 class = "col l12 m12 center-align" id ="banner"> Welcome to Graffiti Wall!</h4>
+            <a class='dropdown-button btn center col l2 m2' href='#' data-constrainwidth ="false" data-activates='dropdown1'>Menu</a>
                 <ul id='dropdown1' class='dropdown-content'>
                   <li><a href="/screenshots/{{username}}">Screenshots</a></li>
                   <li class="divider"></li>
                   <li><a href="/sessions/logout">Logout</a></li>
                 </ul>
-
+         <p class = "col l4 m4 offset-l4">You are logged in. <a href="/sessions/logout">Logout</a></p>
         </div>
 
 
 
-            <div class="inputRow">
-
-              <div class="form-group">
-              </div>
-              <div class="form-group">
-              </div>
-              <div class="form-group">
 
 
-                <p>You are logged in. <a href="/sessions/logout">Logout</a></p>
 
-            </div>
-          </div>
+
+
+
+
+
+
 
 
 

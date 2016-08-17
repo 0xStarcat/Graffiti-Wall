@@ -8,7 +8,7 @@ router.get('/new', function(req, res){
 });
 
 router.post('/create', db.login, function(req, res){
-  console.log('login info received' , req.body);
+  //console.log('login info received' , req.body);
   if(res.error)
     {
       console.log('error on LOGIN '+ res.error);
@@ -28,7 +28,7 @@ router.post('/create', db.login, function(req, res){
         } else{
           res.redirect('/graffiti/'+req.body.row+'/'+req.body.column);
         }
-        console.log('POST SESSIONS/CREATE', req.body);
+        //console.log('POST SESSIONS/CREATE', req.body);
     }
 
 });
