@@ -162,7 +162,7 @@ function showPreviewImage(img_url)
   //#
   //create a new canvas
   //#
-
+  $('.previewProgress').removeClass('hide');
   previewCanvas.width = previewBoxWidth;
   previewCanvas.height = previewBoxHeight;
   hiddenPreviewCanvas.width = previewBoxWidth;
@@ -179,14 +179,15 @@ function showPreviewImage(img_url)
   //slap image to the canvas
   //#
 
-      preview_64bit.onload = function(){
-        previewContext.drawImage(preview_64bit, 0, 0, previewCanvas.width, previewCanvas.height)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
-        previewData = previewCanvas.toDataURL("image/png");
-        hiddenPreviewContext.drawImage(preview_64bit, 0, 0, previewCanvas.width, previewCanvas.height)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
-        pixels = hiddenPreviewContext.getImageData(0,0,previewCanvas.width,previewCanvas.height); //Moved to imgurAjax.showPreviewImage(img_url)-- wolphox
-        Filters.changeAll();
-        //console.log(previewData);
-      }
+  preview_64bit.onload = function(){
+    previewContext.drawImage(preview_64bit, 0, 0, previewCanvas.width, previewCanvas.height)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
+    previewData = previewCanvas.toDataURL("image/png");
+    hiddenPreviewContext.drawImage(preview_64bit, 0, 0, previewCanvas.width, previewCanvas.height)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
+    pixels = hiddenPreviewContext.getImageData(0,0,previewCanvas.width,previewCanvas.height); //Moved to imgurAjax.showPreviewImage(img_url)-- wolphox
+    Filters.changeAll();
+    $('.previewProgress').addClass('hide');
+    //console.log(previewData);
+  }
 
   $('#cursorImagePreview').attr('src', previewData);
   // previewImage = $('#previewImage');

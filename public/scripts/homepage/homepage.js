@@ -30,6 +30,14 @@ function ajaxHomepage()
 
 function displayImages(data)
 {
+
+  var progressBars = $(".progressWrapper");
+
+  $(".progressWrapper").each(function(bar)
+  {
+    $(this).hide();
+  });
+
   data.forEach(function(image){
     var row = image.row;
     var col = image.col;

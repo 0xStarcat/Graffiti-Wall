@@ -21,6 +21,7 @@ $('document').ready(function()
   window.onresize = windowResizeFunction;
   document.addEventListener("resize", windowResizeFunction, false);
   loadImageCoordinates();
+
 });
 
 
@@ -130,10 +131,23 @@ function sizePreviewBox()
       'width' : previewBoxWidth+'px'
     })
 
+  var $progressWrapper = $('.previewProgress')
+  $progressWrapper.css({
+    'top' : $previewCanvas.position().top+'px',
+    'left' : $previewCanvas.position().left+'px',
+    'height' : previewBoxHeight+'px',
+    'width' : previewBoxWidth+'px'
+  })
+
   //pixels = hiddenPreviewCanvas.getImageData(0,0,previewCanvas.width,previewCanvas.height); //Moved to imgurAjax.showPreviewImage(img_url)-- wolphox
 
+  if (tagURL == undefined)
+  {
+    $('.previewProgress').addClass('hide');
+  } else{
+    showPreviewImage(tagURL);
+  }
 
-  showPreviewImage(tagURL);
 
   resizeTagSize()
 }
@@ -325,7 +339,7 @@ function getAJAXImage (row, column)
           canvasData = canvas.toDataURL("image/png");
           };
           //data = canvas.toDataURL("image/png");  //Save snapshot
-
+          $('.graffitiProgress').hide();
       },
       'error' : function()
       {

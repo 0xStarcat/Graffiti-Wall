@@ -17,9 +17,8 @@
  {{^logged_in}}
 <div class = "" id = navBarWrapper>
   <div class = "row">
-
     <a class = "btn center waves-effect col l2 m2 waves-light" href ="/">Home</a>
-    <form class="col l10 m10 offset-l2 form-horizontal graffitiLogin" action="/sessions/create" method="post">
+    <form class="col l9 m9 form-horizontal graffitiLogin" action="/sessions/create" method="post">
       <fieldset>
         <input type="hidden" name="row" value="{{row}}">
         <input type="hidden" name="column" value="{{column}}">
@@ -153,6 +152,7 @@ depracated
     <div id="previewBox">
         <img id="previewImage"></img>
       </div>
+  <div class = "progressWrapper previewProgress"><div class="progress"><div class="indeterminate"></div></div></div>
   </div>
   <div class = controlsWrapper>
     <div class = "imageControls">
@@ -192,7 +192,7 @@ depracated
         <div class="off toggle" id="opacity">
           <label for="opacity-val"><div class="label">Opacity</div></label>
         </div>
-        <input type="range" id="opacity-val" name="opacity" min="0" max="1" value="1" step=".05" />
+        <input type="range" id="opacity-val" name="opacity" min="0.2" max="1" value="1" step=".05" />
       </div>
       <div class="control">
         <div class="off toggle" id="saturate">
@@ -241,9 +241,12 @@ depracated
     <button type = "none" class = "valign btn-large col l1 m1" id="imageSearchButton">Submit</button>
   </div>
   <div id="galleryWrapper">
+
   </div>
   <div id = "paginationRow"></div>
 </div>
+
+<div class = "progressWrapper graffitiProgress"><div class="progress"><div class="indeterminate"></div></div></div>
 </body>
 
   <script type=text/javascript src = /scripts/script.js></script>

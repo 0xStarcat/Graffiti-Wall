@@ -80,6 +80,8 @@ function eventListeners()
        $("#imageSelectionWrapper").addClass("hide");
 
     }
+    sizePreviewBox()
+    $('.previewProgress').addClass('hide');
   });
 
 
@@ -89,7 +91,7 @@ function eventListeners()
     var searchTerm;
     var popularSearch = false;
     var sort = $('#sortSelectValue').val();
-
+    $('.previewProgress').addClass('hide');
     var searchType = $('#searchSelectValue').val();
 
 

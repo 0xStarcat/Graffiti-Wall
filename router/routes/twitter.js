@@ -34,8 +34,27 @@ var client = new Twitter({
 
 router.post('/tweet', function(req,res)
 {
+   // var oauth = new OAuth.OAuth(
+   //    'https://api.twitter.com/oauth/request_token',
+   //    'https://api.twitter.com/oauth/access_token',
+   //    twitterAPIKey,
+   //    twitterAPISecret,
+   //    '1.0A',
+   //    null,
+   //    'HMAC-SHA1'
+   //  );
+   //  oauth.get(
+   //    'https://api.twitter.com/1.1/trends/place.json?id=23424977',
+   //    'your user token for this app', //test user token
+   //    'your user secret for this app', //test user secret
+   //    function (e, data, res){
+   //      if (e) console.error(e);
+   //      console.log(require('util').inspect(data));
+   //      done();
+   //    });
 
-
+//https://dev.twitter.com/web/sign-in/implementing
+//https://dev.twitter.com/oauth/reference/post/oauth/request_token
 
   var data = req.body;
   var image = data.imageURL.replace('data:image/png;base64', "");
