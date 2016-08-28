@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-
   </head>
   <body>
     <div class="container main-container">
@@ -22,24 +21,17 @@
           </ul>
       <a class = "valign col l4 m4 left-align" href="/sessions/logout">Logout</a>
     </div>
-
       <div class="border-container">
-
         <div class="logsWrapper">
           <ul>
-
           {{#data}}
             <li class ="logItem">
               <p class='logText'><span>{{username}}</span> added <span>{{post_type}}</span> to grid {{row}}{{column}} on <span>{{date_posted}}</span></p>
             </li>
           {{/data}}
-
-
           </ul>
         </div>
       </div>
     </div>
   </body>
-      <!-- <script type=text/javascript src = /scripts/homepage/users.js></script> -->
-
 </html>

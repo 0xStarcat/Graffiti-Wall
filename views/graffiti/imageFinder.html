@@ -1,0 +1,96 @@
+<div class="hide" id="imageSelectionWrapper">
+  <button class="exitWindowButton" id="">X</button>
+  <div id="previewWrapper">
+    <canvas id="previewCanvas"></canvas>
+    <canvas id="originalPixels"></canvas>
+    <div id="previewBox">
+      <img id="previewImage"></img>
+    </div>
+    <div class = "progressWrapper previewProgress"><div class="progress"><div class="indeterminate"></div></div></div>
+  </div>
+  <div class = controlsWrapper>
+    <div class = "imageControls">
+      <div class="control">
+        <div class="off toggle" id="brightness">
+          <label for="brightness-val"><div class="label">Brightness</div></label>
+        </div>
+        <input type="range" id="brightness-val" name="brightness" min="0.5" max="1.5" value="1" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="contrast">
+          <label for="contrast-val"><div class="label">Contrast</div></label>
+        </div>
+        <input type="range" id="contrast-val" name="contrast" min="0.5" max="1.5" value="1" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="grayscale">
+          <label for="grayscale-val"><div class="label">Grayscale</div></label>
+        </div>
+        <input type="range" id="grayscale-val" name="grayscale" min="0" max="1" value="0" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="hue">
+          <label for="hue-val"><div class="label">Hue</div></label>
+        </div>
+        <input type="range" id="hue-val" name="hue" min="0" max="360" value="0" step="10" />
+      </div>
+    </div>
+    <div class = "imageControls">
+      <div class="control">
+        <div class="off toggle" id="invert">
+          <label for="invert-val"><div class="label">Invert</div></label>
+        </div>
+        <input type="range" id="invert-val" name="invert" min="0" max="1" value="0" step="1" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="opacity">
+          <label for="opacity-val"><div class="label">Opacity</div></label>
+        </div>
+        <input type="range" id="opacity-val" name="opacity" min="0.2" max="1" value="1" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="saturate">
+          <label for="saturate-val"><div class="label">Saturate</div></label>
+        </div>
+        <input type="range" id="saturate-val" name="saturate" min="0" max="2" value="1" step=".05" />
+      </div>
+      <div class="control">
+        <div class="off toggle" id="sepia">
+          <label for="sepia-val"><div class="label">Sepia</div></label>
+        </div>
+        <input type="range" id="sepia-val" name="sepia" min="0" max="1" value="0" step=".05" />
+      </div>
+    </div>
+  </div>
+  <div class = "row imageSearchRow valign-wrapper" id ="topSearch">
+    <div class ="input-field col l4 m4 valign" id =searchSelect>
+        <select id="searchSelectValue">
+          <option value = "search1" id="">Search by Text</option>
+          <option value = "search2" id="">See What's Hot</option>
+        </select>
+    </div>
+    <button class = "btn-large col l1 m1" id="uploadButton">Upload Image</button>
+     <input type="file" id="upload" name="upload" />
+    <button class = "btn-large col l1 m1" id="reset">Reset</button>
+
+      <div class = "col l4 m4">
+        <label for="imageSlider"><div class="align-right label">Image Size</div></label>
+        <input type="range"  min="10" max="100" id="imageSlider" value="50">
+      </div>
+    <button type = "none" class = "valign btn-large col l1 m1" id="menuExpand">Collapse</button>
+  </div>
+  <div class = "row imageSearchRow valign-wrapper" id ="bottomSearch">
+    <input class = "searchText col l5 m5 valign" placeholder = "SearchImages" id="imageSearchBox"></input>
+    <div class = "hide valign align-left searchHot col l5 m5" id = "popularSearch">Search Popular Images</div>
+    <div class ="valign input-field col l4 m4" id =sortSelect>
+        <legend>Sort by:</legend>
+        <select id ="sortSelectValue">
+          <option value = "searchViral" id="">Viral</option>
+          <option value = "searchAllTime" id="">Top All Time</option>
+          <option value = "searchThisWeek" id="">Top This Week</option>
+        </select>
+    </div>
+    <button type = "none" class = "valign btn-large col l1 m1" id="imageSearchButton">Submit</button>
+  </div>
+  <div id="galleryWrapper"></div>
+</div>

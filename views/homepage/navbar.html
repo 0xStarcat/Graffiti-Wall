@@ -1,0 +1,41 @@
+<div class="border-container">
+{{^logged_in}}
+  <form class="form-horizontal" action="/sessions/create" method="post">
+    <fieldset>
+      <legend>Login {{username}}</legend>
+      <div class="inputRow">
+        <label for="inputUsername" class="myLabel">Username</label>
+        <div class="form-group">
+          <input name="username" type="text" class="validate myInput" id="inputUsername" placeholder="Username">
+        </div>
+        <label for="inputPassword" class="myLabel">Password</label>
+        <div class="form-group">
+          <input name="password" type="password" class="validate myInput" id="inputPassword" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Login</button>
+          <p>No account?<a href="/users/new">Sign Up!</a></p>
+        </div>
+      </div>
+    {{#error}}
+    <div class="red-text accent-3">
+      <strong>Uh Oh!<strong> {{error}}
+    </div>
+    {{/error}}
+    </fieldset>
+  </form>
+{{/logged_in}}
+{{#logged_in}}
+ <legend>Welcome {{username}}!</legend>
+  <div class = row id = "">
+  <h4 class = "col l12 m12 center-align" id ="banner"> Welcome to Graffiti Wall!</h4>
+    <a class='dropdown-button btn center col l2 m2' href='#' data-constrainwidth ="false" data-activates='dropdown1'>Menu</a>
+      <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="/screenshots/{{username}}">Screenshots</a></li>
+        <li class="divider"></li>
+        <li><a href="/sessions/logout">Logout</a></li>
+      </ul>
+    <p class = "col l4 m4 offset-l4">You are logged in. <a href="/sessions/logout">Logout</a></p>
+  </div>
+{{/logged_in}}
+</div>

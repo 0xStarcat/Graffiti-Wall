@@ -1,0 +1,28 @@
+<div id = "paletteOuter">
+  <div id ="paletteMoveTab">Move</div>
+  <div id = "paletteBoxWrapper">
+    {{^isLocked}}
+    <button
+      class="jscolor { onFineChange:'pickerColor(this)'} paletteBox"
+      id = "palettePicker"
+      value = 'FFFFFF'
+      style="border:2px outset black">
+      #000000
+    </button>
+    <div class= "hide" id ="paletteDocking">
+      <div class="paletteBox" id="paletteDock"></div>
+    </div>
+    <button class="paletteBox" id="sizeSlider">Brush Size
+      <canvas id="brushExampleCanvas"></canvas>
+    </button>
+    <div class = "hide" id ="brushAdjustDocking">
+      <div id = "brushAdjustDock">
+        <input type="range" value = "1" min = "0.5" max = "3" step="0.05" id="brushSizeSlider">
+      </div>
+    </div>
+    <button class="paletteBox" id="cursorMode">Mode: Paint</button>
+    <button class="paletteBox" id="openChooser">Load Image</button>
+    {{/isLocked}}
+    <div class="paletteBox" id="saveScreenshot">Save Screenshot</div>
+  </div>
+</div>
