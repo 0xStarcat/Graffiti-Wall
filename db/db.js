@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 const salt = bcrypt.genSalt(10);
 
 var login = function(req, res, next){
-  //var email = req.body.email;
   var password = req.body.password;
   var username = req.body.username;
   var auth_error = 'Incorrect Username / Password!';

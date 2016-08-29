@@ -24,9 +24,9 @@ function createLocks()
     {
       var letter = nextChar('`', col); //start at ` because next letter is a
       var key = 'grid_lock_'+row+letter;
-        locks[i] = { [key] : false };
-        letter = nextChar(letter, col);
-        i++
+      locks[i] = { [key] : false };
+      letter = nextChar(letter, col);
+      i++
     }
   }
 }
@@ -164,66 +164,65 @@ router.post('/unlockpage', function(req,res)
 //Request data from API
 router.post('/searchImgur',function(req,res){
 
+  var data = req.body;
+  console.log('received search data: ' , req.body);
+  //#
+  //#
+  //#
+  //Text based query
+  //"url" : '/api.imgur.com/3/gallery/search/top/week/0/?q_any='+searchTerm+'&q_type=jpg'
+  //#
+  //Popular List Query
+  //https://api.imgur.com/3/gallery/hot/viral/0.json
+  //#
+  //#
+  //#
+  //'https://api.imgur.com/3/gallery/search/viral/0/?q_any='+searchTerm+'&q_type=jpg'
+  //var constructedURL =  'https://api.imgur.com/3/gallery/hot/viral?showViral=false';
+  var constructedURL;
+  var sort;
 
-    var data = req.body;
-    console.log('received search data: ' , req.body);
-    //#
-    //#
-    //#
-    //Search based query
-    //"url" : '/api.imgur.com/3/gallery/search/top/week/0/?q_any='+searchTerm+'&q_type=jpg'
-    //#
-    //Popular List Query
-    //https://api.imgur.com/3/gallery/hot/viral/0.json
-    //#
-    //#
-    //#
-    //'https://api.imgur.com/3/gallery/search/viral/0/?q_any='+searchTerm+'&q_type=jpg'
-    //var constructedURL =  'https://api.imgur.com/3/gallery/hot/viral?showViral=false';
-    var constructedURL;
-    var sort;
+  if (data.sort === 'sortViral')
+  {
+    sort = 'viral'
+  } else if (data.sort === 'searchAllTime')
+  {
+    sort = 'top/all'
+  } else if (data.sort === 'searchWeek')
+  {
+    sort = 'top/week'
+  }
 
-    if (data.sort === 'sortViral')
-    {
-      sort = 'viral'
-    } else if (data.sort === 'searchAllTime')
-    {
-      sort = 'top/all'
-    } else if (data.sort === 'searchWeek')
-    {
-      sort = 'top/week'
+  if (data.popularSearch == 'false')
+  {
+    constructedURL = 'https://api.imgur.com/3/gallery/search/'+sort+'/'+data.page+'/?q_any='+data.searchTerm+'&q_type='+data.imageType;
+    console.log('popular search OFF')
+  }else {
+    constructedURL =  'https://api.imgur.com/3/gallery/hot/'+sort+'/'+data.page+'.json';
+    console.log('popular search ON!')
+  }
+
+  console.log('sending URL: '+constructedURL)
+
+  var options = {
+    url: constructedURL,
+    headers: {
+      Authorization: 'Client-ID ' + clientID,
+      Accept: 'application/json'
     }
+  };
+  request(options, ajaxThisNow);
 
-    if (data.popularSearch == 'false')
-    {
-      constructedURL = 'https://api.imgur.com/3/gallery/search/'+sort+'/'+data.page+'/?q_any='+data.searchTerm+'&q_type='+data.imageType;
-      console.log('popular search OFF')
-    }else {
-      constructedURL =  'https://api.imgur.com/3/gallery/hot/'+sort+'/'+data.page+'.json';
-      console.log('popular search ON!')
+  function ajaxThisNow(error, response, body) {
+
+    if (!error && response.statusCode == 200) {
+      console.log(body) // Show the HTML for the Google homepage.
+      var ourData = {stuff:body}
+      res.send(ourData);
+
     }
-
-    console.log('sending URL: '+constructedURL)
-
-    var options = {
-      url: constructedURL,
-      headers: {
-        Authorization: 'Client-ID ' + clientID,
-        Accept: 'application/json'
-      }
-    };
-    request(options, ajaxThisNow);
-
-    function ajaxThisNow(error, response, body) {
-
-      if (!error && response.statusCode == 200) {
-        console.log(body) // Show the HTML for the Google homepage.
-        var ourData = {stuff:body}
-        res.send(ourData);
-
-      }
-    }
-  });
+  }
+});
 
 router.post('/savelog', function(req,res)
 {

@@ -1,9 +1,3 @@
-//Source: https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript
-//and http://zipso.net/a-simple-touchscreen-sketchpad-using-javascript-and-html5/
-
-//Possible color spectrum solution:
-//when clicking hue, open floating slider for adjusting that spectrum
-//Limit slider from White to top and Black to bottom, starting the slider in the middle corresponding with that hue.
 
 //Canvases
 var canvas;
@@ -22,8 +16,7 @@ var cursorColor;
 var crosshairX;
 var crosshairY;
 
-
-
+//tags
 var tagWidth;
 var tagHeight;
 var tagURL;
@@ -31,10 +24,7 @@ var tagURL;
 
 document.addEventListener('DOMContentLoaded',domloaded,false);
 
-
 function domloaded() {
-
-
 
 canvas = document.getElementById("myCanvas");
 ctx = canvas.getContext("2d");
@@ -44,11 +34,6 @@ if(!brushLocked)
   {
     sizePreviewBox();
   }
-
-
-
-//var cursorData = brushSizeCanvas.toDataURL();
-
 
 cursorX = 0;
 cursorY = 0;
@@ -77,7 +62,6 @@ update();
 };
   // document.addEventListener("keydown",function(){ alert(String(data));});
 function update()
-
 
 {
   //drawDebug();
@@ -111,22 +95,11 @@ function update()
   }
 
 }
-//setInterval(update,10); //miliseconds setInterval is for FIXED UPDATE
-
-
-
-
-
-
-
 
 function inputDownFunction(event)
   {
     getInputPosition(event);
     inputActive=true;
-
-     //console.log('inputDown!');
-
     if (paintMode && !brushLocked)
     {
        drawCursor();
@@ -143,14 +116,12 @@ function inputMoveFunction(event)
     if(inputActive && paintMode && !brushLocked)
       {
         drawCursor();
-        //console.log('move Draw');
       }
   }
 
 function inputUpFunction(event)
   {
     inputActive = false;
-    //console.log('input Up')
   }
 
 
@@ -165,38 +136,4 @@ function getInputPosition(event) {
     crosshairX = cursorX - (tagWidth/2);
     crosshairY = cursorY - (tagHeight/2);
   }
-
 }
-
-  $("#clearCanvas").click(function(){
-
-    if ($("#notificationWindow").hasClass("hide"))
-    {
-      $("#notificationWindow").removeClass("hide");
-    }else{
-      $("#notificationWindow").addClass("hide");
-      }
-
-  })
-
-   $("#yes").click(function(){
-    if (!$("#notificationWindow").hasClass("hide"))
-          {
-            clearCanvas();
-            $("#notificationWindow").addClass("hide");
-          }
-       });
-
-  $("#no").click(function(){
-    $("#notificationWindow").addClass("hide");
-  });
-
-
-
-
-
-
-
-
-
-
