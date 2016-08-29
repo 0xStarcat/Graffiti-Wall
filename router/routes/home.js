@@ -5,14 +5,13 @@ const db = require('../../db/db');
 //const database = pgp('postgres://Wolphox@localhost:5432/graffiti');
 const database = pgp(process.env.DATABASE_URL);
 const graffitiDB = require('./graffitiDB.js')
-router.get('/', function (req, res){
+
+router.get('/', function (req, res)
+{
   var error = req.flash('error')[0];
-
-  if(!req.session.user){
-
-    //res.redirect('sessions/new');
+  if(!req.session.user)
+  {
     res.render('./homepage/index', { 'error': error })
-
   } else {
     res.render('./homepage/index', { 'username': req.session.user.username, 'logged_in' : req.session.user.logged_in }, graffitiDB.locks);
     console.log(graffitiDB.locks);
@@ -23,13 +22,11 @@ router.get('/', function (req, res){
 //Loads all the images for the grids on homepage
 router.get('/loadHomepage', db.loadHomepageGraffiti, function(req, res)
 {
-  //console.log('/loadHomepage hit')
   res.end();
 });
 
 router.get('/screenshots/:username', function(req,res)
 {
-
   var username = req.params.username;
   console.log('Screenshot access: ' + username);
 
@@ -46,15 +43,11 @@ router.get('/screenshots/:username', function(req,res)
     {
       isUser = true;
     }
-
     var screenshotData = {
         'screenshotData' : data,
         'username' : username,
         'isUser' : isUser
       }
-
-    console.log(isUser);
-    console.log('Screenshots loaded for ' + username);
     res.render('users/userScreenshots', screenshotData);
   })
 
@@ -66,7 +59,7 @@ router.delete('/deleteScreenshot/:username/:id', function(req,res)
   var id = req.params.id;
   database.none('DELETE FROM userscreenshots WHERE owner = $1 AND id = $2',[username, id])
   console.log('delete screenshot '+username+id);
+  res.end();
 })
-
 
 module.exports = router;

@@ -31,14 +31,10 @@ function eventListeners()
 {
 
   $('#imageSlider').on('mousedown', getSliderValue);
-
-
   //Paint or Tag Wall button
     cursorModeButton.on('click',function(e)
   {
-
     changeCursorMode();
-
   });
 
 
@@ -53,7 +49,6 @@ function eventListeners()
        if(paintMode)
        {
         changeCursorMode();
-
       }
        $('#openChooser').text('Open Image Chooser');
       $('#cursorImagePreview').css('display' , 'inline');
@@ -146,13 +141,6 @@ function eventListeners()
     toggleViewMode();
   });
 
-//Depracated
-   $('#loadCanvas').on('click', function(e)
-  {
-    //getAJAXImage();
-      loadScreenshots();
-  });
-
 //Move the Palette
    $('#paletteMoveTab').on('mousedown',function(e)
     {
@@ -177,24 +165,9 @@ function eventListeners()
     });
 
 
-//depracated
   $('#saveScreenshot').on('click',function(e)
   {
-        //postAJAXImage();
-
         saveScreenshot();
-  });
-
-
-//depracated
-  $('#downloadScreenshot').on('click', function(e)
-  {
-    canvasData = canvas.toDataURL("image/png");
-    this.href = canvasData;//document.getElementById(canvasId).toDataURL();
-    this.download = 'newfile.png';//filename;
-    console.log(this, 'save')
-
-
   });
 
 
@@ -235,7 +208,7 @@ function eventListeners()
     }
   })
 
-};
+}; //end eventListeners();
 
 function handleMenuExpand(e)
 {
@@ -266,7 +239,8 @@ function handleMenuExpand(e)
       $('#menuExpand').text('Expand');
 
       collapseSearch = true;
-    }}
+    }
+}
 
 function toggleViewMode()
 {
@@ -317,7 +291,6 @@ function getSliderValue()
 
 }
 
-
 function saveScreenshot()
   {
     canvasData = canvas.toDataURL("image/png");
@@ -326,64 +299,21 @@ function saveScreenshot()
       'imageURL' : canvasData,
       'username' : username
     }
-
-    console.log('screenshot');
-    $.ajax({
-      'method' : 'POST',
-      'url' : '/saveScreenshot',
-      'data' : screenshot,
-      'success' : function(data)
-      {
-        console.log('Screenshot saved for' + username+'!');
-        $('#myCanvas').animate({
-          'opacity' : '0'
-        }, 250, function()
-        {
-          $('#myCanvas').animate({
-            'opacity' : '1'
-          }, 500)
-        })
-      },
-      'error' : function()
-      {
-        console.log('ERROR SAVING SCREENSNAKES')
-      }
-    })
+    ajax_this('POST', '/saveScreenshot', screenshot, screenshot_save_success, undefined)
   }
 
-
-  function loadScreenshots()
+function screenshot_save_success(data)
+{
+  console.log('Screenshot saved for' + username+'!');
+  $('#myCanvas').animate({
+    'opacity' : '0'
+  }, 250, function()
   {
-    var username = $('h1').attr('data-id');
-    var data = {
-      'username' : username
-    }
-    $.ajax({
-      'method' : 'POST',
-      'url' : '/loadScreenshots/'+username,
-      'data' : data,
-      'success' : function(data)
-      {
-        console.log('got those screen shots');
-        //appendScreenshots(data);
-        //console.log(data);
-      },
-      'error' : function()
-      {
-        console.log('error grabbing screenSNAKES');
-      }
-    })
-  }
-
-  function appendScreenshots(data)
-  {
-
-    console.log(data);
-    var oneShot = $('<div class="screenshotCard"><img data-id = {{data.id}} class = screenshot src={{data.imageURL}}></div>');
-
-  }
-
-
+    $('#myCanvas').animate({
+      'opacity' : '1'
+    }, 500)
+  })
+};
 
 function movePalette()
 {

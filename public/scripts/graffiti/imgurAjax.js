@@ -23,15 +23,9 @@ $('document').ready(function()
 
 
 });
-
 function imgurAjaxHit(searchTerm, popularSearch, sort, imageType, page)
 {
-
-  //console.log(searchTerm);
-
-
   var url = '/searchImgur';
-
   ajaxData = {
     'searchTerm' : searchTerm,
     'popularSearch' : popularSearch,
@@ -39,89 +33,56 @@ function imgurAjaxHit(searchTerm, popularSearch, sort, imageType, page)
     'imageType' : imageType,
     'page' : pageNumber
   }
-  //https://api.imgur.com/3/gallery/image/
-  console.log('imgur ajax...');
+  ajax_this('POST', url, ajaxData, imgur_ajax_success, undefined)
+  if (imageType == 'jpg')
+  {
+    imgurAjaxHit(searchTerm, popularSearch, sort, 'png', page)
+  }
+}
 
-  // data = {
-  //   "url" : '/api.imgur.com/3/gallery/search/top/week/0/?q_any='+searchTerm+'&q_type=jpg'
-  // }
-
-  //Hot gallery https://api.imgur.com/3/gallery/hot/viral/0.json
-
-  $.ajax({
-    'type' : 'POST',
-    'url' : url,
-    'data' : ajaxData,
-    'success' : function(data)
-    {
-      var results = JSON.parse(data.stuff);
-      //console.log(results);
-      console.log('Images returned!');
-
-      parseImageResults(results);
-
-    },
-    'error' : function(err)
-    {
-       console.log('BACKEND SNAKES!')
-       console.log(err);
-    },
-    'complete' : function()
-    {
-
-      if (imageType === 'jpg' && popularSearch == false)
-      {
-        imgurAjaxHit(searchTerm, popularSearch, sort, 'png');
-        console.log('now searching for pngs...')
-      }
-    }
-  })
+function imgur_ajax_success(data)
+{
+  var results = JSON.parse(data.stuff);
+  parseImageResults(results);
+  console.log(results)
 }
 
 function parseImageResults(results)
 {
-  //debugger;
-  console.log(results);
   var galleryWrapper = $('#galleryWrapper');
   if (results.data.length > 0)
   {
 
   //#
   //append each result
-  //if doing text search, append jpegs first then 2nd ajax for pngs
+  //if doing text search, append jpegs first, then 2nd ajax for pngs
   //This is to exclude gifs from results. Also jpeg results less meme-y
   //#
-
-      results.data.forEach(function(result)
+  results.data.forEach(function(result)
+  {
+    var link = result.link;
+      if (link.substr(-4) === '.jpg' || link.substr(-4) === '.png')
       {
-        var link = result.link;
-         console.log(result.link.substr(-4))
-          if (link.substr(-4) === '.jpg' || link.substr(-4) === '.png')
-          {
+        console.log(result.link.substr(-4))
+        var imageResult = $('<img data-id ='+imageCountID+' class="imageResult" src='+link+'>');
+        imageCountID++;
+        galleryWrapper.append(imageResult);
 
-            var imageResult = $('<img data-id ='+imageCountID+' class="imageResult" src='+link+'>');
-            imageCountID++;
-            galleryWrapper.append(imageResult);
-
-          } else {
-
-
-          }
-
-
-      })
-//#
+      } else {
+        console.log('Unable to parse file-types from results')
+      }
+  })
 //#
 //If doing popular image search, keep searching until 50 images found
+//Because the popular image search also returns gifs and blog-style articles
 //#
-//#
-      if (imageCountID < 50 && ajaxData.popularSearch == true)
-          {
-            console.log('searching for more popular images...')
+  if (imageCountID < 50 && ajaxData.popularSearch == true)
+    {
+      console.log('searching for more popular images...')
 
-            imgurAjaxHit(ajaxData.searchTerm, ajaxData.popularSearch, ajaxData.sort, ajaxData.imageType);
-            pageNumber++;
-          }
+      imgurAjaxHit(ajaxData.searchTerm, ajaxData.popularSearch, ajaxData.sort, ajaxData.imageType);
+      pageNumber++;
+    }
 //#
 //Add click listener to each image result
 //Set tagURL, handle border effects
@@ -129,12 +90,10 @@ function parseImageResults(results)
 
   $('.imageResult').on('click', function(e)
     {
-
       if (!collapseSearch)
       {
         handleMenuExpand();
       }
-
       tagURL = $(this).attr('src');
       $('#myCanvas').css('cursor','url('+tagURL+') 32 32, crosshair')
 
@@ -144,23 +103,20 @@ function parseImageResults(results)
 
       resetAll(); //reset filter sliders
       showPreviewImage(tagURL);
-
-
-      // $('#myCanvas').css('cursor', 'pointer');
     });
-    //console.log(result);
 
-
+  //No results found
   } else {
-    console.log('no results')
+    galleryWrapper.empty();
+    var imageResult = $('<p style="text-align: center; color:white;">No Results Found </p>');
+    galleryWrapper.append(imageResult);
   }
-
 }
 
 function showPreviewImage(img_url)
 {
   //#
-  //create a new canvas
+  //Clear old canvas rendering
   //#
   $('.previewProgress').removeClass('hide');
   previewCanvas.width = previewBoxWidth;
@@ -176,9 +132,8 @@ function showPreviewImage(img_url)
   preview_64bit.src = img_url;
 
   //#
-  //slap image to the canvas
+  //slap new image to the canvas
   //#
-
   preview_64bit.onload = function(){
     previewContext.drawImage(preview_64bit, 0, 0, previewCanvas.width, previewCanvas.height)//, 0, 0, canvas.width, (canvas.width * 0.5625));//, 0, 0, canvas.width, (canvas.width * 0.5625));
     previewData = previewCanvas.toDataURL("image/png");
@@ -186,17 +141,12 @@ function showPreviewImage(img_url)
     pixels = hiddenPreviewContext.getImageData(0,0,previewCanvas.width,previewCanvas.height); //Moved to imgurAjax.showPreviewImage(img_url)-- wolphox
     Filters.changeAll();
     $('.previewProgress').addClass('hide');
-    //console.log(previewData);
   }
-
+  //#
+  //Add the image to the cursor preview
+  //#
   $('#cursorImagePreview').attr('src', previewData);
-  // previewImage = $('#previewImage');
-  // previewImage.attr('src', img_url);
-  //console.log(previewImage.innerWidth(), previewImage.innerHeight())
-  console.log(previewBoxWidth, previewBoxHeight)
   resizeTagSize();
-  // tagWidth = previewBoxWidth;
-  // tagHeight = previewBoxHeight;
 }
 
 //#
@@ -205,8 +155,6 @@ function showPreviewImage(img_url)
 //#
 function clearClickedBorders()
 {
-
-
   $('.clicked').each(function(border)
   {
     $(this).removeClass('clicked');

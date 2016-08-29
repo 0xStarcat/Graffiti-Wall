@@ -21,7 +21,6 @@ $('document').ready(function()
     {
 
       upload.trigger('click');
-      //$('#uploadForm').reset();
 
     });
 
@@ -35,8 +34,6 @@ $('document').ready(function()
     var reader = new FileReader();
     reader.onload = readSuccess;
     function readSuccess(evt) {
-        // var field = document.getElementById('main');
-        // field.innerHTML = evt.target.result;
 
         console.log('read success')
         previewData = evt.target.result;
@@ -48,32 +45,30 @@ $('document').ready(function()
         showPreviewImage(previewData);
     };
     reader.readAsDataURL(file);
-
-
 }
 
-    upload.on('change', function(e)
-      {
-        console.log('clicked')
+upload.on('change', function(e)
+  {
+    console.log('clicked')
 
-        var reader = new FileReader();
+    var reader = new FileReader();
 
-        reader.onload = function(data) {
-          console.log(reader);
-          // reader.readAsDataURL(e.target.files[0]);
-          reader.readAsDataURL(data);
-        var img = new Image();
+    reader.onload = function(data) {
+      console.log(reader);
+      // reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(data);
+    var img = new Image();
 
-        console.log('reader loaded')
-          img.onload = function() {
-            console.log('image loaded')
-            previewContext.drawImage(img,0,0,width,height);
-            hiddenPreviewContext.drawImage(img,0,0,width,height);
-          };
-          img.src = data.target.result;
-        };
+    console.log('reader loaded')
+      img.onload = function() {
+        console.log('image loaded')
+        previewContext.drawImage(img,0,0,width,height);
+        hiddenPreviewContext.drawImage(img,0,0,width,height);
+      };
+      img.src = data.target.result;
+    };
 
-      });
+  });
 
 })
 
@@ -107,7 +102,7 @@ var vals = {
       'border' : '0'
     };
 
- /**
+ /*
   *  When a slider value gets changed, adjust the label style to reflect if
   *      the filter is active or not.
   *  Then, apply all filters with changeAll()
@@ -125,7 +120,7 @@ var vals = {
   });
 
 
-  /**
+  /*
   * Click reset button to redraw image as original and reset all in-page and in-image styles.
   */
   var resetAll = function() {

@@ -31,8 +31,6 @@ function createLocks()
   }
 }
 
-//console.log(locks);
-
 function nextChar(c, loop) {
     return String.fromCharCode(c.charCodeAt(0) + loop);
 }
@@ -63,13 +61,11 @@ router.get('/graffiti/:row/:column', function(req,res)
       'column' : column,
       'error' : error
     }
-    //res.redirect('sessions/new');
     res.render('./graffiti/index', graffitiSession);
     console.log('viewing graffiti wall without login');
 
   } else {
     //Enable painting on graffiti wall if logged in
-
 
     //Check Lock Status
     var letter = column.charCodeAt(0) - 96;//a = 97;
@@ -93,9 +89,6 @@ router.get('/graffiti/:row/:column', function(req,res)
 
       }
     });
-    //console.log('LOCKS AFTER LEAVING PAGE', locks);
-
-
     var graffitiSession = {
       'row' : row,
       'column' : column,
@@ -114,22 +107,13 @@ router.get('/graffiti/:row/:column', function(req,res)
       if (lock.hasOwnProperty(key))
       {
          lock[key] = true;
-         //console.log('LOCK = ' + lock[key]);
 
       }
     });
 
-
-    //console.log('LOCKS AFTER JOINING PAGE = ' , locks);
-
     res.render('./graffiti/index', graffitiSession);
-   // console.log('viewing graffiti wall WITH login. Congrats!');
 
   }
-
-
-  // console.log('showing canvas')
-  // res.render('./graffiti/index', gridCoordinates);
 });
 
 router.get('/unlockBrush', function(req,res){
@@ -174,7 +158,6 @@ router.post('/unlockpage', function(req,res)
 
     }
   });
-    //console.log('LOCKS AFTER LEAVING PAGE', locks);
     res.end();
 })
 
@@ -184,9 +167,6 @@ router.post('/searchImgur',function(req,res){
 
     var data = req.body;
     console.log('received search data: ' , req.body);
-    //console.log(clientID)
-    //ar searchTerm = req.params.search;
-
     //#
     //#
     //#
@@ -287,8 +267,6 @@ router.get('/logs/:row/:column', function(req,res)
     res.redirect('/')
   }).then(function(data)
   {
-
-    //console.log('Is Image?',isImage);
     console.log('got the logs', data);
     var logData= {
       'row' : row,
@@ -317,8 +295,6 @@ router.get('/imageCoordinates/:row/:column', function(req,res)
     res.send(data);
   })
 })
-
-
 
 router.post('/saveScreenshot', db.saveScreenshot, function(req,res)
 {

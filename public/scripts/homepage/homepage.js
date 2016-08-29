@@ -1,38 +1,19 @@
 $('document').ready(function()
 {
   console.log('homepage loaded!');
-
-  ajaxHomepage();
+  ajax_this('GET', '/loadHomepage', undefined, homepage_ajax_success, undefined);
 });
 
-function ajaxHomepage()
+function homepage_ajax_success(data)
 {
-  $.ajax({
-    'method' : 'GET',
-    'url' : '/loadHomepage',
-    'success' : function(data)
-    {
-      console.log('homepage images loaded');
-      //console.log(data);
-      displayImages(data);
-      checkLocks();
-    },
-    'error' : function()
-    {
-      console.log('homepage SNAKES WHY DID IT HAVE TO BE');
-    },
-    'compete': function()
-    {
-
-    }
-  })
-};
+  displayImages(data);
+  ajax_this('GET', '/checkLocks', undefined, check_locks_success, undefined);
+}
 
 function displayImages(data)
 {
 
   var progressBars = $(".progressWrapper");
-
   $(".progressWrapper").each(function(bar)
   {
     $(this).hide();
@@ -44,37 +25,19 @@ function displayImages(data)
     $('#grid'+row+col+' > img').attr('src', 'data:image/png;base64,'+image.imageurl);
 
   });
-}
+};
 
-function checkLocks()
+function check_locks_success(data)
 {
-  $.ajax({
-    'method' : 'GET',
-    'url' : '/checkLocks',
-    'success' : function(data)
+  var grids = $('.grid');
+  for (var i = 0; i < grids.length; i++)
+  {
+    var gridLock = data[i][Object.keys(data[i])[0]];
+    if (gridLock === true)
     {
-      var grids = $('.grid');
-
-      for (var i = 0; i < grids.length; i++)
-      {
-        var gridLock = data[i][Object.keys(data[i])[0]];
-        //obj[Object.keys(obj)[0]]
-
-        if(gridLock === false)
-        {
-
-
-        } else if (gridLock === true){
-
-          $('.grid').eq(i).removeClass('unlocked');
-          $('.grid').eq(i).addClass('locked');
-        }
-      }
-      console.log(data);
-    },
-    'error' : function()
-    {
-
+      $('.grid').eq(i).removeClass('unlocked');
+      $('.grid').eq(i).addClass('locked');
     }
-  })
-}
+  }
+};
+

@@ -57,13 +57,13 @@ var create_user = function(req, res, next){
   {
     console.log(username.replace(/\S/g, '').length);
     res.error = 'Please enter a username with 3 or more characters!'
-    //next();
+
   }
   var email = req.body.email;
   if (email.replace(/\s/g, '') === '')
   {
     res.error = 'That\'s not a valid email!';
-    //next();
+
   }
   var password = req.body.password;
   if (password.replace(/\s/g, '') === '' || password.replace(/\s/g, '').length < 6)
@@ -77,7 +77,7 @@ var create_user = function(req, res, next){
       "INSERT INTO users (username,email,hashed_password) VALUES ($1, $2, $3)",
       [username, email, hashed_password]
     ).catch(function(errorMessage){
-     // console.log(errorMessage);
+
       if(errorMessage.detail === 'Key (username)=('+username+') already exists.')
       {
         res.error = 'User name already taken!'
@@ -97,7 +97,6 @@ var create_user = function(req, res, next){
         'logged_in' : logged_in
       };
       console.log(req.session.user);
-      //THIS GOES TO home.js '/' ROUTE WITH A req.session.user AND USERNAME
       next();
     });
   });
@@ -106,14 +105,8 @@ var create_user = function(req, res, next){
 var saveGraffiti = function (req,res, next){
   var data = req.body;
 
-
-  //console.log(data);
-  console.log('saving picture...');
-  //db.none("INSERT INTO publicGraffiti(grid_block, imageURL) VALUES($1, $2)",["1a", data.image])
-  //db.none("UPDATE publicGraffiti SET imageURL = $2 WHERE grid_block = $1",["1a", data.image])
   db.none("UPDATE publicGraffiti SET imageURL = $3 WHERE row = $1 AND col = $2",[data.row,data.column, data.image]).then(function(data)
   {
-
     console.log('picture saved!')
     res.end();
   })
@@ -128,7 +121,6 @@ var loadGraffiti = function (req,res,next)
   {
     res.send(data);
     console.log('picture loaded!')
-    //console.log(data);
     res.end();
   })
 }
@@ -137,7 +129,6 @@ var loadHomepageGraffiti = function (req,res,next)
 {
   db.any('SELECT * FROM publicGraffiti').then(function(data)
     {
-      //console.log(data);
        res.send(data);
     });
 }
@@ -157,10 +148,5 @@ var saveScreenshot = function(req,res,next)
     res.end();
   })
 }
-
-
-
-
-// module.exports = { login, logout, create_user };
 module.exports = { login, logout, create_user,loadGraffiti,saveGraffiti, loadHomepageGraffiti,saveScreenshot};
 
