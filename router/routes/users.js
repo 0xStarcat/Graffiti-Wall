@@ -9,7 +9,6 @@ router.get('/new', function (req, res) {
 
 router.post('/create', db.create_user, function (req, res) {
 
-  //console.log(req.body);
 
   if(res.error){
     req.flash('error', res.error);

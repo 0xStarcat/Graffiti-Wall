@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pgp = require('pg-promise')();
 const db = require('../../db/db');
-//const database = pgp('postgres://Wolphox@localhost:5432/graffiti');
-const database = pgp(process.env.DATABASE_URL);
+const database = pgp(process.env.DATABASE_URL)
 
 const https = require('https');
 var request = require('request');
