@@ -33,7 +33,6 @@ function grabUnlockedElements()
 //Unlock page once you leave the page, called from graffiti/index.html
 function unlockPage()
 {
-  console.log('*********unlocking***********');
   var row = String($('#coordinates').attr('data-id')).substr(0,1);
   var column = String($('#coordinates').attr('data-id')).substr(1,1);
   var coordinates ={

@@ -50,7 +50,7 @@ function eventListeners()
        {
         changeCursorMode();
       }
-       $('#openChooser').text('Open Image Chooser');
+       $('#openChooser').text('Search IMGUR');
       $('#cursorImagePreview').css('display' , 'inline');
 
     //Normal behavior for closing all other windows
