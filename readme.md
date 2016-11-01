@@ -11,8 +11,8 @@ Users can upload images or search IMGUR for images to upload. You can also apply
 As a community site, creativity is encouraged but also user accountability. If you post something obscene or are a jerk, people will can see who did it. 
 
 **Tech**
-NodeJS
-Postgresql DB
-JavaScript/jQuery
-HTML
-CSS
+- NodeJS
+- Postgresql DB
+- JavaScript/jQuery
+- HTML
+- CSS
