@@ -9,11 +9,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
   </head>
   <body>
-    <div class="container main-container">
+    <div class="container main-container purple lighten-5">
     <h1>Grid {{row}}{{column}} Logs</h1>
-    <div class = "row valign-wrapper">
-      <a class = "btn-large center waves-effect waves-light" href = '/'>Home</a>
-      <a class='dropdown-button btn-large center' href='#' data-constrainwidth ="false"  data-activates='dropdown1'>Menu</a>
+    <div class = "purple lighten-5 row valign-wrapper">
+      <a class = "purple darken-3 btn-large center waves-effect waves-light" href = '/'>Home</a>
+      <a class='purple darken-3 dropdown-button btn-large center' href='#' data-constrainwidth ="false"  data-activates='dropdown1'>Menu</a>
           <ul id='dropdown1' class='dropdown-content'>
             <li><a href="/screenshots/{{username}}">Screenshots</a></li>
             <li class="divider"></li>
@@ -21,7 +21,7 @@
           </ul>
       <a class = "valign col l4 m4 left-align" href="/sessions/logout">Logout</a>
     </div>
-      <div class="border-container">
+      <div class="purple lighten-5 border-container">
         <div class="logsWrapper">
           <ul>
           {{#data}}

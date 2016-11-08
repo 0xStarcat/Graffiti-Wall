@@ -1,57 +1,79 @@
+<!-- <ul id="slide-out" class="side-nav">
+    <li><div class="userView">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+      <a href="#!name"><span class="white-text name">John Doe</span></a>
+      <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul> -->
+<a style="z-index: 1000" href="#" data-activates="slide-out-nav" class="button-collapse"><i style="font-size:44px" class="purple-text material-icons">menu</i></a>
+
+
+<ul class="side-nav purple lighten-5" id ="slide-out-nav">
 {{^logged_in}}
-<div class = "" id = navBarWrapper>
-  <div class = "row">
-    <a class = "btn center waves-effect col l2 m2 waves-light" href ="/">Home</a>
-    <form class="col l9 m9 form-horizontal graffitiLogin" action="/sessions/create" method="post">
-      <fieldset>
-        <div class ="loginRow">
-          <div class="form-group">
-            <input name="username" type="text" class="validate myInput" id="inputUsername" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <input name="password" type="password" class="validate myInput" id="inputPassword" placeholder="Password">
-          </div>
-          <button type="submit" class="btn center">Login</button>
-        </div>
-      </fieldset>
-    </form>
-    <div class="col l4 m4 red-text accent-3">
-      {{#error}}
-      <strong>Uh Oh!</strong>{{error}}
-      {{/error}}
+  <li data-id={{row}}{{column}} id = "coordinates"><a class="waves-effect waves-light purple white-text"><i class="white-text material-icons">view_array</i>Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></a></li>
+  <li class="divider"></li>
+  <li class ="" id ="noAccount"><a class="red-text">Please log in to paint!</a></li>
+  {{#isLocked}}
+  <li class = "" id ="lockedTab"><a class="red-text">PAGE BEING TAGGED BY ANOTHER USER</a></li>
+  {{/isLocked}}
+  <li class="red-text accent-3">
+    {{#error}}
+    <strong>Uh Oh!</strong>{{error}}
+    {{/error}}
+  </li>
+  <li class ="" id ="viewTab">In View-Tags Mode</li>
+  <li><a class = "waves-effect waves-light purple white-text" href ="/"><i class="material-icons white-text">navigation</i>Home</a></li>
+  <form class="graffitiLogin" action="/sessions/create" method="post">
+  <li>
+    <div class="input-field">
+      <input name="username" type="text" class="validate myInput" id="inputUsername" placeholder="Username">
     </div>
-    <div class = "col l13 m3 center-align">
-        <p data-id={{row}}{{column}} id = "coordinates">Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></p>
+  </li>
+  <li>
+    <div class="input-field">
+      <input name="password" type="password" class="validate myInput" id="inputPassword" placeholder="Password">
     </div>
-    <div class ="col l3 m3 red-text" id ="noAccount">Please log in to paint!&nbsp;<a href="/users/new">or Sign Up!</a></div>
-    {{#isLocked}}
-    <div class = "tab valign" id ="lockedTab">PAGE BEING TAGGED BY ANOTHER USER</div>
-    {{/isLocked}}
-    <div class = tab id ="navBarTab">Close Nav-Bar</div>
-    <div class = tab id ="viewTab">In View-Tags Mode</div>
-  </div>
-</div>
+  </li>
+  <li><button type="submit" class="btn center purple darken-2 white-text">Login</button></li>
+  <li class="divider"></li>
+  <li><a class="waves-effect waves-light" href="/users/new">or Sign Up!</a></li>
+  </form>
+
+
+
+
 {{/logged_in}}
 {{#logged_in}}
-<div class = "" id = navBarWrapper>
-  <div class="row">
-    <div data-id={{username}} class = "col l12 m12 center-align valign logo welcome">Welcome, {{username}}!</div>
-    <a class = "btn col l2 m2 waves-effect waves-light" href ="/">Home</a>
-    <a class="btn waves-effect col l2 m2 waves-light" id = "viewTagsButton" href='#'>View Tags</a>
-    <a class='dropdown-button btn col l2 m2 center' href='#' data-constrainwidth ="false"  data-activates='dropdown1'>Menu</a>
-    <ul id='dropdown1' class='dropdown-content'>
-      <li><a href="/screenshots/{{username}}">Screenshots</a></li>
-      <li><a href="/logs/{{row}}/{{column}}">Page Logs</a></li>
-      <li class="divider"></li>
-      <li><a href="/sessions/logout">Logout</a></li>
-    </ul>
-    <p class ="col l13 m3 center-align"= data-id={{row}}{{column}} id = "coordinates">Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></p>
-    <div class = "col l3 m3 offset-6">You are logged in. <a href="/sessions/logout">Logout</a></div>
+    <li data-id={{row}}{{column}} id = "coordinates"><a class="waves-effect waves-light purple white-text"><i class="white-text material-icons">view_array</i>Row: <span id="currentRow">"{{row}}"</span> Column: <span id="currentColumn">"{{column}}"</span></a></li>
+    <li class="divider"></li>
     {{#isLocked}}
-    <div class = "tab valign" id ="lockedTab">PAGE BEING TAGGED BY ANOTHER USER</div>
+    <li><a class = "" id ="lockedTab">PAGE BEING TAGGED BY ANOTHER USER</a></li>
     {{/isLocked}}
-    <div class = tab id ="navBarTab">Close Nav-Bar</div>
-    <div class = tab id ="viewTab">In View-Tags Mode</div>
-  </div>
-</div>
+    <li><a class ="" id ="viewTab">In View-Tags Mode</a></li>
+    <li data-id={{username}} class = "logo welcome"><a>Welcome, {{username}}!</a></li>
+    <li><a class ="waves-effect waves-light purple darken-3 white-text" href ="/"><i class=" white-text material-icons">navigation</i>Home</a></li>
+    <li><a style="cursor:pointer;"class="viewTagsButton purple darken-2 white-text"><i class="white-text material-icons">visibility</i>Hover Tags</a></li>
+    <li><a href="/screenshots/{{username}}" class="purple darken-1 white-text"><i class="white-text material-icons">picture_in_picture</i>Screenshots</a></li>
+    <li><a href="/logs/{{row}}/{{column}}" class="purple white-text"><i class="white-text material-icons">view_list</i>Page Logs</a></li>
+    <li class="divider"></li>
+    <li><a href="/sessions/logout">Logout</a></li>
+
+{{/logged_in}}
+</ul>
+
+{{^logged_in}}
+<script>
+  Materialize.toast('You are not logged in!', 2000, "purple", function()
+  {
+    Materialize.toast('Please log in to paint!', 4000,"purple lighten-1")
+  });
+</script>
 {{/logged_in}}

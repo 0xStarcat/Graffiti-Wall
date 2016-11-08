@@ -25,6 +25,15 @@ $('document').ready(function()
   }
   eventListeners();
 
+//Materialize SideNav
+   $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 240
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+  );
+
 })
 
 function eventListeners()
@@ -136,7 +145,7 @@ function eventListeners()
     moveNavBar();
   });
 
-  $('#viewTagsButton').on('click', function(e)
+  $('.viewTagsButton').on('click', function(e)
   {
     toggleViewMode();
   });
@@ -248,13 +257,13 @@ function toggleViewMode()
     {
       $('.selectionBox').addClass('hide');
       $('#viewTab').addClass('hide');
-      $('#viewTagsButton').text('View Tags');
+
       viewMode = false;
     }else {
 
       $('.selectionBox').removeClass('hide');
       $('#viewTab').removeClass('hide');
-      $('#viewTagsButton').text('Hide Tags');
+
       viewMode = true;
     }
 }
@@ -361,3 +370,5 @@ function moveNavBar()
     });
    }
 }
+
+
