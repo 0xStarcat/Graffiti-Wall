@@ -122,6 +122,8 @@ function inputMoveFunction(event)
 function inputUpFunction(event)
   {
     inputActive = false;
+    canvasData = canvas.toDataURL("image/png");
+
   }
 
 

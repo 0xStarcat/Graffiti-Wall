@@ -31,7 +31,6 @@ function drawCursor()
       ctx.closePath();
       ctx.fillStyle =cursorColor; //CSS color in quotes
       ctx.fill(); //command to fill with above color
-      var canvasData = canvas.toDataURL("image/png");
   }
 
   if (!paintLogged)
